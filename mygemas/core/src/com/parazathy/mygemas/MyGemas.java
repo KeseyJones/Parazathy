@@ -1,27 +1,42 @@
 package com.parazathy.mygemas;
 
-import com.badlogic.gdx.ApplicationAdapter;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.utils.Logger;
+import com.parazathy.mygemashelpers.LanguagesManager;
+import com.parazathy.mygemashelpers.PlatformResolver;
 
-public class MyGemas extends ApplicationAdapter {
-	SpriteBatch batch;
-	Texture img;
+public class MyGemas extends Game {
+	
+	private Logger _logger = null;
+	
+	// Language manager
+	private LanguagesManager _languagesManager = null;
+	
+	private PlatformResolver _resolver = null;
 	
 	@Override
-	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
+    public void create() {
+		// Logger
+		_logger = new Logger("MyGemas");
+		
+		_languagesManager = _languagesManager.getInstance(_resolver != null ? _resolver.getDefaultLanguage() : null);
+		
+        _logger.info("MyGemas created!!!");    
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();        
+    }
+
+	public PlatformResolver get_resolver() {
+		return _resolver;
 	}
 
-	@Override
-	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 1);
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
-		batch.draw(img, 0, 0);
-		batch.end();
+	public void set_resolver(PlatformResolver _resolver) {
+		this._resolver = _resolver;
 	}
+    
+        
+
 }
