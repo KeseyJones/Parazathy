@@ -2,8 +2,9 @@ package com.parazathy.mygemas;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.Logger;
-import com.parazathy.mygemashelpers.LanguagesManager;
-import com.parazathy.mygemashelpers.PlatformResolver;
+import com.parazathy.mygemas.helpers.LanguagesManager;
+import com.parazathy.mygemas.helpers.PlatformResolver;
+import com.parazathy.mygemas.screens.GameMenu;
 
 public class MyGemas extends Game {
 	
@@ -19,7 +20,12 @@ public class MyGemas extends Game {
 		// Logger
 		_logger = new Logger("MyGemas");
 		
-		_languagesManager = _languagesManager.getInstance(_resolver != null ? _resolver.getDefaultLanguage() : null);
+		_languagesManager = _languagesManager.getInstance();
+		
+		if(_resolver != null) 
+			_languagesManager.setLanguage(_resolver.getDefaultLanguage());
+		
+		setScreen(new GameMenu());
 		
         _logger.info("MyGemas created!!!");    
     }
