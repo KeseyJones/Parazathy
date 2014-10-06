@@ -1,5 +1,5 @@
 package com.parazathy.mygemas.gameworld;
 
-public class GameWorldMenu implements GameWorld{
+public class GameWorldMenu extends GameWorld{
 
 }

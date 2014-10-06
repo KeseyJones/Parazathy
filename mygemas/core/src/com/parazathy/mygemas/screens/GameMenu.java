@@ -10,7 +10,7 @@ public class GameMenu extends MyScreen {
 	public GameMenu() {
 		
 		world = new GameWorldMenu();
-		renderer = new GameRendererMenu();
+		renderer = new GameRendererMenu(world, VIRTUAL_HEIGHT, VIRTUAL_WIDTH);
 
 		Gdx.input.setInputProcessor(new InputHandlerMenu());
 

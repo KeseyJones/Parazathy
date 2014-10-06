@@ -3,10 +3,10 @@ package com.parazathy.mygemas.helpers;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
-import com.siondream.freegemas.Freegemas;
 
 public class AssetLoader {
 	
+	private static AssetLoader _instance = null;
 	private AssetManager _assetManager = null;
 	
 	public AssetLoader () {
@@ -14,6 +14,19 @@ public class AssetLoader {
 		// Create assets manager
 		_assetManager = new AssetManager();
 		
+	}
+	
+	public static AssetLoader getInstance() {
+		if (_instance == null) {
+			_instance = new AssetLoader();
+		}
+		
+		return _instance;
+	}
+	
+	public void loadCommonAssets(){
+		_assetManager.load("data/handCursor.png", Texture.class);
+		_assetManager.finishLoading();
 	}
 	
 	public void loadMenuAssets() {		
@@ -28,24 +41,17 @@ public class AssetLoader {
 		_assetManager.load("data/gemOrange.png", Texture.class);
 		_assetManager.load("data/gemGreen.png", Texture.class);
 		_assetManager.load("data/gemYellow.png", Texture.class);
-		_assetManager.load("data/gemBlue.png", Texture.class);
-		
-		
-		// Load fonts
-		_fontMenu = Freegemas.getPlatformResolver().loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
+		_assetManager.load("data/gemBlue.png", Texture.class);		
 		
 		// Sound
 		_assetManager.load("data/select.ogg", Sound.class);
+		_assetManager.finishLoading();
 	}
 	
 	
-	public void unloadMenuAssets() {
-		// Set references to null
-		_imgBackground = null;
-		_imgLogo = null;
-		_imgHighlight = null;
-		_fontMenu = null;
-		_selectSFX = null;
+	
+	
+	public void unloadMenuAssets() {		
 		
 		// Unload resources		
 		_assetManager.unload("data/mainMenuBackground.png");
@@ -60,6 +66,11 @@ public class AssetLoader {
 		_assetManager.unload("data/gemBlue.png");
 		_assetManager.unload("data/select.ogg");
 		
-		_gems = nu
+	}
 
+	public AssetManager get_assetManager() {
+		return _assetManager;
+	}
+	
+	
 }
