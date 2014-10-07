@@ -9,6 +9,10 @@ public class AssetLoader {
 		
 	public static AssetManager _assetManager = null;
 	public static TextureRegion _imgMouse = null;
+	public static TextureRegion _imgBackgroundMenu = null;
+	public static TextureRegion _imgLogoMenu = null;
+	public static TextureRegion _imgHighlightMenu = null;
+	public static Sound _selectSFXMenu = null;
 	
 	public static void initialize () {
 		
@@ -39,12 +43,28 @@ public class AssetLoader {
 		// Sound
 		_assetManager.load("data/select.ogg", Sound.class);
 		_assetManager.finishLoading();
+		
+		_imgBackgroundMenu = new TextureRegion(_assetManager.get("data/mainMenuBackground.png", Texture.class));
+		_imgLogoMenu = new TextureRegion(_assetManager.get("data/mainMenuLogo.png", Texture.class));
+		_imgHighlightMenu = new TextureRegion(_assetManager.get("data/menuHighlight.png", Texture.class));
+		
+		_imgBackgroundMenu.flip(false, true);
+		_imgLogoMenu.flip(false, true);
+		_imgHighlightMenu.flip(false, true);
+		
+		_selectSFXMenu = _assetManager.get("data/select.ogg", Sound.class);
 	}
 	
 	
 	
 	
 	public static void unloadMenuAssets() {		
+		
+		// Set references to null
+		_imgBackgroundMenu = null;
+		_imgLogoMenu = null;
+		_imgHighlightMenu = null;		
+		_selectSFXMenu = null;
 		
 		// Unload resources		
 		_assetManager.unload("data/mainMenuBackground.png");

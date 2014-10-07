@@ -2,9 +2,9 @@ package com.parazathy.mygemas.gameworld;
 
 
 
-public class GameWorld {
+public abstract class GameWorld {
 	
-	
+	public abstract void update(float delta);
 	
 
 }

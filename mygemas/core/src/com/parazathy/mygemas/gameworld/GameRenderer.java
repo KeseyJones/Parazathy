@@ -9,15 +9,13 @@ import com.badlogic.gdx.math.Vector3;
 import com.parazathy.mygemas.helpers.AssetLoader;
 
 
-public class GameRenderer {
+public abstract class GameRenderer {
 	
 	private OrthographicCamera cam;
-	private SpriteBatch _batch = null;
-	private Vector3 _mousePos = null;
-	private GameWorld myWorld;
+	protected SpriteBatch _batch = null;
+	private Vector3 _mousePos = null;	
 	
-	public GameRenderer(GameWorld world, int gameHeight, int gameWidth){
-		myWorld = world;
+	public GameRenderer(int gameHeight, int gameWidth){		
 		
 		cam = new OrthographicCamera();
 		cam.setToOrtho(true, gameWidth, gameHeight);
@@ -29,7 +27,7 @@ public class GameRenderer {
 		
 	}
 	
-	public void render(float runTime) {
+	public void renderCommon() {
 		Gdx.gl.glClearColor(0, 0, 0, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		
@@ -47,5 +45,7 @@ public class GameRenderer {
         
         _batch.end();
 	}
+	
+	public abstract void render(float runTime);
 
 }
