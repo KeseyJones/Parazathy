@@ -3,33 +3,26 @@ package com.parazathy.mygemas.helpers;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
+		
+	public static AssetManager _assetManager = null;
+	public static TextureRegion _imgMouse = null;
 	
-	private static AssetLoader _instance = null;
-	private AssetManager _assetManager = null;
-	
-	public AssetLoader () {
+	public static void initialize () {
 		
 		// Create assets manager
 		_assetManager = new AssetManager();
-		
-	}
-	
-	public static AssetLoader getInstance() {
-		if (_instance == null) {
-			_instance = new AssetLoader();
-		}
-		
-		return _instance;
-	}
-	
-	public void loadCommonAssets(){
 		_assetManager.load("data/handCursor.png", Texture.class);
 		_assetManager.finishLoading();
+		_imgMouse = new TextureRegion(_assetManager.get("data/handCursor.png", Texture.class));
+        _imgMouse.flip(false, true);
+		
 	}
-	
-	public void loadMenuAssets() {		
+			
+
+	public static void loadMenuAssets() {		
 		
 		// Load textures
 		_assetManager.load("data/mainMenuBackground.png", Texture.class);
@@ -51,7 +44,7 @@ public class AssetLoader {
 	
 	
 	
-	public void unloadMenuAssets() {		
+	public static void unloadMenuAssets() {		
 		
 		// Unload resources		
 		_assetManager.unload("data/mainMenuBackground.png");
@@ -67,10 +60,6 @@ public class AssetLoader {
 		_assetManager.unload("data/select.ogg");
 		
 	}
-
-	public AssetManager get_assetManager() {
-		return _assetManager;
-	}
 	
-	
+		
 }

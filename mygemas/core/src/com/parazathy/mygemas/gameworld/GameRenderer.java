@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
+import com.parazathy.mygemas.helpers.AssetLoader;
 
 
 public class GameRenderer {
@@ -41,7 +42,7 @@ public class GameRenderer {
 			_mousePos.x = Gdx.input.getX();
 			_mousePos.y = Gdx.input.getY();
 			cam.unproject(_mousePos);
-			_batch.draw(myWorld.get_imgMouse(), _mousePos.x, _mousePos.y);
+			_batch.draw(AssetLoader._imgMouse, _mousePos.x, _mousePos.y);
 		}
         
         _batch.end();

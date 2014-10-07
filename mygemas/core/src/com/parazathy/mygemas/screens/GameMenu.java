@@ -6,7 +6,13 @@ import com.parazathy.mygemas.gameworld.GameWorldMenu;
 import com.parazathy.mygemas.helpers.InputHandlerMenu;
 
 public class GameMenu extends MyScreen {
-		
+	
+	//Estados del menu
+	public enum State { Loading,
+						TransitionIn,
+						Active,
+						TransitionOut };
+	
 	public GameMenu() {
 		
 		world = new GameWorldMenu();

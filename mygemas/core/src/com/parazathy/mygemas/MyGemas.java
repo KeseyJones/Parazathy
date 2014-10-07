@@ -2,6 +2,7 @@ package com.parazathy.mygemas;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.utils.Logger;
+import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.LanguagesManager;
 import com.parazathy.mygemas.helpers.PlatformResolver;
 import com.parazathy.mygemas.screens.GameMenu;
@@ -24,6 +25,9 @@ public class MyGemas extends Game {
 		
 		if(_resolver != null) 
 			_languagesManager.setLanguage(_resolver.getDefaultLanguage());
+		
+		//Iniciamos la carga de recursos
+		AssetLoader.initialize();
 		
 		setScreen(new GameMenu());
 		
