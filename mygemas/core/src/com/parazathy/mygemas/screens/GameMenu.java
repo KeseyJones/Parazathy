@@ -1,22 +1,27 @@
 package com.parazathy.mygemas.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Screen;
 import com.parazathy.mygemas.gameworld.GameRendererMenu;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
+import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.InputHandlerMenu;
+import com.parazathy.mygemas.helpers.PlatformResolver;
 
-public class GameMenu extends MyScreen {
+public class GameMenu implements Screen {
 	
-	//Estados del menu
-	public enum State { Loading,
-						TransitionIn,
-						Active,
-						TransitionOut };
+	private GameWorldMenu world;
+	private GameRendererMenu renderer;
+	private float runTime;
 	
-	public GameMenu() {
+	
+	public GameMenu(PlatformResolver _resolver, int height, int width) {
 		
+		//Cargamos los elementos necesarios
+		AssetLoader.loadLoadingFont(_resolver);
+				
 		world = new GameWorldMenu();
-		renderer = new GameRendererMenu(world, VIRTUAL_HEIGHT, VIRTUAL_WIDTH);
+		renderer = new GameRendererMenu(world, height, width);
 
 		Gdx.input.setInputProcessor(new InputHandlerMenu());
 
@@ -24,7 +29,9 @@ public class GameMenu extends MyScreen {
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+		runTime += delta;
+		world.update(delta);
+		renderer.render(runTime);
 		
 	}
 
@@ -60,7 +67,8 @@ public class GameMenu extends MyScreen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		Gdx.input.setInputProcessor(null);
+		AssetLoader.unloadMenuAssets();
 		
 	}
 

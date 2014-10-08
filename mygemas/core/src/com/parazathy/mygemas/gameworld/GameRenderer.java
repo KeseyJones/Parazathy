@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector3;
 import com.parazathy.mygemas.helpers.AssetLoader;
+import com.parazathy.mygemas.helpers.LanguagesManager;
+import com.parazathy.mygemas.helpers.State;
 
 
 public abstract class GameRenderer {
@@ -14,8 +16,16 @@ public abstract class GameRenderer {
 	private OrthographicCamera cam;
 	protected SpriteBatch _batch = null;
 	private Vector3 _mousePos = null;	
+	protected LanguagesManager _lang;
+	protected int myGameHeight;
+	protected int myGameWidth;
 	
 	public GameRenderer(int gameHeight, int gameWidth){		
+		myGameHeight = gameHeight;
+		myGameWidth = gameWidth;
+		
+		//Obtenemos el singleton de language
+		_lang = LanguagesManager.getInstance();
 		
 		cam = new OrthographicCamera();
 		cam.setToOrtho(true, gameWidth, gameHeight);
