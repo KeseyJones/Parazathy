@@ -2,21 +2,24 @@ package com.parazathy.mygemas.gameworld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
+import com.badlogic.gdx.math.Rectangle;
 import com.parazathy.mygemas.helpers.AssetLoader;
 
 
 public class GameRendererMenu extends GameRenderer{
 		
 	private GameWorldMenu myWorld;
+	private boolean _readyToChange;
 	
 	public GameRendererMenu(GameWorldMenu world, int gameHeight, int gameWidth){		
 		super(gameHeight, gameWidth);
 		this.myWorld = world;
+		this._readyToChange = false;
 	}
 	
 	@Override
-	public void render(float runTime) {
-		this.renderCommon();
+	public void render(float runTime, Rectangle _viewport) {
+		this.renderCommon(_viewport);
 		
 		// Start rendering
         _batch.begin();
@@ -53,13 +56,19 @@ public class GameRendererMenu extends GameRenderer{
 	    _gems.draw(Gdx.graphics.getDeltaTime());
 		
 		if (_readyToChange) {
-			_batch.draw(_imgHighlight,
-		    		   (Freegemas.VIRTUAL_WIDTH - _imgHighlight.getRegionWidth()) / 2,
+			_batch.draw(AssetLoader._imgHighlightMenu,
+		    		   (this.myGameWidth - AssetLoader._imgHighlightMenu.getRegionWidth()) / 2,
 		    		   _menuStart.y + 5 + _selectedOption * _menuGap);
 		}
 		
 		
         _batch.end();
 	}
+
+	public void set_readyToChange(boolean _readyToChange) {
+		this._readyToChange = _readyToChange;
+	}
+	
+	
 
 }

@@ -9,6 +9,10 @@ public abstract class GameWorld {
 		
 	protected LanguagesManager _lang;
 	
+	public GameWorld(){
+		_lang = LanguagesManager.getInstance();
+	}
+	
 	public abstract void update(float delta);
 	
 

@@ -1,14 +1,13 @@
 package com.parazathy.mygemas.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.parazathy.mygemas.gameworld.GameRendererMenu;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
 import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.InputHandlerMenu;
 import com.parazathy.mygemas.helpers.PlatformResolver;
 
-public class GameMenu implements Screen {
+public class GameMenu extends MyScreen {
 	
 	private GameWorldMenu world;
 	private GameRendererMenu renderer;
@@ -16,7 +15,7 @@ public class GameMenu implements Screen {
 	
 	
 	public GameMenu(PlatformResolver _resolver, int height, int width) {
-		
+		super(height, width);
 		//Cargamos los elementos necesarios
 		AssetLoader.loadLoadingFont(_resolver);
 				
@@ -31,15 +30,9 @@ public class GameMenu implements Screen {
 	public void render(float delta) {
 		runTime += delta;
 		world.update(delta);
-		renderer.render(runTime);
+		renderer.render(runTime, _viewport);
 		
-	}
-
-	@Override
-	public void resize(int width, int height) {
-		// TODO Auto-generated method stub
-		
-	}
+	}	
 
 	@Override
 	public void show() {
@@ -61,7 +54,8 @@ public class GameMenu implements Screen {
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
+		world.set_state(GameWorldMenu.StateMenu.Loading);
+		renderer.set_readyToChange(false);		
 		
 	}
 

@@ -1,9 +1,10 @@
 package com.parazathy.mygemas.gameworld;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.parazathy.mygemas.gameobjects.Pair;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.siondream.freegemas.GemsAnimation;
 
 
 public class GameWorldMenu extends GameWorld{
@@ -20,15 +21,15 @@ public class GameWorldMenu extends GameWorld{
 	private double _animTime;
 	private double _animLogoTime;
 	private double _animTotalTime;
-	
-	private GemsAnimation _gems;
+		
 	
 	// Options
 	private int _selectedOption;
 	private Array<Pair<String, String>> _options;
 	
+	
 	public GameWorldMenu(){
-		
+		super();
 		_state = StateMenu.Loading;
 		
 		// Menu options
@@ -41,6 +42,7 @@ public class GameWorldMenu extends GameWorld{
 		_animTime = 0.0;
 		_animTotalTime = 0.5;
 		_animLogoTime = 0.5;
+				
 	}
 		
 	
@@ -67,6 +69,20 @@ public class GameWorldMenu extends GameWorld{
 				
 	}
 	
+	private int getOption() {
+		Vector3 _mousePos= new Vector3();
+		// Mouse position and selected option
+	    _mousePos.x = Gdx.input.getX();
+	    _mousePos.y = Gdx.input.getY();
+	    _parent.getCamera().unproject(_mousePos);
+
+	    if (_mousePos.y >= _menuStart.y - 100 && _mousePos.y < _menuEnd.y + 100) {
+	       return (int)(_mousePos.y - _menuStart.y) / _menuGap;
+	    }
+	    
+	    return _selectedOption;
+	}
+	
 	public double get_animTime() {
 		return _animTime;
 	}
@@ -85,10 +101,16 @@ public class GameWorldMenu extends GameWorld{
 	public StateMenu get_state() {
 		return _state;
 	}
+	
+
+	public void set_state(StateMenu _state) {
+		this._state = _state;
+	}
 
 
 	public Array<Pair<String, String>> get_options() {
 		return _options;
 	}
+		
 	
 }
