@@ -10,7 +10,8 @@ public class InputHandlerMenu implements InputProcessor {
 	@Override
 	public boolean keyDown(int keycode) {
 		if(keycode == Keys.BACK){
-			_parent.changeState("StateQuit");
+			//SAlimos de la aplicacion
+			Gdx.app.exit();
 		}
 		
 		return false;
