@@ -35,6 +35,12 @@ public class Bird {
 		if (velocity.y > 200) {
 			velocity.y = 200;
 		}
+		
+		// CEILING CHECK 
+        if (position.y < -13) {
+            position.y = -13;
+            velocity.y = 0;
+        }
 
 		position.add(velocity.cpy().scl(delta));
 
@@ -61,6 +67,16 @@ public class Bird {
 		}
 
 	}
+	
+	public void onRestart(int y) {
+        rotation = 0;
+        position.y = y;
+        velocity.x = 0;
+        velocity.y = 0;
+        acceleration.x = 0;
+        acceleration.y = 460;
+        isAlive = true;
+    }
 
 	public boolean isFalling() {
 		return velocity.y > 110;

@@ -2,7 +2,7 @@ package com.parazathy.myzombiebird;
 
 import com.badlogic.gdx.Game;
 import com.parazathy.myzbhelpers.AssetLoader;
-import com.parazathy.screens.GameScreen;
+import com.parazathy.screens.SplashScreen;
 
 public class MyZombieBird extends Game {
 
@@ -10,7 +10,7 @@ public class MyZombieBird extends Game {
     public void create() {
         System.out.println("ZBGame Created!");
         AssetLoader.load();
-        setScreen(new GameScreen());
+        setScreen(new SplashScreen(this));
     }
 
     @Override

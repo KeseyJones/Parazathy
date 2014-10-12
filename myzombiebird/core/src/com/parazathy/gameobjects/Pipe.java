@@ -66,6 +66,12 @@ public class Pipe extends Scrollable {
 		height = r.nextInt(90) + 15;
 		isScored = false;
 	}
+	
+	public void onRestart(float x, float scrollSpeed) {
+	    velocity.x = scrollSpeed;
+	    reset(x);
+	}
+
 
 	public Rectangle getSkullUp() {
 		return skullUp;

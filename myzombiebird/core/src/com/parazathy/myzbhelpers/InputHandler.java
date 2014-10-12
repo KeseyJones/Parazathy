@@ -2,19 +2,33 @@ package com.parazathy.myzbhelpers;
 
 import com.badlogic.gdx.InputProcessor;
 import com.parazathy.gameobjects.Bird;
+import com.parazathy.gameworld.GameWorld;
 
 public class InputHandler implements InputProcessor {
+	private GameWorld myWorld;
     private Bird myBird;
 
     // Ask for a reference to the Bird when InputHandler is created.
-    public InputHandler(Bird bird) {
-        // myBird now represents the gameWorld's bird.
-        myBird = bird;
+    public InputHandler(GameWorld myWorld) {
+    	// myBird now represents the gameWorld's bird.
+        this.myWorld = myWorld;
+        myBird = myWorld.getBird();
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    	
+    	if (myWorld.isReady()) {
+            myWorld.start();
+        }
+    	
         myBird.onClick();
+        
+        if (myWorld.isGameOver()|| myWorld.isHighScore()) {
+            // Reset all variables, go to GameState.READ
+            myWorld.restart();
+        }
+        
         return true; // Return true to say we handled the touch.
     }
 
