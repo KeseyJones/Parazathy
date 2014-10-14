@@ -9,12 +9,12 @@ import com.parazathy.mygemas.helpers.AssetLoader;
 public class GameRendererMenu extends GameRenderer{
 		
 	private GameWorldMenu myWorld;
-	private boolean _readyToChange;
+	
 	
 	public GameRendererMenu(GameWorldMenu world, int gameHeight, int gameWidth){		
 		super(gameHeight, gameWidth);
 		this.myWorld = world;
-		this._readyToChange = false;
+		
 	}
 	
 	@Override
@@ -55,7 +55,7 @@ public class GameRendererMenu extends GameRenderer{
 
 	    _gems.draw(Gdx.graphics.getDeltaTime());
 		
-		if (_readyToChange) {
+		if (myWorld.is_readyToChange()) {
 			_batch.draw(AssetLoader._imgHighlightMenu,
 		    		   (this.myGameWidth - AssetLoader._imgHighlightMenu.getRegionWidth()) / 2,
 		    		   _menuStart.y + 5 + _selectedOption * _menuGap);
@@ -64,11 +64,5 @@ public class GameRendererMenu extends GameRenderer{
 		
         _batch.end();
 	}
-
-	public void set_readyToChange(boolean _readyToChange) {
-		this._readyToChange = _readyToChange;
-	}
-	
-	
 
 }

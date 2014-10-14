@@ -22,7 +22,7 @@ public class GameMenu extends MyScreen {
 		world = new GameWorldMenu();
 		renderer = new GameRendererMenu(world, height, width);
 
-		Gdx.input.setInputProcessor(new InputHandlerMenu());
+		Gdx.input.setInputProcessor(new InputHandlerMenu(world));
 
 	}
 
@@ -55,7 +55,7 @@ public class GameMenu extends MyScreen {
 	@Override
 	public void resume() {
 		world.set_state(GameWorldMenu.StateMenu.Loading);
-		renderer.set_readyToChange(false);		
+		world.set_readyToChange(false);		
 		
 	}
 

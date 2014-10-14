@@ -1,10 +1,13 @@
 package com.parazathy.mygemas.gameworld;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.parazathy.mygemas.gameobjects.Pair;
 import com.parazathy.mygemas.helpers.AssetLoader;
+import com.siondream.freegemas.Freegemas;
 
 
 public class GameWorldMenu extends GameWorld{
@@ -21,6 +24,13 @@ public class GameWorldMenu extends GameWorld{
 	private double _animTime;
 	private double _animLogoTime;
 	private double _animTotalTime;
+	
+	private boolean _readyToChange;
+	
+	// Positions
+	private Vector2 _menuStart;
+	private Vector2 _menuEnd;
+	private int _menuGap;	
 		
 	
 	// Options
@@ -42,7 +52,29 @@ public class GameWorldMenu extends GameWorld{
 		_animTime = 0.0;
 		_animTotalTime = 0.5;
 		_animLogoTime = 0.5;
+		
+		this._readyToChange = false;
+		
+		
 				
+	}
+	
+	private void initialize(){
+		// Set positions now that we now about sizes		
+		float maxWidth = 0;
+		int numOptions = _options.size;
+		
+		for (int i = 0; i < numOptions; ++i) {
+			TextBounds bounds = AssetLoader._fontMenu.getBounds(_options.get(i).getFirst());
+			
+			if (bounds.width > maxWidth) {
+				maxWidth = bounds.width;
+			}
+		}
+		
+		_menuStart = new Vector2((Freegemas.VIRTUAL_WIDTH - maxWidth) / 2, 390);
+		_menuGap = 100;
+		_menuEnd = new Vector2(_menuStart.x + maxWidth, 350 + _options.size * _menuGap);
 	}
 		
 	
@@ -51,6 +83,7 @@ public class GameWorldMenu extends GameWorld{
 		if (_state == StateMenu.Loading) {
 			if (AssetLoader._assetManager.update()) {
 				AssetLoader.AssignMenuResources();
+				initialize();
 				_state = StateMenu.TransitionIn;
 			}					
 		}
@@ -69,7 +102,7 @@ public class GameWorldMenu extends GameWorld{
 				
 	}
 	
-	private int getOption() {
+	public int getOption() {
 		Vector3 _mousePos= new Vector3();
 		// Mouse position and selected option
 	    _mousePos.x = Gdx.input.getX();
@@ -111,6 +144,24 @@ public class GameWorldMenu extends GameWorld{
 	public Array<Pair<String, String>> get_options() {
 		return _options;
 	}
-		
+	
+	public void set_readyToChange(boolean _readyToChange) {
+		this._readyToChange = _readyToChange;
+	}
+
+	public boolean is_readyToChange() {
+		return _readyToChange;
+	}
+
+
+	public int get_selectedOption() {
+		return _selectedOption;
+	}
+
+
+	public void set_selectedOption(int _selectedOption) {
+		this._selectedOption = _selectedOption;
+	}
+	
 	
 }
