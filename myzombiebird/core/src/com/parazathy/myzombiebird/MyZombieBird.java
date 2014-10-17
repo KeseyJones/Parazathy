@@ -1,8 +1,8 @@
 package com.parazathy.myzombiebird;
 
 import com.badlogic.gdx.Game;
-import com.parazathy.myzbhelpers.AssetLoader;
-import com.parazathy.screens.SplashScreen;
+import com.parazathy.myzombiebird.myzbhelpers.AssetLoader;
+import com.parazathy.myzombiebird.screens.SplashScreen;
 
 public class MyZombieBird extends Game {
 

@@ -1,4 +1,4 @@
-package com.parazathy.myzbhelpers;
+package com.parazathy.myzombiebird.myzbhelpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;

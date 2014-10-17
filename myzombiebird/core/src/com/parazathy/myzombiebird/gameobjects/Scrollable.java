@@ -1,4 +1,4 @@
-package com.parazathy.gameobjects;
+package com.parazathy.myzombiebird.gameobjects;
 
 import com.badlogic.gdx.math.Vector2;
 

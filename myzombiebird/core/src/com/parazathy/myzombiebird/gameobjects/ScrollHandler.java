@@ -1,7 +1,7 @@
-package com.parazathy.gameobjects;
+package com.parazathy.myzombiebird.gameobjects;
 
-import com.parazathy.gameworld.GameWorld;
-import com.parazathy.myzbhelpers.AssetLoader;
+import com.parazathy.myzombiebird.gameworld.GameWorld;
+import com.parazathy.myzombiebird.myzbhelpers.AssetLoader;
 
 public class ScrollHandler {
 
@@ -24,6 +24,23 @@ public class ScrollHandler {
 		pipe3 = new Pipe(pipe2.getTailX() + PIPE_GAP, 0, 22, 60, SCROLL_SPEED,
 				yPos);
 	}
+	
+	public void updateReady(float delta) {
+
+        frontGrass.update(delta);
+        backGrass.update(delta);
+
+        // Same with grass
+        if (frontGrass.isScrolledLeft()) {
+            frontGrass.reset(backGrass.getTailX());
+
+        } else if (backGrass.isScrolledLeft()) {
+            backGrass.reset(frontGrass.getTailX());
+
+        }
+
+    }
+
 
 	public void update(float delta) {
 		// Update our objects

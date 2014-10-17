@@ -1,4 +1,4 @@
-package com.parazathy.screens;
+package com.parazathy.myzombiebird.screens;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -11,8 +11,9 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.parazathy.myzbhelpers.AssetLoader;
 import com.parazathy.myzombiebird.MyZombieBird;
+import com.parazathy.myzombiebird.myzbhelpers.AssetLoader;
+import com.parazathy.myzombiebird.tweenaccessors.SpriteAccessor;
 
 public class SplashScreen implements Screen {
 

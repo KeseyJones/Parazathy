@@ -1,4 +1,4 @@
-package com.parazathy.gameobjects;
+package com.parazathy.myzombiebird.gameobjects;
 
 public class Grass extends Scrollable {
 

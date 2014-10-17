@@ -1,16 +1,16 @@
-package com.parazathy.gameworld;
+package com.parazathy.myzombiebird.gameworld;
 
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
-import com.parazathy.gameobjects.Bird;
-import com.parazathy.gameobjects.ScrollHandler;
-import com.parazathy.myzbhelpers.AssetLoader;
+import com.parazathy.myzombiebird.gameobjects.Bird;
+import com.parazathy.myzombiebird.gameobjects.ScrollHandler;
+import com.parazathy.myzombiebird.myzbhelpers.AssetLoader;
 
 public class GameWorld {
 	
 	public enum GameState {
 
-	    READY, RUNNING, GAMEOVER, HIGHSCORE
+	    MENU, READY, RUNNING, GAMEOVER, HIGHSCORE
 
 	}
 
@@ -18,6 +18,7 @@ public class GameWorld {
 	private ScrollHandler scroller;
 	private Rectangle ground;
 	private int score = 0;
+	private float runTime = 0;
 	private GameState currentState;
 	
 	private int midPointY;
@@ -32,9 +33,11 @@ public class GameWorld {
 	}
 	
 	public void update(float delta) {
-
+		runTime += delta;
+		
         switch (currentState) {
         case READY:
+        case MENU:	
             updateReady(delta);
             break;
 
@@ -49,7 +52,8 @@ public class GameWorld {
     }
 	
 	private void updateReady(float delta) {
-        // Do nothing for now
+		bird.updateReady(runTime);
+        scroller.updateReady(delta);
     }
 
 	public void updateRunning(float delta) {
@@ -110,6 +114,10 @@ public class GameWorld {
     public void start() {
         currentState = GameState.RUNNING;
     }
+    
+    public void ready() {
+        currentState = GameState.READY;
+    }
 
     public void restart() {
         currentState = GameState.READY;
@@ -121,5 +129,17 @@ public class GameWorld {
 
     public boolean isGameOver() {
         return currentState == GameState.GAMEOVER;
+    }   
+
+    public boolean isMenu() {
+        return currentState == GameState.MENU;
+    }
+    
+    public boolean isRunning() {
+        return currentState == GameState.RUNNING;
+    }
+    
+    public int getMidPointY() {
+        return midPointY;
     }
 }

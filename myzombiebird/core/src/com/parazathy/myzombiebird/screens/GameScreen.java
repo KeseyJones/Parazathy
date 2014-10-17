@@ -1,10 +1,10 @@
-package com.parazathy.screens;
+package com.parazathy.myzombiebird.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.parazathy.gameworld.GameRenderer;
-import com.parazathy.gameworld.GameWorld;
-import com.parazathy.myzbhelpers.InputHandler;
+import com.parazathy.myzombiebird.gameworld.GameRenderer;
+import com.parazathy.myzombiebird.gameworld.GameWorld;
+import com.parazathy.myzombiebird.myzbhelpers.InputHandler;
 
 public class GameScreen implements Screen {
 
@@ -23,9 +23,8 @@ public class GameScreen implements Screen {
 		int midPointY = (int) (gameHeight / 2);
 
 		world = new GameWorld(midPointY);
-		renderer = new GameRenderer(world, (int) gameHeight, midPointY);
-
-		Gdx.input.setInputProcessor(new InputHandler(world));
+		Gdx.input.setInputProcessor(new InputHandler(world, screenWidth / gameWidth, screenHeight / gameHeight));
+		renderer = new GameRenderer(world, (int) gameHeight, midPointY);		
 
 	}
 
@@ -33,7 +32,7 @@ public class GameScreen implements Screen {
 	public void render(float delta) {
 		runTime += delta;
 		world.update(delta);
-		renderer.render(runTime);
+		renderer.render(delta, runTime);
 	}
 
 	@Override
