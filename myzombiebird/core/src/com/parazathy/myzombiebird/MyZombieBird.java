@@ -7,8 +7,7 @@ import com.parazathy.myzombiebird.screens.SplashScreen;
 public class MyZombieBird extends Game {
 
     @Override
-    public void create() {
-        System.out.println("ZBGame Created!");
+    public void create() {        
         AssetLoader.load();
         setScreen(new SplashScreen(this));
     }

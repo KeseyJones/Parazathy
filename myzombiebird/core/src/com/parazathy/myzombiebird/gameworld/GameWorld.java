@@ -19,12 +19,14 @@ public class GameWorld {
 	private Rectangle ground;
 	private int score = 0;
 	private float runTime = 0;
+	private int midPointY;
+	private GameRenderer renderer;
+
 	private GameState currentState;
 	
-	private int midPointY;
 	
 	public GameWorld(int midPointY) {
-		currentState = GameState.READY;
+		currentState = GameState.MENU;
 		this.midPointY = midPointY;
 		bird = new Bird(33, midPointY - 5, 17, 12);
 		// The grass should start 66 pixels below the midPointY
@@ -56,10 +58,7 @@ public class GameWorld {
         scroller.updateReady(delta);
     }
 
-	public void updateRunning(float delta) {
-		// Add a delta cap so that if our game takes too long
-		// to update, we will not break our collision detection.
-
+	public void updateRunning(float delta) {		
 		if (delta > .15f) {
 			delta = .15f;
 		}
@@ -71,11 +70,21 @@ public class GameWorld {
 			scroller.stop();
 			bird.die();
 			AssetLoader.dead.play();
+			renderer.prepareTransition(255, 255, 255, .3f);
+
+			AssetLoader.fall.play();
 		}
 
 		if (Intersector.overlaps(bird.getBoundingCircle(), ground)) {
-			scroller.stop();
-			bird.die();
+			
+			if (bird.isAlive()) {
+				AssetLoader.dead.play();
+				renderer.prepareTransition(255, 255, 255, .3f);
+
+				bird.die();
+			}
+
+			scroller.stop();			
 			bird.decelerate();
 			currentState = GameState.GAMEOVER;
 			
@@ -117,14 +126,14 @@ public class GameWorld {
     
     public void ready() {
         currentState = GameState.READY;
+		renderer.prepareTransition(0, 0, 0, 1f);
     }
 
-    public void restart() {
-        currentState = GameState.READY;
+    public void restart() {        
         score = 0;
         bird.onRestart(midPointY - 5);
         scroller.onRestart();
-        currentState = GameState.READY;
+        ready();
     }
 
     public boolean isGameOver() {
@@ -142,4 +151,8 @@ public class GameWorld {
     public int getMidPointY() {
         return midPointY;
     }
+
+	public void setRenderer(GameRenderer renderer) {
+		this.renderer = renderer;
+	}
 }
