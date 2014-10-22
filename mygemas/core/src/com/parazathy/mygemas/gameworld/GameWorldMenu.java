@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.parazathy.mygemas.gameobjects.Pair;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.siondream.freegemas.Freegemas;
 
 
 public class GameWorldMenu extends GameWorld{
@@ -36,7 +35,7 @@ public class GameWorldMenu extends GameWorld{
 	// Options
 	private int _selectedOption;
 	private Array<Pair<String, String>> _options;
-	
+			
 	
 	public GameWorldMenu(){
 		super();
@@ -45,8 +44,8 @@ public class GameWorldMenu extends GameWorld{
 		// Menu options
 		_selectedOption = 0;
 		_options = new Array<Pair<String, String>>();
-		_options.add(new Pair(_lang.getString("Timetrial mode"), "StateGame"));
-		_options.add(new Pair(_lang.getString("How to play"), "StateHowto"));
+		_options.add(new Pair(this.get_lang().getString("Timetrial mode"), "StateGame"));
+		_options.add(new Pair(this.get_lang().getString("How to play"), "StateHowto"));
 		
 		// Animation times
 		_animTime = 0.0;
@@ -72,7 +71,7 @@ public class GameWorldMenu extends GameWorld{
 			}
 		}
 		
-		_menuStart = new Vector2((Freegemas.VIRTUAL_WIDTH - maxWidth) / 2, 390);
+		_menuStart = new Vector2((this.getRenderer().getMyGameWidth() - maxWidth) / 2, 390);
 		_menuGap = 100;
 		_menuEnd = new Vector2(_menuStart.x + maxWidth, 350 + _options.size * _menuGap);
 	}
@@ -107,7 +106,7 @@ public class GameWorldMenu extends GameWorld{
 		// Mouse position and selected option
 	    _mousePos.x = Gdx.input.getX();
 	    _mousePos.y = Gdx.input.getY();
-	    _parent.getCamera().unproject(_mousePos);
+	    this.getRenderer().getCam().unproject(_mousePos);
 
 	    if (_mousePos.y >= _menuStart.y - 100 && _mousePos.y < _menuEnd.y + 100) {
 	       return (int)(_mousePos.y - _menuStart.y) / _menuGap;
@@ -161,6 +160,14 @@ public class GameWorldMenu extends GameWorld{
 
 	public void set_selectedOption(int _selectedOption) {
 		this._selectedOption = _selectedOption;
+	}
+
+	public Vector2 get_menuStart() {
+		return _menuStart;
+	}
+
+	public int get_menuGap() {
+		return _menuGap;
 	}
 	
 	

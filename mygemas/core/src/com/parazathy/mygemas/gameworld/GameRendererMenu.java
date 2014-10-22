@@ -7,40 +7,40 @@ import com.parazathy.mygemas.helpers.AssetLoader;
 
 
 public class GameRendererMenu extends GameRenderer{
-		
-	private GameWorldMenu myWorld;
+			
 	
 	
 	public GameRendererMenu(GameWorldMenu world, int gameHeight, int gameWidth){		
-		super(gameHeight, gameWidth);
-		this.myWorld = world;
+		super(world, gameHeight, gameWidth);		
 		
 	}
 	
 	@Override
 	public void render(float runTime, Rectangle _viewport) {
+		GameWorldMenu myWorld = (GameWorldMenu)this.getMyworld();
+		
 		this.renderCommon(_viewport);
 		
 		// Start rendering
-        _batch.begin();
+        this.get_batch().begin();
 		
 		// STATE LOADING - Just render loading
 		if (myWorld.get_state() == GameWorldMenu.StateMenu.Loading) {
-			String loading = _lang.getString("Loading...");
+			String loading = this.get_lang().getString("Loading...");
 			TextBounds bounds = AssetLoader._fontLoadingMenu.getBounds(loading);
-			AssetLoader._fontLoadingMenu.draw(_batch,
+			AssetLoader._fontLoadingMenu.draw(this.get_batch(),
 						     loading,
-						     (this.myGameWidth - bounds.width) / 2,
-						     (this.myGameHeight - bounds.height) / 2);
+						     (this.getMyGameWidth() - bounds.width) / 2,
+						     (this.getMyGameHeight() - bounds.height) / 2);
 			
 			return;
 		}
 		
-	    _batch.draw(AssetLoader._imgBackgroundMenu, 0, 0);
+		this.get_batch().draw(AssetLoader._imgBackgroundMenu, 0, 0);
 	    
-	    _batch.setColor(1.0f, 1.0f, 1.0f, (float)(myWorld.get_animTime() / myWorld.get_animLogoTime()));
-	    _batch.draw(AssetLoader._imgLogoMenu, 0, 0);
-	    _batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+		this.get_batch().setColor(1.0f, 1.0f, 1.0f, (float)(myWorld.get_animTime() / myWorld.get_animLogoTime()));
+		this.get_batch().draw(AssetLoader._imgLogoMenu, 0, 0);
+		this.get_batch().setColor(1.0f, 1.0f, 1.0f, 1.0f);
 		
 	    int numOptions = myWorld.get_options().size;
 		
@@ -48,21 +48,21 @@ public class GameRendererMenu extends GameRenderer{
 			TextBounds bounds = AssetLoader._fontMenu.getBounds(myWorld.get_options().get(i).getFirst());
 			
 			AssetLoader._fontMenu.setColor(0.0f, 0.0f, 0.0f, 0.5f);
-			AssetLoader._fontMenu.draw(_batch, (myWorld.get_options().get(i).getFirst(), (Freegemas.VIRTUAL_WIDTH - bounds.width) / 2, _menuStart.y + i * _menuGap + 4);
+			AssetLoader._fontMenu.draw(this.get_batch(), (myWorld.get_options().get(i).getFirst(), (this.getMyGameHeight() - bounds.width) / 2, myWorld.get_menuStart().y + i *  myWorld.get_menuGap() + 4);
 			AssetLoader._fontMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			AssetLoader._fontMenu.draw(_batch, (myWorld.get_options().get(i).getFirst(), (Freegemas.VIRTUAL_WIDTH - bounds.width) / 2, _menuStart.y + i * _menuGap);
+			AssetLoader._fontMenu.draw(this.get_batch(), (myWorld.get_options().get(i).getFirst(), (this.getMyGameWidth() - bounds.width) / 2, myWorld.get_menuStart().y + i *  myWorld.get_menuGap());
 		}
 
 	    _gems.draw(Gdx.graphics.getDeltaTime());
 		
 		if (myWorld.is_readyToChange()) {
-			_batch.draw(AssetLoader._imgHighlightMenu,
-		    		   (this.myGameWidth - AssetLoader._imgHighlightMenu.getRegionWidth()) / 2,
-		    		   _menuStart.y + 5 + _selectedOption * _menuGap);
+			this.get_batch().draw(AssetLoader._imgHighlightMenu,
+		    		   (this.getMyGameWidth() - AssetLoader._imgHighlightMenu.getRegionWidth()) / 2,
+		    		   myWorld.get_menuStart().y + 5 + myWorld.get_selectedOption() * myWorld.get_menuGap());
 		}
 		
 		
-        _batch.end();
+		this.get_batch().end();
 	}
 
 }

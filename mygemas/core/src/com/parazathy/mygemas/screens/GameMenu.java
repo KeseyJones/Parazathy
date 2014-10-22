@@ -21,6 +21,7 @@ public class GameMenu extends MyScreen {
 				
 		world = new GameWorldMenu();
 		renderer = new GameRendererMenu(world, height, width);
+		world.setRenderer(renderer);
 
 		Gdx.input.setInputProcessor(new InputHandlerMenu(world));
 
@@ -30,7 +31,7 @@ public class GameMenu extends MyScreen {
 	public void render(float delta) {
 		runTime += delta;
 		world.update(delta);
-		renderer.render(runTime, _viewport);
+		renderer.render(runTime, this.get_viewport());
 		
 	}	
 

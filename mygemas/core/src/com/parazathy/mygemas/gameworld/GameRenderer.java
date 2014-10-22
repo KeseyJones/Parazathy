@@ -14,13 +14,15 @@ import com.parazathy.mygemas.helpers.LanguagesManager;
 public abstract class GameRenderer {
 	
 	private OrthographicCamera cam;
-	protected SpriteBatch _batch;
+	private SpriteBatch _batch;
 	private Vector3 _mousePos;	
-	protected LanguagesManager _lang;
-	protected int myGameHeight;
-	protected int myGameWidth;	
+	private LanguagesManager _lang;
+	private int myGameHeight;
+	private int myGameWidth;	
+	private GameWorld myworld;
 	
-	public GameRenderer(int gameHeight, int gameWidth){		
+	public GameRenderer(GameWorld world, int gameHeight, int gameWidth){	
+		myworld = world;
 		myGameHeight = gameHeight;
 		myGameWidth = gameWidth;
 		
@@ -60,5 +62,29 @@ public abstract class GameRenderer {
 	}
 	
 	public abstract void render(float runTime, Rectangle _viewport);
+
+	public int getMyGameHeight() {
+		return myGameHeight;
+	}	
+
+	public int getMyGameWidth() {
+		return myGameWidth;
+	}	
+
+	public OrthographicCamera getCam() {
+		return cam;
+	}	
+
+	public SpriteBatch get_batch() {
+		return _batch;
+	}	
+
+	public LanguagesManager get_lang() {
+		return _lang;
+	}	
+
+	public GameWorld getMyworld() {
+		return myworld;
+	}	
 
 }

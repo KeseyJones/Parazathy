@@ -11,7 +11,7 @@ public abstract class MyScreen implements Screen{
 	private Logger _logger;
 	private int myHeight;
 	private int myWidth;
-	protected Rectangle _viewport;
+	private Rectangle _viewport;
 	
 	public MyScreen(int height, int width){
 		_logger = new Logger("MyScreen");

@@ -51,7 +51,7 @@ public class InputHandlerMenu implements InputProcessor {
 			}
 			
 			if (myWorld.is_readyToChange() && currentOption == myWorld.get_selectedOption()) {
-				_parent.changeState(_options.get(_selectedOption).getSecond());
+				//_parent.changeState(_options.get(_selectedOption).getSecond());
 			}
 			else {
 				myWorld.set_readyToChange(true);
