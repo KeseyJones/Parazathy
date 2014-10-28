@@ -36,6 +36,8 @@ public abstract class GameRenderer {
 		
 		_batch = new SpriteBatch();
 		
+		_mousePos = new Vector3();
+		
 		
 	}
 	

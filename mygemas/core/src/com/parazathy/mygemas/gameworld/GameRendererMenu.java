@@ -24,9 +24,11 @@ public class GameRendererMenu extends GameRenderer{
 		// Start rendering
         this.get_batch().begin();
 		
+       /*
 		// STATE LOADING - Just render loading
 		if (myWorld.get_state() == GameWorldMenu.StateMenu.Loading) {
 			String loading = this.get_lang().getString("Loading...");
+			/*
 			TextBounds bounds = AssetLoader._fontLoadingMenu.getBounds(loading);
 			AssetLoader._fontLoadingMenu.draw(this.get_batch(),
 						     loading,
@@ -34,6 +36,7 @@ public class GameRendererMenu extends GameRenderer{
 						     (this.getMyGameHeight() - bounds.height) / 2);
 			
 			return;
+			
 		}
 		
 		this.get_batch().draw(AssetLoader._imgBackgroundMenu, 0, 0);
@@ -48,19 +51,19 @@ public class GameRendererMenu extends GameRenderer{
 			TextBounds bounds = AssetLoader._fontMenu.getBounds(myWorld.get_options().get(i).getFirst());
 			
 			AssetLoader._fontMenu.setColor(0.0f, 0.0f, 0.0f, 0.5f);
-			AssetLoader._fontMenu.draw(this.get_batch(), (myWorld.get_options().get(i).getFirst(), (this.getMyGameHeight() - bounds.width) / 2, myWorld.get_menuStart().y + i *  myWorld.get_menuGap() + 4);
+			//AssetLoader._fontMenu.draw(this.get_batch(), (myWorld.get_options().get(i).getFirst(), (this.getMyGameHeight() - bounds.width) / 2, myWorld.get_menuStart().y + i *  myWorld.get_menuGap() + 4);
 			AssetLoader._fontMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			AssetLoader._fontMenu.draw(this.get_batch(), (myWorld.get_options().get(i).getFirst(), (this.getMyGameWidth() - bounds.width) / 2, myWorld.get_menuStart().y + i *  myWorld.get_menuGap());
+			//AssetLoader._fontMenu.draw(this.get_batch(), (myWorld.get_options().get(i).getFirst(), (this.getMyGameWidth() - bounds.width) / 2, myWorld.get_menuStart().y + i *  myWorld.get_menuGap());
 		}
 
-	    _gems.draw(Gdx.graphics.getDeltaTime());
+	    //_gems.draw(Gdx.graphics.getDeltaTime());
 		
 		if (myWorld.is_readyToChange()) {
 			this.get_batch().draw(AssetLoader._imgHighlightMenu,
 		    		   (this.getMyGameWidth() - AssetLoader._imgHighlightMenu.getRegionWidth()) / 2,
 		    		   myWorld.get_menuStart().y + 5 + myWorld.get_selectedOption() * myWorld.get_menuGap());
 		}
-		
+		*/
 		
 		this.get_batch().end();
 	}

@@ -29,11 +29,13 @@ public class Gems {
             	continue;
             }
 
+            /*
             if (composedTime < _animTotalTime) {
                 batch.draw(_imgGems[i], _posX[i], Animation.easeOutCubic((float)composedTime, 600.0f, (float)_posY - 600.0f, _animTotalTime));
             }else{
             	batch.draw(_imgGems[i], _posX[i], _posY);
             }
+            */
         }
 	}
 

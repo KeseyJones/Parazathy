@@ -1,12 +1,7 @@
 package com.parazathy.mygemas.animation;
 
-import com.badlogic.gdx.assets.AssetManager;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.siondream.freegemas.Animation;
-import com.siondream.freegemas.Freegemas;
 
 public class GemsAnimation {
 		
@@ -19,6 +14,7 @@ public class GemsAnimation {
 	
 	public void update(double delta) {		
 
+		/*
 		SpriteBatch batch = _game.getSpriteBatch();
 		
         for(int i = 0; i < 7; ++i) {
@@ -33,5 +29,6 @@ public class GemsAnimation {
             	batch.draw(_imgGems[i], _posX[i], _posY);
             }
         }
+        */
 	}
 }

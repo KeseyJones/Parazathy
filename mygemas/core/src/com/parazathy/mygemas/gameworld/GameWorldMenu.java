@@ -64,11 +64,11 @@ public class GameWorldMenu extends GameWorld{
 		int numOptions = _options.size;
 		
 		for (int i = 0; i < numOptions; ++i) {
-			TextBounds bounds = AssetLoader._fontMenu.getBounds(_options.get(i).getFirst());
+			//TextBounds bounds = AssetLoader._fontMenu.getBounds(_options.get(i).getFirst());
 			
-			if (bounds.width > maxWidth) {
-				maxWidth = bounds.width;
-			}
+			//if (bounds.width > maxWidth) {
+				//maxWidth = bounds.width;
+			//}
 		}
 		
 		_menuStart = new Vector2((this.getRenderer().getMyGameWidth() - maxWidth) / 2, 390);

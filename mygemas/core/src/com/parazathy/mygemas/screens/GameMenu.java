@@ -16,6 +16,8 @@ public class GameMenu extends MyScreen {
 	
 	public GameMenu(PlatformResolver _resolver, int height, int width) {
 		super(height, width);
+		
+		AssetLoader.loadMenuAssets(_resolver);
 		//Cargamos los elementos necesarios
 		AssetLoader.loadLoadingFont(_resolver);
 				
@@ -24,6 +26,8 @@ public class GameMenu extends MyScreen {
 		world.setRenderer(renderer);
 
 		Gdx.input.setInputProcessor(new InputHandlerMenu(world));
+		
+		
 
 	}
 
