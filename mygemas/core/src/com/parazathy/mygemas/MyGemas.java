@@ -23,6 +23,7 @@ public class MyGemas extends Game {
 	
 	@Override
     public void create() {
+		
 		// Logger
 		_logger = new Logger("MyGemas");
 		
@@ -47,12 +48,14 @@ public class MyGemas extends Game {
 
     @Override
     public void dispose() {
+    	
         super.dispose();   
         AssetLoader.dispose();
     }
 	
 
 	public void set_resolver(PlatformResolver _resolver) {
+		
 		this._resolver = _resolver;
 	}
     

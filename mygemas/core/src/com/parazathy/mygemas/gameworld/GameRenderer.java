@@ -2,7 +2,7 @@ package com.parazathy.mygemas.gameworld;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -41,17 +41,17 @@ public abstract class GameRenderer {
 		
 	}
 	
-	public void renderCommon(Rectangle _viewport) {		
-		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+	public void initRender(Rectangle _viewport) {		
+		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 		cam.update();
         //_camera.apply(Gdx.gl10);
         Gdx.gl.glViewport((int) _viewport.x, (int) _viewport.y,
         				  (int) _viewport.width, (int) _viewport.height);
-		
-		// Start rendering
-        _batch.begin();
-        
-        _batch.setProjectionMatrix(cam.combined);
+				
+	}
+	
+	public void renderCursor(){
+		_batch.setProjectionMatrix(cam.combined);
         
         if (Gdx.app.getType() != ApplicationType.Android) {
 			_mousePos.x = Gdx.input.getX();
@@ -59,8 +59,6 @@ public abstract class GameRenderer {
 			cam.unproject(_mousePos);
 			_batch.draw(AssetLoader._imgMouse, _mousePos.x, _mousePos.y);
 		}
-        
-        _batch.end();
 	}
 	
 	public abstract void render(float runTime, Rectangle _viewport);

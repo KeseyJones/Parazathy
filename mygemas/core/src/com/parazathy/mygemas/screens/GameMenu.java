@@ -12,18 +12,20 @@ public class GameMenu extends MyScreen {
 	private GameWorldMenu world;
 	private GameRendererMenu renderer;
 	private float runTime;
+	private PlatformResolver _resolver;
 	
 	
 	public GameMenu(PlatformResolver _resolver, int height, int width) {
 		super(height, width);
+		this._resolver = _resolver;
 		
-		AssetLoader.loadMenuAssets(_resolver);
-		//Cargamos los elementos necesarios
-		AssetLoader.loadLoadingFont(_resolver);
+		//Cargamos la fuente de loading que el unico que necesito
+		AssetLoader.loadLoadingFont(this._resolver);
 				
 		world = new GameWorldMenu();
 		renderer = new GameRendererMenu(world, height, width);
 		world.setRenderer(renderer);
+		world.set_resolver(this._resolver);
 
 		Gdx.input.setInputProcessor(new InputHandlerMenu(world));
 		

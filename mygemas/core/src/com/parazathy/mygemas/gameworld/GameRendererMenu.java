@@ -19,16 +19,17 @@ public class GameRendererMenu extends GameRenderer{
 	public void render(float runTime, Rectangle _viewport) {
 		GameWorldMenu myWorld = (GameWorldMenu)this.getMyworld();
 		
-		this.renderCommon(_viewport);
+		this.initRender(_viewport);
 		
 		// Start rendering
         this.get_batch().begin();
-		
-       /*
+        
+        this.renderCursor();
+		       
 		// STATE LOADING - Just render loading
 		if (myWorld.get_state() == GameWorldMenu.StateMenu.Loading) {
 			String loading = this.get_lang().getString("Loading...");
-			/*
+			
 			TextBounds bounds = AssetLoader._fontLoadingMenu.getBounds(loading);
 			AssetLoader._fontLoadingMenu.draw(this.get_batch(),
 						     loading,
@@ -38,6 +39,7 @@ public class GameRendererMenu extends GameRenderer{
 			return;
 			
 		}
+		/*
 		
 		this.get_batch().draw(AssetLoader._imgBackgroundMenu, 0, 0);
 	    

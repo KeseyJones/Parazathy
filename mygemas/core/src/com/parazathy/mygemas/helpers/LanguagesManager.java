@@ -37,6 +37,7 @@ public class LanguagesManager {
 	}
 		
 	public static LanguagesManager getInstance() {
+		
 		if (_instance == null) {
 			_instance = new LanguagesManager();
 		}
@@ -45,20 +46,20 @@ public class LanguagesManager {
 	}
 	
 	public void setLanguage(String languageName){
-		_currentLanguageName = languageName;
-		
-		if (languageName == null || !_languages.containsKey(languageName)) {
-			_currentLanguageName = DEFAULT_LANGUAGE;
-		}
-		
-		_currentLanguage = _languages.get(_currentLanguageName);
+				
+		if (languageName != null || _languages.containsKey(languageName)) {
+			_currentLanguageName = languageName;
+			_currentLanguage = _languages.get(_currentLanguageName);
+		}			
 	}
 	
 	public String getCurrentLanguage() {
+		
 		return _currentLanguageName;
 	}
 
 	public String getString(String key) {
+		
 		String string;
 		
 		if (_currentLanguage != null) {			
@@ -73,6 +74,7 @@ public class LanguagesManager {
 	}
 		
 	private boolean loadLanguage() {
+		
 		try {
 			_languages.clear();
 			

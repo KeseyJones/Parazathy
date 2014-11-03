@@ -35,6 +35,8 @@ public class GameWorldMenu extends GameWorld{
 	// Options
 	private int _selectedOption;
 	private Array<Pair<String, String>> _options;
+	
+	private boolean isFirstExceution;
 			
 	
 	public GameWorldMenu(){
@@ -52,9 +54,9 @@ public class GameWorldMenu extends GameWorld{
 		_animTotalTime = 0.5;
 		_animLogoTime = 0.5;
 		
-		this._readyToChange = false;
+		_readyToChange = false;
 		
-		
+		isFirstExceution = true;		
 				
 	}
 	
@@ -64,11 +66,11 @@ public class GameWorldMenu extends GameWorld{
 		int numOptions = _options.size;
 		
 		for (int i = 0; i < numOptions; ++i) {
-			//TextBounds bounds = AssetLoader._fontMenu.getBounds(_options.get(i).getFirst());
+			TextBounds bounds = AssetLoader._fontMenu.getBounds(_options.get(i).getFirst());
 			
-			//if (bounds.width > maxWidth) {
-				//maxWidth = bounds.width;
-			//}
+			if (bounds.width > maxWidth) {
+				maxWidth = bounds.width;
+			}
 		}
 		
 		_menuStart = new Vector2((this.getRenderer().getMyGameWidth() - maxWidth) / 2, 390);
@@ -78,7 +80,11 @@ public class GameWorldMenu extends GameWorld{
 		
 	
 	@Override
-	public void update(float delta) {		
+	public void update(float delta) {	
+		if(isFirstExceution){
+			AssetLoader.loadMenuAssets(this.get_resolver());
+			isFirstExceution = false;
+		}
 		if (_state == StateMenu.Loading) {
 			if (AssetLoader._assetManager.update()) {
 				AssetLoader.AssignMenuResources();
