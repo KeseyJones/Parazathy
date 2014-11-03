@@ -27,7 +27,7 @@ public class GameMenu extends MyScreen {
 		world.setRenderer(renderer);
 		world.set_resolver(this._resolver);
 
-		Gdx.input.setInputProcessor(new InputHandlerMenu(world));
+		//Gdx.input.setInputProcessor(new InputHandlerMenu(world));
 		
 		
 

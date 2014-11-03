@@ -10,11 +10,10 @@ public class DesktopLauncher {
 		game.set_resolver(new DesktopResolver());
 		
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.title = "My Gemas";
-		config.useGL30 = true;
+		config.title = "My Gemas";		
 		config.width = 1280;
 		config.height = 720;
 		
-		new LwjglApplication(new MyGemas(), config);
+		new LwjglApplication(game, config);
 	}
 }

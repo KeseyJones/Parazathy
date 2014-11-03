@@ -32,7 +32,7 @@ public abstract class GameRenderer {
 		cam = new OrthographicCamera();
 		cam.setToOrtho(true, gameWidth, gameHeight);
 		
-		Gdx.input.setCursorCatched(true);
+		//Gdx.input.setCursorCatched(true);
 		
 		_batch = new SpriteBatch();
 		
@@ -51,6 +51,7 @@ public abstract class GameRenderer {
 	}
 	
 	public void renderCursor(){
+		
 		_batch.setProjectionMatrix(cam.combined);
         
         if (Gdx.app.getType() != ApplicationType.Android) {
@@ -59,6 +60,8 @@ public abstract class GameRenderer {
 			cam.unproject(_mousePos);
 			_batch.draw(AssetLoader._imgMouse, _mousePos.x, _mousePos.y);
 		}
+        
+       
 	}
 	
 	public abstract void render(float runTime, Rectangle _viewport);

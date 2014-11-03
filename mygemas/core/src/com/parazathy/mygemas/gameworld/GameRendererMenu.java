@@ -1,6 +1,5 @@
 package com.parazathy.mygemas.gameworld;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.math.Rectangle;
 import com.parazathy.mygemas.helpers.AssetLoader;
@@ -15,17 +14,8 @@ public class GameRendererMenu extends GameRenderer{
 		
 	}
 	
-	@Override
-	public void render(float runTime, Rectangle _viewport) {
+	private void renderWorld(){
 		GameWorldMenu myWorld = (GameWorldMenu)this.getMyworld();
-		
-		this.initRender(_viewport);
-		
-		// Start rendering
-        this.get_batch().begin();
-        
-        this.renderCursor();
-		       
 		// STATE LOADING - Just render loading
 		if (myWorld.get_state() == GameWorldMenu.StateMenu.Loading) {
 			String loading = this.get_lang().getString("Loading...");
@@ -66,8 +56,26 @@ public class GameRendererMenu extends GameRenderer{
 		    		   myWorld.get_menuStart().y + 5 + myWorld.get_selectedOption() * myWorld.get_menuGap());
 		}
 		*/
+	}
+	
+	@Override
+	public void render(float runTime, Rectangle _viewport) {
+				
+		this.initRender(_viewport);
+		
+		
+		// Start rendering
+        this.get_batch().begin();
+        
+        this.renderCursor();
+		
+        renderWorld();
+		
 		
 		this.get_batch().end();
+		// Clear the screen, update the camera and make the sprite batch
+        // use its matrices.
+        
 	}
 
 }
