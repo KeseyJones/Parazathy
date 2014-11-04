@@ -47,12 +47,14 @@ public abstract class GameRenderer {
         //_camera.apply(Gdx.gl10);
         Gdx.gl.glViewport((int) _viewport.x, (int) _viewport.y,
         				  (int) _viewport.width, (int) _viewport.height);
+        
+        _batch.setProjectionMatrix(cam.combined);
 				
 	}
 	
 	public void renderCursor(){
 		
-		_batch.setProjectionMatrix(cam.combined);
+		_batch.begin();		
         
         if (Gdx.app.getType() != ApplicationType.Android) {
 			_mousePos.x = Gdx.input.getX();
@@ -61,7 +63,7 @@ public abstract class GameRenderer {
 			_batch.draw(AssetLoader._imgMouse, _mousePos.x, _mousePos.y);
 		}
         
-       
+        _batch.end();
 	}
 	
 	public abstract void render(float runTime, Rectangle _viewport);

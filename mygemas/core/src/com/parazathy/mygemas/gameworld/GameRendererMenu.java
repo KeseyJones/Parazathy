@@ -16,6 +16,7 @@ public class GameRendererMenu extends GameRenderer{
 	
 	private void renderWorld(){
 		GameWorldMenu myWorld = (GameWorldMenu)this.getMyworld();
+		
 		// STATE LOADING - Just render loading
 		if (myWorld.get_state() == GameWorldMenu.StateMenu.Loading) {
 			String loading = this.get_lang().getString("Loading...");
@@ -62,17 +63,10 @@ public class GameRendererMenu extends GameRenderer{
 	public void render(float runTime, Rectangle _viewport) {
 				
 		this.initRender(_viewport);
-		
-		
-		// Start rendering
-        this.get_batch().begin();
-        
-        this.renderCursor();
+		this.renderCursor();
 		
         renderWorld();
-		
-		
-		this.get_batch().end();
+				
 		// Clear the screen, update the camera and make the sprite batch
         // use its matrices.
         
