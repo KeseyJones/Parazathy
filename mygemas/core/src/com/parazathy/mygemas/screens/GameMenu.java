@@ -1,6 +1,7 @@
 package com.parazathy.mygemas.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameRendererMenu;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
 import com.parazathy.mygemas.helpers.AssetLoader;
@@ -13,20 +14,15 @@ public class GameMenu extends MyScreen {
 	private float runTime;	
 	
 	
-	public GameMenu(LanguagesManager languagesManager, int height, int width) {
+	public GameMenu(MyGemas game, LanguagesManager languagesManager, int height, int width) {
 		super(languagesManager, height, width);		
 		
 		//Cargamos la fuente de loading que el unico que necesito
 		AssetLoader.loadLoadingFont();
 				
-		world = new GameWorldMenu(languagesManager);
+		world = new GameWorldMenu(game, languagesManager);
 		renderer = new GameRendererMenu(world, height, width);
-		world.setRenderer(renderer);		
-
-		//Gdx.input.setInputProcessor(new InputHandlerMenu(world));
-		
-		
-
+		world.setRenderer(renderer);				
 	}
 
 	@Override

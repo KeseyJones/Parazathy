@@ -1,6 +1,7 @@
 package com.parazathy.mygemas;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Logger;
 import com.parazathy.mygemas.helpers.AssetLoader;
@@ -31,6 +32,11 @@ public class MyGemas extends Game {
 		
 		// Logger
 		logger = new Logger("MyGemas");
+		
+		//Activamos el boton back para android
+		if(platform == Platform.Android){
+			Gdx.input.setCatchBackKey(true);
+		}
 							
 		resolver = new DefaultResolver();		
 		languagesManager = new LanguagesManager();		
@@ -39,17 +45,36 @@ public class MyGemas extends Game {
 		//Iniciamos la carga de recursos
 		AssetLoader.initialize(resolver);
 		
-		setScreen(new GameMenu(languagesManager, VIRTUAL_HEIGHT, VIRTUAL_WIDTH));
+		setScreen(new GameMenu(this, languagesManager, VIRTUAL_HEIGHT, VIRTUAL_WIDTH));
 		
         logger.info("MyGemas created!!!");    
     }
 	
 	public void changeScreen(Screen oldScreen, Screen newScreen) {
 		
+		//Cancelamos el inputProcessor que haya
+		Gdx.input.setInputProcessor(null);
+		
+		//Pausamos la pantalla inicial
+		oldScreen.pause();
+		
+		setScreen (newScreen);
+		
 	}
-	
+		
+    public Logger getLogger() {
+		return logger;
+	}
 
-    @Override
+	public LanguagesManager getLanguagesManager() {
+		return languagesManager;
+	}
+
+	public PlatformResolver getResolver() {
+		return resolver;
+	}
+
+	@Override
     public void dispose() {
     	
         super.dispose();   

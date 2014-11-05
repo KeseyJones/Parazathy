@@ -19,7 +19,9 @@ public abstract class GameRenderer {
 	private GameWorld world;
 	
 	public GameRenderer(GameWorld world, int height, int width){	
-		this.world = world;		
+		this.world = world;	
+		this.height = height;
+		this.width = width;
 						
 		cam = new OrthographicCamera();
 		cam.setToOrtho(true, width, height);

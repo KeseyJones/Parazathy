@@ -1,12 +1,15 @@
 package com.parazathy.mygemas.gameworld;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
+import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameobjects.Pair;
 import com.parazathy.mygemas.helpers.AssetLoader;
+import com.parazathy.mygemas.helpers.InputHandlerMenu;
 import com.parazathy.mygemas.helpers.LanguagesManager;
 
 
@@ -40,15 +43,18 @@ public class GameWorldMenu extends GameWorld{
 	private boolean isFirstExceution;
 			
 	
-	public GameWorldMenu(LanguagesManager language){
-		super(language);
+	public GameWorldMenu(MyGemas game, LanguagesManager language){
+		super(game, language);
 		state = StateMenu.Loading;
 		
 		// Menu options
 		_selectedOption = 0;
 		_options = new Array<Pair<String, String>>();
-		_options.add(new Pair(this.getLanguagesManager().getString("Timetrial mode"), "StateGame"));
-		_options.add(new Pair(this.getLanguagesManager().getString("How to play"), "StateHowto"));
+		_options.add(new Pair(language.getString("Timetrial mode"), "StateGame"));
+		_options.add(new Pair(language.getString("How to play"), "StateHowto"));
+		if (Gdx.app.getType() != ApplicationType.WebGL) {
+			_options.add(new Pair(language.getString("Exit"), "StateQuit"));
+		}
 		
 		// Animation times
 		_animTime = 0.0;
@@ -77,6 +83,9 @@ public class GameWorldMenu extends GameWorld{
 		_menuStart = new Vector2((this.getRenderer().getWidth() - maxWidth) / 2, 390);
 		_menuGap = 100;
 		_menuEnd = new Vector2(_menuStart.x + maxWidth, 350 + _options.size * _menuGap);
+		
+		//Activamos en este momento el tecaldo
+		Gdx.input.setInputProcessor(new InputHandlerMenu(this));
 	}
 		
 	

@@ -30,26 +30,27 @@ public class GameRendererMenu extends GameRenderer{
 		this.getBatch().draw(AssetLoader._imgLogoMenu, 0, 0);
 		this.getBatch().setColor(1.0f, 1.0f, 1.0f, 1.0f);
 			
+			
+	    int numOptions = world.get_options().size;
+		
+		for (int i = 0; i < numOptions; ++i) {
+			TextBounds bounds = AssetLoader._fontMenu.getBounds(world.get_options().get(i).getFirst());
+			
+			AssetLoader._fontMenu.setColor(0.0f, 0.0f, 0.0f, 0.5f);
+			AssetLoader._fontMenu.draw(this.getBatch(), world.get_options().get(i).getFirst(), (this.getWidth() - bounds.width) / 2, world.get_menuStart().y + i *  world.get_menuGap() + 4);
+			AssetLoader._fontMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			AssetLoader._fontMenu.draw(this.getBatch(), world.get_options().get(i).getFirst(), (this.getWidth() - bounds.width) / 2, world.get_menuStart().y + i *  world.get_menuGap());
+		}
 			/*
-		    int numOptions = myWorld.get_options().size;
-			
-			for (int i = 0; i < numOptions; ++i) {
-				TextBounds bounds = AssetLoader._fontMenu.getBounds(myWorld.get_options().get(i).getFirst());
-				
-				AssetLoader._fontMenu.setColor(0.0f, 0.0f, 0.0f, 0.5f);
-				//AssetLoader._fontMenu.draw(this.get_batch(), (myWorld.get_options().get(i).getFirst(), (this.getMyGameHeight() - bounds.width) / 2, myWorld.get_menuStart().y + i *  myWorld.get_menuGap() + 4);
-				AssetLoader._fontMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-				//AssetLoader._fontMenu.draw(this.get_batch(), (myWorld.get_options().get(i).getFirst(), (this.getMyGameWidth() - bounds.width) / 2, myWorld.get_menuStart().y + i *  myWorld.get_menuGap());
-			}
-	
 		    //_gems.draw(Gdx.graphics.getDeltaTime());
-			
-			if (myWorld.is_readyToChange()) {
-				this.get_batch().draw(AssetLoader._imgHighlightMenu,
-			    		   (this.getMyGameWidth() - AssetLoader._imgHighlightMenu.getRegionWidth()) / 2,
-			    		   myWorld.get_menuStart().y + 5 + myWorld.get_selectedOption() * myWorld.get_menuGap());
-			}
 			*/
+		if (world.is_readyToChange()) {
+			this.getBatch().draw(AssetLoader._imgHighlightMenu,
+		    		   (this.getWidth() - AssetLoader._imgHighlightMenu.getRegionWidth()) / 2,
+		    		   world.get_menuStart().y + 5 + world.get_selectedOption() * world.get_menuGap());
+		    		   
+		}
+			
 		
 	}
 	
@@ -58,15 +59,19 @@ public class GameRendererMenu extends GameRenderer{
 		GameWorldMenu world = (GameWorldMenu)this.getWorld();
 				
 		this.initRender(viewport);
-		this.renderCursor();
-		
+			
+		this.getBatch().begin();
 		if (world.getState() == GameWorldMenu.StateMenu.Loading) {
 			renderLoading();
 			
 		}else{
 			renderMenu(world);
 		}
-						       
+				
+		this.getBatch().end();
+		
+		this.renderCursor();
+		
 	}
 
 }
