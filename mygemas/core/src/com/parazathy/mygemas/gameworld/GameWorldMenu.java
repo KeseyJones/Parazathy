@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.parazathy.mygemas.gameobjects.Pair;
 import com.parazathy.mygemas.helpers.AssetLoader;
+import com.parazathy.mygemas.helpers.LanguagesManager;
 
 
 public class GameWorldMenu extends GameWorld{
@@ -17,7 +18,7 @@ public class GameWorldMenu extends GameWorld{
 							Active,
 							TransitionOut } ;
 	
-	private StateMenu _state;
+	private StateMenu state;
 	
 	// Animation time
 	private double _animTime;
@@ -39,15 +40,15 @@ public class GameWorldMenu extends GameWorld{
 	private boolean isFirstExceution;
 			
 	
-	public GameWorldMenu(){
-		super();
-		_state = StateMenu.Loading;
+	public GameWorldMenu(LanguagesManager language){
+		super(language);
+		state = StateMenu.Loading;
 		
 		// Menu options
 		_selectedOption = 0;
 		_options = new Array<Pair<String, String>>();
-		_options.add(new Pair(this.get_lang().getString("Timetrial mode"), "StateGame"));
-		_options.add(new Pair(this.get_lang().getString("How to play"), "StateHowto"));
+		_options.add(new Pair(this.getLanguagesManager().getString("Timetrial mode"), "StateGame"));
+		_options.add(new Pair(this.getLanguagesManager().getString("How to play"), "StateHowto"));
 		
 		// Animation times
 		_animTime = 0.0;
@@ -73,7 +74,7 @@ public class GameWorldMenu extends GameWorld{
 			}
 		}
 		
-		_menuStart = new Vector2((this.getRenderer().getMyGameWidth() - maxWidth) / 2, 390);
+		_menuStart = new Vector2((this.getRenderer().getWidth() - maxWidth) / 2, 390);
 		_menuGap = 100;
 		_menuEnd = new Vector2(_menuStart.x + maxWidth, 350 + _options.size * _menuGap);
 	}
@@ -82,29 +83,24 @@ public class GameWorldMenu extends GameWorld{
 	@Override
 	public void update(float delta) {	
 		if(isFirstExceution){
-			AssetLoader.loadMenuAssets(this.get_resolver());
+			AssetLoader.loadMenuAssets();
 			isFirstExceution = false;
 		}
-		if (_state == StateMenu.Loading) {
+		
+		if (state == StateMenu.Loading) {
 			if (AssetLoader._assetManager.update()) {
 				AssetLoader.AssignMenuResources();
 				initialize();
-				_state = StateMenu.TransitionIn;
+				state = StateMenu.TransitionIn;
 			}					
 		}
-		else if (_state  == StateMenu.TransitionIn) {
+		else if (state  == StateMenu.TransitionIn) {
 	        if ((_animTime += delta) >= _animTotalTime) {
-	        	_state = StateMenu.Active;
+	        	state = StateMenu.Active;
 	        	_animTime = _animLogoTime;
 	        }
 	    }
-	    else if (_state == StateMenu.Active) {
-	    	
-	    }
-	    else if (_state == StateMenu.TransitionOut) {
-
-	    }
-				
+	    
 	}
 	
 	public int getOption() {
@@ -136,13 +132,13 @@ public class GameWorldMenu extends GameWorld{
 	}
 
 
-	public StateMenu get_state() {
-		return _state;
+	public StateMenu getState() {
+		return state;
 	}
 	
 
-	public void set_state(StateMenu _state) {
-		this._state = _state;
+	public void setState(StateMenu state) {
+		this.state = state;
 	}
 
 

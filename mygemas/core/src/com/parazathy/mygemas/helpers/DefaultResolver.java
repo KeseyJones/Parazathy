@@ -1,12 +1,11 @@
-package com.parazathy.mygemas.desktop;
+package com.parazathy.mygemas.helpers;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator.FreeTypeFontParameter;
-import com.parazathy.mygemas.helpers.PlatformResolver;
 
-public class DesktopResolver implements PlatformResolver {
+public class DefaultResolver implements PlatformResolver {
 
 	@Override
 	public String getDefaultLanguage() {

@@ -4,24 +4,28 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Logger;
+import com.parazathy.mygemas.helpers.LanguagesManager;
 
 public abstract class MyScreen implements Screen{
 	
 	private static final float ASPECT_RATIO = 1.7777f;
-	private Logger _logger;
-	private int myHeight;
-	private int myWidth;
-	private Rectangle _viewport;
 	
-	public MyScreen(int height, int width){
-		_logger = new Logger("MyScreen");
-		myHeight = height;
-		myWidth = width;
+	private Logger logger;
+	private int height;
+	private int width;
+	private Rectangle viewport;	
+	private LanguagesManager languagesManager;
+	
+	public MyScreen(LanguagesManager languagesManager, int height, int width){
+		logger = new Logger("MyScreen");
+		this.height = height;
+		this.width = width;		
+		this.languagesManager = languagesManager;
 	}
 
 	@Override
 	public void resize(int width, int height) {
-		_logger.info("Resizing to: " + width + "x" + height);
+		logger.info("Resizing to: " + width + "x" + height);
 		
 		// calculate new viewport
         float aspectRatio = (float)width/(float)height;
@@ -30,28 +34,31 @@ public abstract class MyScreen implements Screen{
         
         if(aspectRatio > ASPECT_RATIO)
         {
-            scale = (float)height / (float)this.myHeight;
-            crop.x = (width - this.myWidth * scale) / 2.0f;
+            scale = (float)height / (float)this.height;
+            crop.x = (width - this.width * scale) / 2.0f;
         }
         else if(aspectRatio < ASPECT_RATIO)
         {
-            scale = (float)width / (float)this.myWidth;
-            crop.y = (height - this.myHeight * scale) / 2.0f;
+            scale = (float)width / (float)this.width;
+            crop.y = (height - this.height * scale) / 2.0f;
         }
         else
         {
-            scale = (float)width/(float)this.myWidth;
+            scale = (float)width/(float)this.width;
         }
 
-        float w = (float)this.myWidth * scale;
-        float h = (float)this.myHeight * scale;
-        _viewport = new Rectangle(crop.x, crop.y, w, h);
+        float w = (float)this.width * scale;
+        float h = (float)this.height * scale;
+        viewport = new Rectangle(crop.x, crop.y, w, h);
 	}
 
-	public Rectangle get_viewport() {
-		return _viewport;
+	public Rectangle getViewport() {
+		return viewport;
 	}
 	
-	
 
+	public LanguagesManager getLanguagesManager() {
+		return languagesManager;
+	}
+			
 }

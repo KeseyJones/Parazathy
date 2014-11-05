@@ -23,7 +23,11 @@ public class AssetLoader {
 	//GEMS ANIMATION
 	private static TextureRegion[] _imgGemsAnimation;	
 	
-	public static void initialize () {
+	private static PlatformResolver _resolver;
+	
+	public static void initialize (PlatformResolver resolver) {
+		
+		_resolver = resolver;
 		
 		// Create assets manager
 		_assetManager = new AssetManager();
@@ -34,7 +38,7 @@ public class AssetLoader {
 		
 	}
 	
-	public static void loadLoadingFont(PlatformResolver _resolver){
+	public static void loadLoadingFont(){
 		_fontLoadingMenu = _resolver.loadFont("data/loadingFont.fnt", "data/normal.ttf", 70);
 	}
 			
@@ -55,7 +59,7 @@ public class AssetLoader {
 		}
 	}
 
-	public static void loadMenuAssets(PlatformResolver _resolver) {		
+	public static void loadMenuAssets() {		
 		
 		// Load textures
 		_assetManager.load("data/mainMenuBackground.png", Texture.class);

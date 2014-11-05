@@ -4,28 +4,24 @@ import com.badlogic.gdx.Gdx;
 import com.parazathy.mygemas.gameworld.GameRendererMenu;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.parazathy.mygemas.helpers.InputHandlerMenu;
-import com.parazathy.mygemas.helpers.PlatformResolver;
+import com.parazathy.mygemas.helpers.LanguagesManager;
 
 public class GameMenu extends MyScreen {
 	
 	private GameWorldMenu world;
 	private GameRendererMenu renderer;
-	private float runTime;
-	private PlatformResolver _resolver;
+	private float runTime;	
 	
 	
-	public GameMenu(PlatformResolver _resolver, int height, int width) {
-		super(height, width);
-		this._resolver = _resolver;
+	public GameMenu(LanguagesManager languagesManager, int height, int width) {
+		super(languagesManager, height, width);		
 		
 		//Cargamos la fuente de loading que el unico que necesito
-		AssetLoader.loadLoadingFont(this._resolver);
+		AssetLoader.loadLoadingFont();
 				
-		world = new GameWorldMenu();
+		world = new GameWorldMenu(languagesManager);
 		renderer = new GameRendererMenu(world, height, width);
-		world.setRenderer(renderer);
-		world.set_resolver(this._resolver);
+		world.setRenderer(renderer);		
 
 		//Gdx.input.setInputProcessor(new InputHandlerMenu(world));
 		
@@ -37,7 +33,7 @@ public class GameMenu extends MyScreen {
 	public void render(float delta) {
 		runTime += delta;
 		world.update(delta);
-		renderer.render(runTime, this.get_viewport());
+		renderer.render(runTime, this.getViewport());
 		
 	}	
 
@@ -61,7 +57,7 @@ public class GameMenu extends MyScreen {
 
 	@Override
 	public void resume() {
-		world.set_state(GameWorldMenu.StateMenu.Loading);
+		world.setState(GameWorldMenu.StateMenu.Loading);
 		world.set_readyToChange(false);		
 		
 	}
