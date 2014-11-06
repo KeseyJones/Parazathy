@@ -9,9 +9,7 @@ import com.parazathy.mygemas.helpers.AssetLoader;
 public class GameMenu extends MyScreen {
 	
 	private GameWorldMenu world;
-	private GameRendererMenu renderer;
-	private float runTime;	
-	
+	private GameRendererMenu renderer;	
 	
 	public GameMenu(MyGemas game, int height, int width) {
 		super(height, width);		
@@ -26,9 +24,9 @@ public class GameMenu extends MyScreen {
 
 	@Override
 	public void render(float delta) {
-		runTime += delta;
+		this.setRunTime(this.getRunTime()+delta);		
 		world.update(delta);
-		renderer.render(runTime, this.getViewport());
+		renderer.render(this.getRunTime(), this.getViewport());
 		
 	}	
 
@@ -53,7 +51,7 @@ public class GameMenu extends MyScreen {
 	@Override
 	public void resume() {
 		world.setState(GameWorldMenu.StateMenu.Loading);
-		world.set_readyToChange(false);		
+		world.setReadyToChange(false);		
 		
 	}
 

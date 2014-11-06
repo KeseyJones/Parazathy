@@ -13,6 +13,7 @@ public abstract class MyScreen implements Screen{
 	private int height;
 	private int width;
 	private Rectangle viewport;		
+	private float runTime;	
 	
 	public MyScreen(int height, int width){
 		logger = new Logger("MyScreen");
@@ -51,6 +52,15 @@ public abstract class MyScreen implements Screen{
 
 	public Rectangle getViewport() {
 		return viewport;
+	}
+
+	public float getRunTime() {
+		return runTime;
+	}
+
+	public void setRunTime(float runTime) {
+		this.runTime = runTime;
 	}	
-			
+		
+	
 }

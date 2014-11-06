@@ -12,7 +12,7 @@ import com.parazathy.mygemas.screens.MyScreen;
 
 public class MyGemas extends Game {
 	
-	public enum Platform {Desktop, Android, Web};
+	public enum Platform {Desktop, Android, Web, IOS};
 	public enum Screens {Menu, HowTo, Game, Exit};
 	
 	public static final int VIRTUAL_WIDTH = 1280;
@@ -66,6 +66,12 @@ public class MyGemas extends Game {
 		setScreen (newScreen);
 		
 	}
+	
+	public void exit() {		
+				
+		Gdx.app.exit();
+		
+	}
 		
     public Logger getLogger() {
 		return logger;
@@ -82,7 +88,8 @@ public class MyGemas extends Game {
 	@Override
     public void dispose() {
     	
-        super.dispose();   
+        super.dispose();  
+        currentScreen.dispose();
         AssetLoader.dispose();
     }
         

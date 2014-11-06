@@ -21,7 +21,7 @@ public class InputHandlerMenu implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		if(keycode == Keys.BACK){
 			//SAlimos de la aplicacion
-			Gdx.app.exit();
+			world.getGame().exit();
 		}
 		
 		return false;
@@ -52,15 +52,17 @@ public class InputHandlerMenu implements InputProcessor {
 				currentOption = 0;
 			}
 			
-			if (world.is_readyToChange() && currentOption == world.get_selectedOption()) {			
-				if(world.get_options().get(world.get_selectedOption()).getSecond() == MyGemas.Screens.HowTo){
+			if (world.isReadyToChange() && currentOption == world.getSelectedOption()) {			
+				if(world.getOptions().get(world.getSelectedOption()).getSecond() == MyGemas.Screens.HowTo){
 					world.getGame().changeScreen(new GameHowTo(world.getGame(), MyGemas.VIRTUAL_HEIGHT,  MyGemas.VIRTUAL_WIDTH));
+				}else if(world.getOptions().get(world.getSelectedOption()).getSecond() == MyGemas.Screens.Exit){
+					world.getGame().exit();
 				}
 				
 			}
 			else {
-				world.set_readyToChange(true);
-				world.set_selectedOption(currentOption);
+				world.setReadyToChange(true);
+				world.setSelectedOption(currentOption);
 			}
 		}
 		

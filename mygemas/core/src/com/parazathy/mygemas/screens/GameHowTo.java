@@ -1,18 +1,29 @@
 package com.parazathy.mygemas.screens;
 
 import com.parazathy.mygemas.MyGemas;
+import com.parazathy.mygemas.gameworld.GameRendererHowTo;
+import com.parazathy.mygemas.gameworld.GameWorldHowTo;
 
 public class GameHowTo extends MyScreen {
 	
+	private GameWorldHowTo world;
+	private GameRendererHowTo renderer;
+	
 	public GameHowTo(MyGemas game, int height, int width) {
-		super(height, width);		
+		super(height, width);	
+		
+		world = new GameWorldHowTo(game);
+		renderer = new GameRendererHowTo(world, height, width);
+		world.setRenderer(renderer);	
 		
 		
 	}
 
 	@Override
 	public void render(float delta) {
-		// TODO Auto-generated method stub
+		this.setRunTime(this.getRunTime()+delta);		
+		world.update(delta);
+		renderer.render(this.getRunTime(), this.getViewport());
 		
 	}
 
