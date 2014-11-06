@@ -4,7 +4,6 @@ import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Logger;
-import com.parazathy.mygemas.helpers.LanguagesManager;
 
 public abstract class MyScreen implements Screen{
 	
@@ -13,14 +12,12 @@ public abstract class MyScreen implements Screen{
 	private Logger logger;
 	private int height;
 	private int width;
-	private Rectangle viewport;	
-	private LanguagesManager languagesManager;
+	private Rectangle viewport;		
 	
-	public MyScreen(LanguagesManager languagesManager, int height, int width){
+	public MyScreen(int height, int width){
 		logger = new Logger("MyScreen");
 		this.height = height;
-		this.width = width;		
-		this.languagesManager = languagesManager;
+		this.width = width;				
 	}
 
 	@Override
@@ -54,11 +51,6 @@ public abstract class MyScreen implements Screen{
 
 	public Rectangle getViewport() {
 		return viewport;
-	}
-	
-
-	public LanguagesManager getLanguagesManager() {
-		return languagesManager;
-	}
+	}	
 			
 }

@@ -5,7 +5,6 @@ import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameRendererMenu;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.parazathy.mygemas.helpers.LanguagesManager;
 
 public class GameMenu extends MyScreen {
 	
@@ -14,13 +13,13 @@ public class GameMenu extends MyScreen {
 	private float runTime;	
 	
 	
-	public GameMenu(MyGemas game, LanguagesManager languagesManager, int height, int width) {
-		super(languagesManager, height, width);		
+	public GameMenu(MyGemas game, int height, int width) {
+		super(height, width);		
 		
 		//Cargamos la fuente de loading que el unico que necesito
 		AssetLoader.loadLoadingFont();
 				
-		world = new GameWorldMenu(game, languagesManager);
+		world = new GameWorldMenu(game);
 		renderer = new GameRendererMenu(world, height, width);
 		world.setRenderer(renderer);				
 	}

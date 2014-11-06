@@ -2,17 +2,19 @@ package com.parazathy.mygemas;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.utils.Logger;
 import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.DefaultResolver;
 import com.parazathy.mygemas.helpers.LanguagesManager;
 import com.parazathy.mygemas.helpers.PlatformResolver;
 import com.parazathy.mygemas.screens.GameMenu;
+import com.parazathy.mygemas.screens.MyScreen;
 
 public class MyGemas extends Game {
 	
 	public enum Platform {Desktop, Android, Web};
+	public enum Screens {Menu, HowTo, Game, Exit};
+	
 	public static final int VIRTUAL_WIDTH = 1280;
 	public static final int VIRTUAL_HEIGHT = 720;
 	
@@ -20,6 +22,8 @@ public class MyGemas extends Game {
 	private LanguagesManager languagesManager;	
 	private PlatformResolver resolver;
 	private Platform platform;
+	
+	private MyScreen currentScreen;
 	
 	
 	public MyGemas(Platform plat){
@@ -45,19 +49,20 @@ public class MyGemas extends Game {
 		//Iniciamos la carga de recursos
 		AssetLoader.initialize(resolver);
 		
-		setScreen(new GameMenu(this, languagesManager, VIRTUAL_HEIGHT, VIRTUAL_WIDTH));
+		currentScreen = new GameMenu(this, VIRTUAL_HEIGHT, VIRTUAL_WIDTH);
+		setScreen(currentScreen);
 		
         logger.info("MyGemas created!!!");    
     }
 	
-	public void changeScreen(Screen oldScreen, Screen newScreen) {
+	public void changeScreen(MyScreen newScreen) {		
 		
-		//Cancelamos el inputProcessor que haya
-		Gdx.input.setInputProcessor(null);
+		//Eliminamos la Screen
+		currentScreen.dispose();
 		
-		//Pausamos la pantalla inicial
-		oldScreen.pause();
+		currentScreen = newScreen;
 		
+		//POnemos la nueva
 		setScreen (newScreen);
 		
 	}

@@ -4,14 +4,16 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
+import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
+import com.parazathy.mygemas.screens.GameHowTo;
 
 public class InputHandlerMenu implements InputProcessor {
 	
-	private GameWorldMenu myWorld;
+	private GameWorldMenu world;
 	
 	public InputHandlerMenu (GameWorldMenu world){
-		this.myWorld = world;
+		this.world = world;
 		
 	}
 
@@ -44,18 +46,21 @@ public class InputHandlerMenu implements InputProcessor {
 			
 			AssetLoader._selectSFXMenu.play();
 			
-			int currentOption = myWorld.getOption();
+			int currentOption = world.getOption();
 			
 			if (currentOption > 1 && Gdx.app.getType() == ApplicationType.WebGL) {
 				currentOption = 0;
 			}
 			
-			if (myWorld.is_readyToChange() && currentOption == myWorld.get_selectedOption()) {
-				//_parent.changeState(_options.get(_selectedOption).getSecond());
+			if (world.is_readyToChange() && currentOption == world.get_selectedOption()) {			
+				if(world.get_options().get(world.get_selectedOption()).getSecond() == MyGemas.Screens.HowTo){
+					world.getGame().changeScreen(new GameHowTo(world.getGame(), MyGemas.VIRTUAL_HEIGHT,  MyGemas.VIRTUAL_WIDTH));
+				}
+				
 			}
 			else {
-				myWorld.set_readyToChange(true);
-				myWorld.set_selectedOption(currentOption);
+				world.set_readyToChange(true);
+				world.set_selectedOption(currentOption);
 			}
 		}
 		

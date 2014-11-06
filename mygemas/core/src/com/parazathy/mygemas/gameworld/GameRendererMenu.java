@@ -14,7 +14,7 @@ public class GameRendererMenu extends GameRenderer{
 	}
 	
 	private void renderLoading(){
-		String loading = this.getWorld().getLanguagesManager().getString("Loading...");
+		String loading = this.getWorld().getGame().getLanguagesManager().getString("Loading...");
 		
 		TextBounds bounds = AssetLoader._fontLoadingMenu.getBounds(loading);
 		AssetLoader._fontLoadingMenu.draw(this.getBatch(),

@@ -10,7 +10,6 @@ import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameobjects.Pair;
 import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.InputHandlerMenu;
-import com.parazathy.mygemas.helpers.LanguagesManager;
 
 
 public class GameWorldMenu extends GameWorld{
@@ -38,22 +37,22 @@ public class GameWorldMenu extends GameWorld{
 	
 	// Options
 	private int _selectedOption;
-	private Array<Pair<String, String>> _options;
+	private Array<Pair<String, MyGemas.Screens>> _options;
 	
 	private boolean isFirstExceution;
 			
 	
-	public GameWorldMenu(MyGemas game, LanguagesManager language){
-		super(game, language);
+	public GameWorldMenu(MyGemas game){
+		super(game);
 		state = StateMenu.Loading;
 		
 		// Menu options
 		_selectedOption = 0;
-		_options = new Array<Pair<String, String>>();
-		_options.add(new Pair(language.getString("Timetrial mode"), "StateGame"));
-		_options.add(new Pair(language.getString("How to play"), "StateHowto"));
+		_options = new Array<Pair<String, MyGemas.Screens>>();
+		_options.add(new Pair(game.getLanguagesManager().getString("Timetrial mode"), MyGemas.Screens.Game));
+		_options.add(new Pair(game.getLanguagesManager().getString("How to play"), MyGemas.Screens.HowTo));
 		if (Gdx.app.getType() != ApplicationType.WebGL) {
-			_options.add(new Pair(language.getString("Exit"), "StateQuit"));
+			_options.add(new Pair(game.getLanguagesManager().getString("Exit"), MyGemas.Screens.Exit));
 		}
 		
 		// Animation times
@@ -151,7 +150,7 @@ public class GameWorldMenu extends GameWorld{
 	}
 
 
-	public Array<Pair<String, String>> get_options() {
+	public Array<Pair<String, MyGemas.Screens>> get_options() {
 		return _options;
 	}
 	

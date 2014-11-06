@@ -1,17 +1,17 @@
 package com.parazathy.mygemas.screens;
 
-import com.badlogic.gdx.Screen;
+import com.parazathy.mygemas.MyGemas;
 
-public class GameHowTo implements Screen {
-
-	@Override
-	public void render(float delta) {
-		// TODO Auto-generated method stub
+public class GameHowTo extends MyScreen {
+	
+	public GameHowTo(MyGemas game, int height, int width) {
+		super(height, width);		
+		
 		
 	}
 
 	@Override
-	public void resize(int width, int height) {
+	public void render(float delta) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -45,5 +45,7 @@ public class GameHowTo implements Screen {
 		// TODO Auto-generated method stub
 		
 	}
+
+	
 
 }
