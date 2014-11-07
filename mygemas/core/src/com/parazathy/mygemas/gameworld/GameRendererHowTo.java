@@ -6,8 +6,8 @@ import com.badlogic.gdx.math.Rectangle;
 public class GameRendererHowTo extends GameRenderer{
 				
 	
-	public GameRendererHowTo(GameWorldHowTo world, int height, int width){		
-		super(world, height, width);		
+	public GameRendererHowTo(GameWorldHowTo world){		
+		super(world);		
 		
 	}
 	

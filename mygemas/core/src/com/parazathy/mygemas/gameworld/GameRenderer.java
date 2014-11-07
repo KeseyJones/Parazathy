@@ -14,17 +14,13 @@ public abstract class GameRenderer {
 	
 	private OrthographicCamera cam;
 	private SpriteBatch batch;	
-	private int height;
-	private int width;	
 	private GameWorld world;
 	
-	public GameRenderer(GameWorld world, int height, int width){	
-		this.world = world;	
-		this.height = height;
-		this.width = width;
+	public GameRenderer(GameWorld world){	
+		this.world = world;			
 						
 		cam = new OrthographicCamera();
-		cam.setToOrtho(true, width, height);
+		cam.setToOrtho(true, world.getScreen().getWidth(), world.getScreen().getHeight());
 		
 		//Gdx.input.setCursorCatched(true);
 		
@@ -59,15 +55,7 @@ public abstract class GameRenderer {
 	}
 	
 	public abstract void render(float runTime, Rectangle _viewport);
-
-	public int getHeight() {
-		return height;
-	}	
-
-	public int getWidth() {
-		return width;
-	}	
-
+	
 	public OrthographicCamera getCam() {
 		return cam;
 	}	

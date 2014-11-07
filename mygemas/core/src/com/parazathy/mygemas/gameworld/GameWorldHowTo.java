@@ -1,14 +1,14 @@
 package com.parazathy.mygemas.gameworld;
 
-import com.parazathy.mygemas.MyGemas;
+import com.parazathy.mygemas.screens.MyScreen;
 
 
 public class GameWorldHowTo extends GameWorld{
 	
 			
 	
-	public GameWorldHowTo(MyGemas game){
-		super(game);						
+	public GameWorldHowTo(MyScreen screen){
+		super(screen);						
 	}
 			
 	

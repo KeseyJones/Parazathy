@@ -14,34 +14,34 @@ public class Square  {
 	public int origY;
 	public int destY;
 	public boolean mustFall;
-	private Type _type;
+	private Type type;
 	
 	public Square(Type type) {
-		_type = type;
-		mustFall = false;
+		this.type = type;
+		this.mustFall = false;
 	}
 	
 	public Square(Square other) {
-		_type = other._type;
-		origY = other.origY;
-		destY = other.destY;
-		mustFall = other.mustFall;
+		this.type = other.type;
+		this.origY = other.origY;
+		this.destY = other.destY;
+		this.mustFall = other.mustFall;
 	}
 	
 	public Type getType() {
-		return _type;
+		return this.type;
 	}
 	
 	public void setType(Type type) {
-		_type = type;
+		this.type = type;
 	}
 	
 	public boolean equals(Square other) {
-		return other._type == _type;
+		return other.type == this.type;
 	}
 	
 	public boolean equals(Type type) {
-		return type == _type;
+		return this.type == type;
 	}
 	
 	public static Type numToType(int num) {

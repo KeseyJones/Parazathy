@@ -12,14 +12,13 @@ public class GameMenu extends MyScreen {
 	private GameRendererMenu renderer;	
 	
 	public GameMenu(MyGemas game, int height, int width) {
-		super(height, width);		
+		super(game, height, width);		
 		
 		//Cargamos la fuente de loading que el unico que necesito
 		AssetLoader.loadLoadingFont();
 				
-		world = new GameWorldMenu(game);
-		renderer = new GameRendererMenu(world, height, width);
-		world.setRenderer(renderer);				
+		world = new GameWorldMenu(this);
+		renderer = new GameRendererMenu(world);					
 	}
 
 	@Override

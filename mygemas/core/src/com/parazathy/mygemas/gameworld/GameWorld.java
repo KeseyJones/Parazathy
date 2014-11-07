@@ -1,30 +1,22 @@
 package com.parazathy.mygemas.gameworld;
 
-import com.parazathy.mygemas.MyGemas;
+import com.parazathy.mygemas.screens.MyScreen;
 
 
 public abstract class GameWorld {
-			
-	private GameRenderer renderer;	
-	private MyGemas game;
+				
+	private MyScreen screen;
 	
-	public GameWorld(MyGemas game){		
-		this.game = game;
+	public GameWorld(MyScreen screen){		
+		this.screen = screen;
 	}
 	
 	public abstract void update(float delta);
+		
+	public MyScreen getScreen() {
+		return screen;
+	}	
+
 	
-	public void setRenderer(GameRenderer renderer) {
-		this.renderer = renderer;
-	}
-				
-	public GameRenderer getRenderer() {
-		return renderer;
-	}	
-
-	public MyGemas getGame() {
-		return game;
-	}	
-
 		
 }

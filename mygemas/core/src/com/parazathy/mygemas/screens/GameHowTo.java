@@ -10,12 +10,10 @@ public class GameHowTo extends MyScreen {
 	private GameRendererHowTo renderer;
 	
 	public GameHowTo(MyGemas game, int height, int width) {
-		super(height, width);	
+		super(game, height, width);	
 		
-		world = new GameWorldHowTo(game);
-		renderer = new GameRendererHowTo(world, height, width);
-		world.setRenderer(renderer);	
-		
+		world = new GameWorldHowTo(this);
+		renderer = new GameRendererHowTo(world);				
 		
 	}
 

@@ -4,12 +4,13 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.Array;
 import com.parazathy.mygemas.MyGemas;
+import com.parazathy.mygemas.gameobjects.Gems;
 import com.parazathy.mygemas.gameobjects.Pair;
 import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.InputHandlerMenu;
+import com.parazathy.mygemas.screens.MyScreen;
 
 
 public class GameWorldMenu extends GameWorld{
@@ -34,6 +35,7 @@ public class GameWorldMenu extends GameWorld{
 	private Vector2 menuEnd;
 	private int menuGap;	
 		
+	private Gems gems;
 	
 	// Options
 	private int selectedOption;
@@ -42,23 +44,25 @@ public class GameWorldMenu extends GameWorld{
 	private boolean isFirstExceution;
 			
 	
-	public GameWorldMenu(MyGemas game){
-		super(game);
+	public GameWorldMenu(MyScreen screen){
+		super(screen);
 		state = StateMenu.Loading;
 		
 		// Menu options
 		selectedOption = 0;
 		options = new Array<Pair<String, MyGemas.Screens>>();
-		options.add(new Pair(game.getLanguagesManager().getString("Timetrial mode"), MyGemas.Screens.Game));
-		options.add(new Pair(game.getLanguagesManager().getString("How to play"), MyGemas.Screens.HowTo));
+		options.add(new Pair(screen.getGame().getLanguagesManager().getString("Timetrial mode"), MyGemas.Screens.Game));
+		options.add(new Pair(screen.getGame().getLanguagesManager().getString("How to play"), MyGemas.Screens.HowTo));
 		if (Gdx.app.getType() != ApplicationType.WebGL) {
-			options.add(new Pair(game.getLanguagesManager().getString("Exit"), MyGemas.Screens.Exit));
+			options.add(new Pair(screen.getGame().getLanguagesManager().getString("Exit"), MyGemas.Screens.Exit));
 		}
 		
 		// Animation times
 		animTime = 0.0;
 		animTotalTime = 0.5;
 		animLogoTime = 0.5;
+		
+		gems = new Gems(screen.getWidth());
 		
 		readyToChange = false;
 		
@@ -79,7 +83,7 @@ public class GameWorldMenu extends GameWorld{
 			}
 		}
 		
-		menuStart = new Vector2((this.getRenderer().getWidth() - maxWidth) / 2, 390);
+		menuStart = new Vector2((this.getScreen().getWidth() - maxWidth) / 2, 390);
 		menuGap = 100;
 		menuEnd = new Vector2(menuStart.x + maxWidth, 350 + options.size * menuGap);
 		
@@ -110,21 +114,7 @@ public class GameWorldMenu extends GameWorld{
 	    }
 	    
 	}
-	
-	public int getOption() {
-		Vector3 _mousePos= new Vector3();
-		// Mouse position and selected option
-	    _mousePos.x = Gdx.input.getX();
-	    _mousePos.y = Gdx.input.getY();
-	    this.getRenderer().getCam().unproject(_mousePos);
-
-	    if (_mousePos.y >= menuStart.y - 100 && _mousePos.y < menuEnd.y + 100) {
-	       return (int)(_mousePos.y - menuStart.y) / menuGap;
-	    }
-	    
-	    return selectedOption;
-	}
-	
+		
 	public double getAnimTime() {
 		return animTime;
 	}
@@ -176,8 +166,16 @@ public class GameWorldMenu extends GameWorld{
 		return menuStart;
 	}
 
+	public Vector2 getMenuEnd() {
+		return menuEnd;
+	}
+
 	public int getMenuGap() {
 		return menuGap;
+	}
+
+	public Gems getGems() {
+		return gems;
 	}
 	
 	

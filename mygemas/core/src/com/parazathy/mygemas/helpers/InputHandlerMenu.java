@@ -3,6 +3,7 @@ package com.parazathy.mygemas.helpers;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.InputProcessor;
 import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
@@ -21,7 +22,7 @@ public class InputHandlerMenu implements InputProcessor {
 	public boolean keyDown(int keycode) {
 		if(keycode == Keys.BACK){
 			//SAlimos de la aplicacion
-			world.getGame().exit();
+			world.getScreen().getGame().exit();
 		}
 		
 		return false;
@@ -38,6 +39,20 @@ public class InputHandlerMenu implements InputProcessor {
 		// TODO Auto-generated method stub
 		return false;
 	}
+	
+	private int getOption() {
+		Vector3 _mousePos= new Vector3();
+		// Mouse position and selected option
+	    _mousePos.x = Gdx.input.getX();
+	    _mousePos.y = Gdx.input.getY();
+	    this.getRenderer().getCam().unproject(_mousePos);
+
+	    if (_mousePos.y >= world.getMenuStart().y - 100 && _mousePos.y < world.getMenuEnd().y + 100) {
+	       return (int)(_mousePos.y - world.getMenuStart().y) / world.getMenuGap();
+	    }
+	    
+	    return world.getSelectedOption();
+	}
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
@@ -46,7 +61,7 @@ public class InputHandlerMenu implements InputProcessor {
 			
 			AssetLoader._selectSFXMenu.play();
 			
-			int currentOption = world.getOption();
+			int currentOption = getOption();
 			
 			if (currentOption > 1 && Gdx.app.getType() == ApplicationType.WebGL) {
 				currentOption = 0;
@@ -54,9 +69,9 @@ public class InputHandlerMenu implements InputProcessor {
 			
 			if (world.isReadyToChange() && currentOption == world.getSelectedOption()) {			
 				if(world.getOptions().get(world.getSelectedOption()).getSecond() == MyGemas.Screens.HowTo){
-					world.getGame().changeScreen(new GameHowTo(world.getGame(), MyGemas.VIRTUAL_HEIGHT,  MyGemas.VIRTUAL_WIDTH));
+					world.getScreen().getGame().changeScreen(new GameHowTo(world.getScreen().getGame(), world.getScreen().getHeight(),  world.getScreen().getWidth()));
 				}else if(world.getOptions().get(world.getSelectedOption()).getSecond() == MyGemas.Screens.Exit){
-					world.getGame().exit();
+					world.getScreen().getGame().exit();
 				}
 				
 			}

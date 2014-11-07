@@ -21,7 +21,7 @@ public class AssetLoader {
 	public static BitmapFont _fontLoadingMenu;
 	
 	//GEMS ANIMATION
-	private static TextureRegion[] _imgGemsAnimation;	
+	public static TextureRegion[] _imgGemsAnimation;	
 	
 	private static PlatformResolver _resolver;
 	
