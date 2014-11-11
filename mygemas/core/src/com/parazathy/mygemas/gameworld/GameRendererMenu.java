@@ -1,9 +1,9 @@
 package com.parazathy.mygemas.gameworld;
 
-import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.parazathy.mygemas.gameobjects.Animation;
 import com.parazathy.mygemas.gameobjects.Gems;
 import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.screens.MyScreen;
@@ -32,6 +32,7 @@ public class GameRendererMenu extends GameRenderer{
 	private void rendererGems(Gems gems, SpriteBatch batch){
 		
 		for(int i = 0; i < 7; ++i) {
+			
             double composedTime = gems.getAnimTime() - i * gems.getAnimTotalTime() / 7.0f;
             if (composedTime < 0) {
             	continue;
@@ -42,7 +43,7 @@ public class GameRendererMenu extends GameRenderer{
             }else{
             	batch.draw(AssetLoader._imgGemsAnimation[i], gems.getPosX()[i], gems.getPosY());
             }
-            
+                        
         }
         
 	}

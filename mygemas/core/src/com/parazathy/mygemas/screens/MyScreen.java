@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Logger;
 import com.parazathy.mygemas.MyGemas;
+import com.parazathy.mygemas.gameworld.GameRenderer;
 
 public abstract class MyScreen implements Screen{
 	
@@ -16,6 +17,7 @@ public abstract class MyScreen implements Screen{
 	private Rectangle viewport;		
 	private float runTime;	
 	private MyGemas game;
+	private GameRenderer renderer;	
 	
 	public MyScreen(MyGemas game, int height, int width){
 		logger = new Logger("MyScreen");
@@ -77,7 +79,14 @@ public abstract class MyScreen implements Screen{
 
 	public int getWidth() {
 		return width;
+	}
+
+	public GameRenderer getRenderer() {
+		return renderer;
+	}
+
+	public void setRenderer(GameRenderer renderer) {
+		this.renderer = renderer;
 	}	
-		
-	
+			
 }

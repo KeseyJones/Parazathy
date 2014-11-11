@@ -5,23 +5,20 @@ import com.parazathy.mygemas.gameworld.GameRendererHowTo;
 import com.parazathy.mygemas.gameworld.GameWorldHowTo;
 
 public class GameHowTo extends MyScreen {
-	
-	private GameWorldHowTo world;
-	private GameRendererHowTo renderer;
+			
 	
 	public GameHowTo(MyGemas game, int height, int width) {
 		super(game, height, width);	
-		
-		world = new GameWorldHowTo(this);
-		renderer = new GameRendererHowTo(world);				
+				
+		this.setRenderer(new GameRendererHowTo(new GameWorldHowTo(this)));				
 		
 	}
 
 	@Override
 	public void render(float delta) {
 		this.setRunTime(this.getRunTime()+delta);		
-		world.update(delta);
-		renderer.render(this.getRunTime(), this.getViewport());
+		this.getRenderer().getWorld().update(delta);
+		this.getRenderer().render(this.getRunTime(), this.getViewport());
 		
 	}
 

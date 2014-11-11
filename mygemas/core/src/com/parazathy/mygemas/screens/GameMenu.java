@@ -7,25 +7,21 @@ import com.parazathy.mygemas.gameworld.GameWorldMenu;
 import com.parazathy.mygemas.helpers.AssetLoader;
 
 public class GameMenu extends MyScreen {
-	
-	private GameWorldMenu world;
-	private GameRendererMenu renderer;	
-	
+				
 	public GameMenu(MyGemas game, int height, int width) {
 		super(game, height, width);		
 		
 		//Cargamos la fuente de loading que el unico que necesito
 		AssetLoader.loadLoadingFont();
-				
-		world = new GameWorldMenu(this);
-		renderer = new GameRendererMenu(world);					
+						
+		this.setRenderer(new GameRendererMenu(new GameWorldMenu(this)));					
 	}
 
 	@Override
 	public void render(float delta) {
 		this.setRunTime(this.getRunTime()+delta);		
-		world.update(delta);
-		renderer.render(this.getRunTime(), this.getViewport());
+		this.getRenderer().getWorld().update(delta);
+		this.getRenderer().render(this.getRunTime(), this.getViewport());
 		
 	}	
 
@@ -49,6 +45,7 @@ public class GameMenu extends MyScreen {
 
 	@Override
 	public void resume() {
+		GameWorldMenu world = (GameWorldMenu)this.getRenderer().getWorld();
 		world.setState(GameWorldMenu.StateMenu.Loading);
 		world.setReadyToChange(false);		
 		

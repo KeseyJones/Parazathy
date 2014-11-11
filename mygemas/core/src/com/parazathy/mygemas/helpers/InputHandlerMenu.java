@@ -41,6 +41,7 @@ public class InputHandlerMenu implements InputProcessor {
 	}
 	
 	private int getOption() {
+		/*
 		Vector3 _mousePos= new Vector3();
 		// Mouse position and selected option
 	    _mousePos.x = Gdx.input.getX();
@@ -52,6 +53,8 @@ public class InputHandlerMenu implements InputProcessor {
 	    }
 	    
 	    return world.getSelectedOption();
+	    */
+		return 0;
 	}
 
 	@Override

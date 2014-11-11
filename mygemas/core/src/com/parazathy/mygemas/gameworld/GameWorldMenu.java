@@ -59,8 +59,8 @@ public class GameWorldMenu extends GameWorld{
 		
 		// Animation times
 		animTime = 0.0;
-		animTotalTime = 0.5;
-		animLogoTime = 0.5;
+		animTotalTime = 1.0;
+		animLogoTime = 1.0;
 		
 		gems = new Gems(screen.getWidth());
 		
@@ -87,6 +87,9 @@ public class GameWorldMenu extends GameWorld{
 		menuGap = 100;
 		menuEnd = new Vector2(menuStart.x + maxWidth, 350 + options.size * menuGap);
 		
+		//Iniciamos gemas
+		gems.initialize();
+		
 		//Activamos en este momento el tecaldo
 		Gdx.input.setInputProcessor(new InputHandlerMenu(this));
 	}
@@ -107,10 +110,12 @@ public class GameWorldMenu extends GameWorld{
 			}					
 		}
 		else if (state  == StateMenu.TransitionIn) {
+			gems.update(delta);
 	        if ((animTime += delta) >= animTotalTime) {
 	        	state = StateMenu.Active;
 	        	animTime = animLogoTime;
 	        }
+	        
 	    }
 	    
 	}

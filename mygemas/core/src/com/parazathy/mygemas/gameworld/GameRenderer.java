@@ -40,9 +40,7 @@ public abstract class GameRenderer {
 	}
 	
 	public void renderCursor(){
-		
-		batch.begin();		
-        
+		        
         if (Gdx.app.getType() != ApplicationType.Android) {
         	Vector3 mousePos = new Vector3();
 			mousePos.x = Gdx.input.getX();
@@ -51,7 +49,6 @@ public abstract class GameRenderer {
 			batch.draw(AssetLoader._imgMouse, mousePos.x, mousePos.y);
 		}
         
-        batch.end();
 	}
 	
 	public abstract void render(float runTime, Rectangle _viewport);

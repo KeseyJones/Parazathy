@@ -11,6 +11,7 @@ public class Gems {
 	private double animTotalTime;
 	
 	public Gems (int width) {
+		posX = new int[7];
 		for (int i = 0; i < 7; ++i) {			
 			this.posX[i] = width / 2 - (76 * 7) / 2 + i * 76;
 		}
