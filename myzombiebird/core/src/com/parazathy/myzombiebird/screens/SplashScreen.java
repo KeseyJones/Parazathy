@@ -24,6 +24,7 @@ public class SplashScreen implements Screen {
 
     public SplashScreen(MyZombieBird game) {
         this.game = game;
+        game.getHandler().showAds(false);
     }
 
     @Override
