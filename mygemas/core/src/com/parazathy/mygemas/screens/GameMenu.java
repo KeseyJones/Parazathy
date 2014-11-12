@@ -8,12 +8,9 @@ import com.parazathy.mygemas.helpers.AssetLoader;
 
 public class GameMenu extends MyScreen {
 				
-	public GameMenu(MyGemas game, int height, int width) {
-		super(game, height, width);		
-		
-		//Cargamos la fuente de loading que el unico que necesito
-		AssetLoader.loadLoadingFont();
-						
+	public GameMenu(MyGemas game) {
+		super(game);		
+									
 		this.setRenderer(new GameRendererMenu(new GameWorldMenu(this)));					
 	}
 

@@ -8,76 +8,112 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class AssetLoader {
 		
-	public static AssetManager _assetManager;
+	public static AssetManager assetManager;
 	
 	//MENU SCREEN
-	public static TextureRegion _imgMouse;
-	public static TextureRegion _imgBackgroundMenu;
-	public static TextureRegion _imgLogoMenu;
-	public static TextureRegion _imgHighlightMenu;
-	public static Sound _selectSFXMenu;	
-	// Font
-	public static BitmapFont _fontMenu;
-	public static BitmapFont _fontLoadingMenu;
+	public static TextureRegion imgMouse;
+	public static TextureRegion imgBackgroundMenu;
+	public static TextureRegion imgLogoMenu;
+	public static TextureRegion imgHighlightMenu;
+	public static Sound selectSFXMenu;	
+	public static BitmapFont fontMenu;
+	public static BitmapFont fontLoadingMenu;
+	public static TextureRegion[] imgGemsAnimation;	
 	
-	//GEMS ANIMATION
-	public static TextureRegion[] _imgGemsAnimation;	
+	//HOWTO SCREEN
+	public static BitmapFont fontTitle;
+	public static BitmapFont fontText;
+	public static TextureRegion imgBackgroundHowTo;
+	public static Sound selectSFXHowTo;	
 	
-	private static PlatformResolver _resolver;
+	
+	private static PlatformResolver resolver;
 	
 	public static void initialize (PlatformResolver resolver) {
 		
-		_resolver = resolver;
+		AssetLoader.resolver = resolver;
 		
 		// Create assets manager
-		_assetManager = new AssetManager();
-		_assetManager.load("data/handCursor.png", Texture.class);
-		_assetManager.finishLoading();
-		_imgMouse = new TextureRegion(_assetManager.get("data/handCursor.png", Texture.class));
-        _imgMouse.flip(false, true);
+		AssetLoader.assetManager = new AssetManager();
+		AssetLoader.assetManager.load("data/handCursor.png", Texture.class);
+		AssetLoader.assetManager.finishLoading();
+		AssetLoader.imgMouse = new TextureRegion(AssetLoader.assetManager.get("data/handCursor.png", Texture.class));
+		AssetLoader.imgMouse.flip(false, true);
 		
 	}
 	
 	public static void loadLoadingFont(){
-		_fontLoadingMenu = _resolver.loadFont("data/loadingFont.fnt", "data/normal.ttf", 70);
+		AssetLoader.fontLoadingMenu = AssetLoader.resolver.loadFont("data/loadingFont.fnt", "data/normal.ttf", 70);
 	}
 			
 	
 	public static void assignGemsAnimationResources(){
-		_imgGemsAnimation = new TextureRegion[7];		
+		AssetLoader.imgGemsAnimation = new TextureRegion[7];		
 		
-		_imgGemsAnimation[0] = new TextureRegion(_assetManager.get("data/gemWhite.png", Texture.class));
-		_imgGemsAnimation[1] = new TextureRegion(_assetManager.get("data/gemRed.png", Texture.class));
-		_imgGemsAnimation[2] = new TextureRegion(_assetManager.get("data/gemPurple.png", Texture.class));
-		_imgGemsAnimation[3] = new TextureRegion(_assetManager.get("data/gemOrange.png", Texture.class));
-		_imgGemsAnimation[4] = new TextureRegion(_assetManager.get("data/gemGreen.png", Texture.class));
-		_imgGemsAnimation[5] = new TextureRegion(_assetManager.get("data/gemYellow.png", Texture.class));
-		_imgGemsAnimation[6] = new TextureRegion(_assetManager.get("data/gemBlue.png", Texture.class));
+		AssetLoader.imgGemsAnimation[0] = new TextureRegion(AssetLoader.assetManager.get("data/gemWhite.png", Texture.class));
+		AssetLoader.imgGemsAnimation[1] = new TextureRegion(AssetLoader.assetManager.get("data/gemRed.png", Texture.class));
+		AssetLoader.imgGemsAnimation[2] = new TextureRegion(AssetLoader.assetManager.get("data/gemPurple.png", Texture.class));
+		AssetLoader.imgGemsAnimation[3] = new TextureRegion(AssetLoader.assetManager.get("data/gemOrange.png", Texture.class));
+		AssetLoader.imgGemsAnimation[4] = new TextureRegion(AssetLoader.assetManager.get("data/gemGreen.png", Texture.class));
+		AssetLoader.imgGemsAnimation[5] = new TextureRegion(AssetLoader.assetManager.get("data/gemYellow.png", Texture.class));
+		AssetLoader.imgGemsAnimation[6] = new TextureRegion(AssetLoader.assetManager.get("data/gemBlue.png", Texture.class));
 		
 		for (int i = 0; i < 7; ++i) {
-			_imgGemsAnimation[i].flip(false, true);
+			AssetLoader.imgGemsAnimation[i].flip(false, true);
 		}
+	}
+	
+	public static void loadHowToAssets() {		
+		
+		// Load textures
+		AssetLoader.assetManager.load("data/howtoScreen.png", Texture.class);			
+		assetManager.load("data/select.ogg", Sound.class);
+	}
+	
+	public static void assignHowToResources(){
+		// Load fonts
+		fontTitle = AssetLoader.resolver.loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
+		fontText =  AssetLoader.resolver.loadFont("data/helpFont.fnt", "data/normal.ttf", 37);
+		
+		// Retrieve resources		
+		imgBackgroundHowTo = new TextureRegion(AssetLoader.assetManager.get("data/howtoScreen.png", Texture.class));
+		selectSFXHowTo = AssetLoader.assetManager.get("data/select.ogg", Sound.class);
+		
+		imgBackgroundHowTo.flip(false, true);		
+		
+	}
+	
+	public static void unloadHowToAssets() {
+		// Set references to null
+		AssetLoader.imgBackgroundHowTo = null;
+		AssetLoader.fontTitle = null;
+		AssetLoader.fontText = null;
+		AssetLoader.selectSFXHowTo = null;
+		
+		// Unload resources
+		AssetLoader.assetManager.unload("data/howtoScreen.png");
+		AssetLoader.assetManager.unload("data/select.ogg");
 	}
 
 	public static void loadMenuAssets() {		
 		
 		// Load textures
-		_assetManager.load("data/mainMenuBackground.png", Texture.class);
-		_assetManager.load("data/mainMenuLogo.png", Texture.class);
-		_assetManager.load("data/menuHighlight.png", Texture.class);
-		_assetManager.load("data/gemWhite.png", Texture.class);
-		_assetManager.load("data/gemRed.png", Texture.class);
-		_assetManager.load("data/gemPurple.png", Texture.class);
-		_assetManager.load("data/gemOrange.png", Texture.class);
-		_assetManager.load("data/gemGreen.png", Texture.class);
-		_assetManager.load("data/gemYellow.png", Texture.class);
-		_assetManager.load("data/gemBlue.png", Texture.class);	
+		AssetLoader.assetManager.load("data/mainMenuBackground.png", Texture.class);
+		AssetLoader.assetManager.load("data/mainMenuLogo.png", Texture.class);
+		AssetLoader.assetManager.load("data/menuHighlight.png", Texture.class);
+		AssetLoader.assetManager.load("data/gemWhite.png", Texture.class);
+		AssetLoader.assetManager.load("data/gemRed.png", Texture.class);
+		AssetLoader.assetManager.load("data/gemPurple.png", Texture.class);
+		AssetLoader.assetManager.load("data/gemOrange.png", Texture.class);
+		AssetLoader.assetManager.load("data/gemGreen.png", Texture.class);
+		AssetLoader.assetManager.load("data/gemYellow.png", Texture.class);
+		AssetLoader.assetManager.load("data/gemBlue.png", Texture.class);	
 		
 		// Load fonts
-		_fontMenu =_resolver.loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
+		AssetLoader.fontMenu =AssetLoader.resolver.loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
 				
 		// Sound
-		_assetManager.load("data/select.ogg", Sound.class);
+		AssetLoader.assetManager.load("data/select.ogg", Sound.class);
 		
 		
 		
@@ -85,15 +121,15 @@ public class AssetLoader {
 	
 	public static void AssignMenuResources(){
 		
-		_imgBackgroundMenu = new TextureRegion(_assetManager.get("data/mainMenuBackground.png", Texture.class));
-		_imgLogoMenu = new TextureRegion(_assetManager.get("data/mainMenuLogo.png", Texture.class));
-		_imgHighlightMenu = new TextureRegion(_assetManager.get("data/menuHighlight.png", Texture.class));
+		AssetLoader.imgBackgroundMenu = new TextureRegion(AssetLoader.assetManager.get("data/mainMenuBackground.png", Texture.class));
+		AssetLoader.imgLogoMenu = new TextureRegion(AssetLoader.assetManager.get("data/mainMenuLogo.png", Texture.class));
+		AssetLoader.imgHighlightMenu = new TextureRegion(AssetLoader.assetManager.get("data/menuHighlight.png", Texture.class));
 		
-		_imgBackgroundMenu.flip(false, true);
-		_imgLogoMenu.flip(false, true);
-		_imgHighlightMenu.flip(false, true);
+		AssetLoader.imgBackgroundMenu.flip(false, true);
+		AssetLoader.imgLogoMenu.flip(false, true);
+		AssetLoader.imgHighlightMenu.flip(false, true);
 		
-		_selectSFXMenu = _assetManager.get("data/select.ogg", Sound.class);
+		AssetLoader.selectSFXMenu = AssetLoader.assetManager.get("data/select.ogg", Sound.class);
 		
 	}
 	
@@ -102,29 +138,29 @@ public class AssetLoader {
 	public static void unloadMenuAssets() {		
 		
 		// Set references to null
-		_imgBackgroundMenu = null;
-		_imgLogoMenu = null;
-		_imgHighlightMenu = null;		
-		_selectSFXMenu = null;
+		AssetLoader.imgBackgroundMenu = null;
+		AssetLoader.imgLogoMenu = null;
+		AssetLoader.imgHighlightMenu = null;		
+		AssetLoader.selectSFXMenu = null;
 		
 		// Unload resources		
-		_assetManager.unload("data/mainMenuBackground.png");
-		_assetManager.unload("data/mainMenuLogo.png");
-		_assetManager.unload("data/menuHighlight.png");
-		_assetManager.unload("data/gemWhite.png");
-		_assetManager.unload("data/gemRed.png");
-		_assetManager.unload("data/gemPurple.png");
-		_assetManager.unload("data/gemOrange.png");
-		_assetManager.unload("data/gemGreen.png");
-		_assetManager.unload("data/gemYellow.png");
-		_assetManager.unload("data/gemBlue.png");
-		_assetManager.unload("data/select.ogg");
+		AssetLoader.assetManager.unload("data/mainMenuBackground.png");
+		AssetLoader.assetManager.unload("data/mainMenuLogo.png");
+		AssetLoader.assetManager.unload("data/menuHighlight.png");
+		AssetLoader.assetManager.unload("data/gemWhite.png");
+		AssetLoader.assetManager.unload("data/gemRed.png");
+		AssetLoader.assetManager.unload("data/gemPurple.png");
+		AssetLoader.assetManager.unload("data/gemOrange.png");
+		AssetLoader.assetManager.unload("data/gemGreen.png");
+		AssetLoader.assetManager.unload("data/gemYellow.png");
+		AssetLoader.assetManager.unload("data/gemBlue.png");
+		AssetLoader.assetManager.unload("data/select.ogg");
 		
 	}
 	
 	public static void dispose(){
-		if(_assetManager != null){
-			_assetManager.dispose();
+		if(AssetLoader.assetManager != null){
+			AssetLoader.assetManager.dispose();
 		}
 		
 	}

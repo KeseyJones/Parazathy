@@ -62,7 +62,7 @@ public class InputHandlerMenu implements InputProcessor {
 		// Left click		
 		if (button == 0) {
 			
-			AssetLoader._selectSFXMenu.play();
+			AssetLoader.selectSFXMenu.play();
 			
 			int currentOption = getOption();
 			
@@ -72,7 +72,7 @@ public class InputHandlerMenu implements InputProcessor {
 			
 			if (world.isReadyToChange() && currentOption == world.getSelectedOption()) {			
 				if(world.getOptions().get(world.getSelectedOption()).getSecond() == MyGemas.Screens.HowTo){
-					world.getScreen().getGame().changeScreen(new GameHowTo(world.getScreen().getGame(), world.getScreen().getHeight(),  world.getScreen().getWidth()));
+					world.getScreen().getGame().changeScreen(new GameHowTo(world.getScreen().getGame()));
 				}else if(world.getOptions().get(world.getSelectedOption()).getSecond() == MyGemas.Screens.Exit){
 					world.getScreen().getGame().exit();
 				}

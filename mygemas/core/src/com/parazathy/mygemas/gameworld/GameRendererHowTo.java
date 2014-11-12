@@ -1,6 +1,9 @@
 package com.parazathy.mygemas.gameworld;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
+import com.parazathy.mygemas.helpers.AssetLoader;
 
 
 public class GameRendererHowTo extends GameRenderer{
@@ -17,8 +20,30 @@ public class GameRendererHowTo extends GameRenderer{
 				
 		this.initRender(viewport);
 			
+		this.getBatch().begin();
 		
+		// STATE LOADING - Just render loading
+		if (world.getState() == GameWorldHowTo.StateHowTo.Loading) {			
+			this.renderLoading();
+		}else{
+		
+			// STATE ACTIVE
+			this.getBatch().draw(AssetLoader.imgBackgroundHowTo, 0, 0);
+			
+			TextBounds bounds = AssetLoader.fontTitle.getBounds(world.getTitleText());
+			Vector2 titlePos = new Vector2(315 + (world.getScreen().getWidth() - 400 - bounds.width) / 2, 55);
+			Vector2 helpPos = new Vector2(375, 175);
+			
+			AssetLoader.fontTitle.setColor(0.0f, 0.0f, 0.0f, 0.5f);
+			AssetLoader.fontTitle.draw(this.getBatch(), world.getTitleText(), titlePos.x + 4, titlePos.y + 4);
+			AssetLoader.fontTitle.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			AssetLoader.fontTitle.draw(this.getBatch(), world.getTitleText(), titlePos.x, titlePos.y);
+			
+			AssetLoader.fontText.drawWrapped(this.getBatch(), world.getHelpText(), helpPos.x, helpPos.y, world.getScreen().getWidth() - 450);
+		}
 		this.renderCursor();
+		
+		this.getBatch().end();
 		
 	}
 

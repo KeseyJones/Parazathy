@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 import com.parazathy.mygemas.helpers.AssetLoader;
@@ -28,6 +29,11 @@ public abstract class GameRenderer {
 		
 	}
 	
+	public void renderLoading(){
+		TextBounds bounds = AssetLoader.fontLoadingMenu.getBounds(world.getLoading());
+		AssetLoader.fontLoadingMenu.draw(this.getBatch(),world.getLoading(),(world.getScreen().getWidth() - bounds.width) / 2,(world.getScreen().getHeight() - bounds.height) / 2);
+	}
+	
 	public void initRender(Rectangle viewport) {		
 		Gdx.gl.glClear(GL30.GL_COLOR_BUFFER_BIT);
 		cam.update();
@@ -46,7 +52,7 @@ public abstract class GameRenderer {
 			mousePos.x = Gdx.input.getX();
 			mousePos.y = Gdx.input.getY();
 			cam.unproject(mousePos);
-			batch.draw(AssetLoader._imgMouse, mousePos.x, mousePos.y);
+			batch.draw(AssetLoader.imgMouse, mousePos.x, mousePos.y);
 		}
         
 	}

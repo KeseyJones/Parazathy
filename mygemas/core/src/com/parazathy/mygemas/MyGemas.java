@@ -14,10 +14,7 @@ public class MyGemas extends Game {
 	
 	public enum Platform {Desktop, Android, Web, IOS};
 	public enum Screens {Menu, HowTo, Game, Exit};
-	
-	public static final int VIRTUAL_WIDTH = 1280;
-	public static final int VIRTUAL_HEIGHT = 720;
-	
+		
 	private Logger logger;
 	private LanguagesManager languagesManager;	
 	private PlatformResolver resolver;
@@ -49,7 +46,10 @@ public class MyGemas extends Game {
 		//Iniciamos la carga de recursos
 		AssetLoader.initialize(resolver);
 		
-		currentScreen = new GameMenu(this, VIRTUAL_HEIGHT, VIRTUAL_WIDTH);
+		//Cargamos la fuente de loading que el unico que necesito
+		AssetLoader.loadLoadingFont();
+		
+		currentScreen = new GameMenu(this);
 		setScreen(currentScreen);
 		
         logger.info("MyGemas created!!!");    

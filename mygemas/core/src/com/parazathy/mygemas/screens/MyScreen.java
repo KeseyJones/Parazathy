@@ -1,5 +1,6 @@
 package com.parazathy.mygemas.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
@@ -17,12 +18,12 @@ public abstract class MyScreen implements Screen{
 	private Rectangle viewport;		
 	private float runTime;	
 	private MyGemas game;
-	private GameRenderer renderer;	
+	private GameRenderer renderer;		
 	
-	public MyScreen(MyGemas game, int height, int width){
+	public MyScreen(MyGemas game){
 		logger = new Logger("MyScreen");
-		this.height = height;
-		this.width = width;	
+		this.height = Gdx.graphics.getHeight();
+		this.width = Gdx.graphics.getWidth();	
 		this.game = game;
 	}
 

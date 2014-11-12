@@ -1,14 +1,16 @@
 package com.parazathy.mygemas.screens;
 
+import com.badlogic.gdx.Gdx;
 import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameRendererHowTo;
 import com.parazathy.mygemas.gameworld.GameWorldHowTo;
+import com.parazathy.mygemas.helpers.AssetLoader;
 
 public class GameHowTo extends MyScreen {
 			
 	
-	public GameHowTo(MyGemas game, int height, int width) {
-		super(game, height, width);	
+	public GameHowTo(MyGemas game) {
+		super(game);	
 				
 		this.setRenderer(new GameRendererHowTo(new GameWorldHowTo(this)));				
 		
@@ -42,13 +44,16 @@ public class GameHowTo extends MyScreen {
 
 	@Override
 	public void resume() {
-		// TODO Auto-generated method stub
+		GameWorldHowTo world = (GameWorldHowTo)this.getRenderer().getWorld();
+		world.setState(GameWorldHowTo.StateHowTo.Loading);
+		world.setReadyToChange(false);		
 		
 	}
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		Gdx.input.setInputProcessor(null);
+		AssetLoader.unloadHowToAssets();
 		
 	}
 
