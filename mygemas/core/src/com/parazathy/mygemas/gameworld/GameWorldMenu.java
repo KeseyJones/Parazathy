@@ -2,14 +2,15 @@ package com.parazathy.mygemas.gameworld;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
 import com.parazathy.mygemas.gameobjects.Gems;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.parazathy.mygemas.helpers.InputHandlerMenu;
 import com.parazathy.mygemas.screens.GameHowTo;
 import com.parazathy.mygemas.screens.MyScreen;
 
@@ -30,38 +31,20 @@ public class GameWorldMenu extends GameWorld{
 	private double animTotalTime;
 	
 	private boolean readyToChange;
-	
-	// Positions
-	//private Vector2 menuStart;
-	//private Vector2 menuEnd;
-	//private int menuGap;	
 		
 	private Gems gems;
 	
 	// Options
-	private int selectedOption;
-	//private Array<Pair<String, MyGemas.Screens>> options;
+	private int selectedOption;	
 	
 	private boolean isFirstExceution;
 	
 	private Array<TextButton> menu;
-			
 	
 	public GameWorldMenu(MyScreen screen){
 		super(screen);
 		state = StateMenu.Loading;
-		
-		/* Menu options
-		selectedOption = 0;
-		options = new Array<Pair<String, MyGemas.Screens>>();		
-		options.add(new Pair(screen.getGame().getLanguagesManager().getString("Timetrial mode"), MyGemas.Screens.Game));
-		options.add(new Pair(screen.getGame().getLanguagesManager().getString("How to play"), MyGemas.Screens.HowTo));
-		if (Gdx.app.getType() != ApplicationType.WebGL) {
-			options.add(new Pair(screen.getGame().getLanguagesManager().getString("Exit"), MyGemas.Screens.Exit));
-		}*/
-		
-		createMenu();
-		
+				
 		// Animation times
 		animTime = 0.0;
 		animTotalTime = 1.0;
@@ -75,10 +58,10 @@ public class GameWorldMenu extends GameWorld{
 				
 	}
 	
-	public void createMenu(){
+	private void createMenu(){
 		this.menu = new Array<TextButton>();
-		this.selectedOption = 0;
-		TextButton buttonPlay = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("Timetrial mode"), getStyleButtonMenu());			
+		this.selectedOption = 0;		
+		TextButton buttonPlay = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("Timetrial mode"), getBlackStyleButtonMenu());			
 		buttonPlay.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) { 
@@ -87,8 +70,8 @@ public class GameWorldMenu extends GameWorld{
             	selectedOption = 0;
             }
         });
-		menu.add(buttonPlay);
-		TextButton buttonHowTo = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("How to play"), getStyleButtonMenu());			
+		menu.add(buttonPlay);		
+		TextButton buttonHowTo = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("How to play"), getBlackStyleButtonMenu());			
 		buttonHowTo.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {     
@@ -102,7 +85,7 @@ public class GameWorldMenu extends GameWorld{
         });
 		menu.add(buttonHowTo);
 		if (Gdx.app.getType() != ApplicationType.WebGL) {
-			TextButton buttonExit = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("Exit"), getStyleButtonMenu());			
+			TextButton buttonExit = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("Exit"), getBlackStyleButtonMenu());			
 			buttonExit.addListener(new ClickListener(){
 	            @Override
 	            public void clicked(InputEvent event, float x, float y) {  
@@ -114,40 +97,35 @@ public class GameWorldMenu extends GameWorld{
 	            	selectedOption = 2;
 	            }
 	        });
+			buttonExit.setTouchable(Touchable.enabled);
 			menu.add(buttonExit);
+					
 		}
 	}
 	
-	public TextButtonStyle getStyleButtonMenu(){
+	public TextButtonStyle getBlackStyleButtonMenu(){
 		TextButtonStyle style = new TextButtonStyle();
-		style.font= AssetLoader.fontMenu;
+		style.font= AssetLoader.fontMenu;	
+		style.fontColor = new Color(0.0f, 0.0f, 0.0f, 0.5f);
+		
+		return style;
+	}
+	
+	public TextButtonStyle getWhiteStyleButtonMenu(){
+		TextButtonStyle style = new TextButtonStyle();
+		style.font= AssetLoader.fontMenu;	
+		style.fontColor = new Color(1.0f, 1.0f, 1.0f, 1.0f);
 		
 		return style;
 	}
 	
 	private void initialize(){
-		/*
-		// Set positions now that we now about sizes		
-		float maxWidth = 0;
-		int numOptions = options.size;
 		
-		for (int i = 0; i < numOptions; ++i) {
-			TextBounds bounds = AssetLoader.fontMenu.getBounds(options.get(i).getFirst());
-			
-			if (bounds.width > maxWidth) {
-				maxWidth = bounds.width;
-			}
-		}
+		createMenu();
 		
-		menuStart = new Vector2((this.getScreen().getWidth() - maxWidth) / 2, 390);
-		menuGap = 100;
-		menuEnd = new Vector2(menuStart.x + maxWidth, 350 + options.size * menuGap);
-		*/
 		//Iniciamos gemas
 		gems.initialize();
-		
-		//Activamos en este momento el tecaldo
-		Gdx.input.setInputProcessor(new InputHandlerMenu(this));
+				
 	}
 		
 	
@@ -199,13 +177,7 @@ public class GameWorldMenu extends GameWorld{
 	public void setState(StateMenu state) {
 		this.state = state;
 	}
-
-
-	/*
-	public Array<Pair<String, MyGemas.Screens>> getOptions() {
-		return options;
-	}
-	*/
+	
 	public void setReadyToChange(boolean readyToChange) {
 		this.readyToChange = readyToChange;
 	}
@@ -218,24 +190,7 @@ public class GameWorldMenu extends GameWorld{
 	public int getSelectedOption() {
 		return selectedOption;
 	}
-
-	/*
-	public void setSelectedOption(int selectedOption) {
-		this.selectedOption = selectedOption;
-	}
-
-	public Vector2 getMenuStart() {
-		return menuStart;
-	}
-
-	public Vector2 getMenuEnd() {
-		return menuEnd;
-	}
-
-	public int getMenuGap() {
-		return menuGap;
-	}
-*/
+	
 	public Gems getGems() {
 		return gems;
 	}

@@ -49,15 +49,13 @@ public class GameRendererMenu extends GameRenderer{
 		
 		for (int i = 0; i < numOptions; ++i) {
 			TextBounds bounds = AssetLoader.fontMenu.getBounds(world.getMenu().get(i).getText());
-			
-			AssetLoader.fontMenu.setColor(0.0f, 0.0f, 0.0f, 0.5f);
+						
+			world.getMenu().get(i).setStyle(world.getBlackStyleButtonMenu());		
 			world.getMenu().get(i).setPosition((world.getScreen().getWidth() - bounds.width) / 2, MENU_START_HEIGHT + i *  MENU_GAP_HEIGHT + 4);
-			world.getMenu().get(i).draw(batch, 0);
-			//AssetLoader.fontMenu.draw(batch, world.getOptions().get(i).getFirst(), (world.getScreen().getWidth() - bounds.width) / 2, world.getMenuStart().y + i *  world.getMenuGap() + 4);
-			AssetLoader.fontMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			world.getMenu().get(i).draw(batch, 1);	
+			world.getMenu().get(i).setStyle(world.getWhiteStyleButtonMenu());			
 			world.getMenu().get(i).setPosition((world.getScreen().getWidth() - bounds.width) / 2, MENU_START_HEIGHT + i * MENU_GAP_HEIGHT);
-			world.getMenu().get(i).draw(batch, 0);
-			//AssetLoader.fontMenu.draw(batch, world.getOptions().get(i).getFirst(), (world.getScreen().getWidth() - bounds.width) / 2, world.getMenuStart().y + i *  world.getMenuGap());
+			world.getMenu().get(i).draw(batch, 1);			
 		}
 		
 		rendererGems(world.getGems(), batch);

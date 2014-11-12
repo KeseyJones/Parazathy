@@ -6,13 +6,18 @@ import com.parazathy.myzombiebird.MyZombieBird;
 import com.parazathy.myzombiebird.myzbhelpers.AdsRequestHandler;
 
 public class DesktopLauncher implements AdsRequestHandler{
+	private static DesktopLauncher application;
+	
 	public static void main (String[] arg) {
+		if(application == null){
+			application = new DesktopLauncher();
+		}
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
 		config.title ="MyZombieBird";
 		config.useGL30 = false;
 		config.width = 272;
 		config.height = 408;
-		new LwjglApplication(new MyZombieBird(this), config);
+		new LwjglApplication(new MyZombieBird(application), config);
 	}
 
 	@Override
