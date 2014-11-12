@@ -59,7 +59,7 @@ public class InputHandlerMenu implements InputProcessor {
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		// Left click		
+		/* Left click		
 		if (button == 0) {
 			
 			AssetLoader.selectSFXMenu.play();
@@ -83,7 +83,7 @@ public class InputHandlerMenu implements InputProcessor {
 				world.setSelectedOption(currentOption);
 			}
 		}
-		
+		*/
 		return false;
 	}
 
