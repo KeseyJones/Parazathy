@@ -24,6 +24,7 @@ public class SplashScreen implements Screen {
 
     public SplashScreen(MyZombieBird game) {
         this.game = game;
+        //Quitamos la publicidad
         game.getHandler().showAds(false);
     }
 
@@ -51,7 +52,7 @@ public class SplashScreen implements Screen {
         TweenCallback cb = new TweenCallback() {
             @Override
             public void onEvent(int type, BaseTween<?> source) {
-                game.setScreen(new GameScreen());
+                game.setScreen(new GameScreen(game));
             }
         };
 
