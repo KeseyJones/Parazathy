@@ -10,17 +10,16 @@ public class GameHowTo extends MyScreen {
 			
 	
 	public GameHowTo(MyGemas game) {
-		super(game);	
-				
-		this.setRenderer(new GameRendererHowTo(new GameWorldHowTo(this)));				
-		
+		super(game);
+		this.setRenderer(new GameRendererHowTo(new GameWorldHowTo(this)));
+					
 	}
 
 	@Override
 	public void render(float delta) {
 		this.setRunTime(this.getRunTime()+delta);		
 		this.getRenderer().getWorld().update(delta);
-		this.getRenderer().render(this.getRunTime(), this.getViewport());
+		this.getRenderer().render(this.getRunTime());
 		
 	}
 

@@ -15,12 +15,12 @@ public class GameRendererHowTo extends GameRenderer{
 	}
 	
 	@Override
-	public void render(float runTime, Rectangle viewport) {
+	public void render(float runTime) {
 		GameWorldHowTo world = (GameWorldHowTo)this.getWorld();
 				
-		this.initRender(viewport);
+		this.initRender();
 			
-		this.getBatch().begin();
+		this.getStage().getBatch().begin();
 		
 		// STATE LOADING - Just render loading
 		if (world.getState() == GameWorldHowTo.StateHowTo.Loading) {			
@@ -28,22 +28,22 @@ public class GameRendererHowTo extends GameRenderer{
 		}else{
 		
 			// STATE ACTIVE
-			this.getBatch().draw(AssetLoader.imgBackgroundHowTo, 0, 0);
+			this.getStage().getBatch().draw(AssetLoader.imgBackgroundHowTo, 0, 0);
 			
 			TextBounds bounds = AssetLoader.fontTitle.getBounds(world.getTitleText());
 			Vector2 titlePos = new Vector2(315 + (world.getScreen().getWidth() - 400 - bounds.width) / 2, 55);
 			Vector2 helpPos = new Vector2(375, 175);
 			
 			AssetLoader.fontTitle.setColor(0.0f, 0.0f, 0.0f, 0.5f);
-			AssetLoader.fontTitle.draw(this.getBatch(), world.getTitleText(), titlePos.x + 4, titlePos.y + 4);
+			AssetLoader.fontTitle.draw(this.getStage().getBatch(), world.getTitleText(), titlePos.x + 4, titlePos.y + 4);
 			AssetLoader.fontTitle.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			AssetLoader.fontTitle.draw(this.getBatch(), world.getTitleText(), titlePos.x, titlePos.y);
+			AssetLoader.fontTitle.draw(this.getStage().getBatch(), world.getTitleText(), titlePos.x, titlePos.y);
 			
-			AssetLoader.fontText.drawWrapped(this.getBatch(), world.getHelpText(), helpPos.x, helpPos.y, world.getScreen().getWidth() - 450);
+			AssetLoader.fontText.drawWrapped(this.getStage().getBatch(), world.getHelpText(), helpPos.x, helpPos.y, world.getScreen().getWidth() - 450);
 		}
 		this.renderCursor();
 		
-		this.getBatch().end();
+		this.getStage().getBatch().end();
 		
 	}
 

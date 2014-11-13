@@ -2,9 +2,8 @@ package com.parazathy.mygemas.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.utils.Logger;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameRenderer;
 
@@ -12,24 +11,20 @@ public abstract class MyScreen implements Screen{
 	
 	private static final float ASPECT_RATIO = 1.7777f;
 	
-	private Logger logger;
 	private int height;
-	private int width;
-	private Rectangle viewport;		
+	private int width;		
 	private float runTime;	
 	private MyGemas game;
-	private GameRenderer renderer;		
+	private GameRenderer renderer;			
 	
-	public MyScreen(MyGemas game){
-		logger = new Logger("MyScreen");
+	public MyScreen(MyGemas game){		
 		this.height = Gdx.graphics.getHeight();
 		this.width = Gdx.graphics.getWidth();	
-		this.game = game;
+		this.game = game;	
 	}
 
 	@Override
-	public void resize(int width, int height) {
-		logger.info("Resizing to: " + width + "x" + height);
+	public void resize(int width, int height) {		
 		
 		// calculate new viewport
         float aspectRatio = (float)width/(float)height;
@@ -53,15 +48,14 @@ public abstract class MyScreen implements Screen{
 
         float w = (float)this.width * scale;
         float h = (float)this.height * scale;
-        viewport = new Rectangle(crop.x, crop.y, w, h);
+        Stage stage = this.renderer.getStage();
+        stage.getViewport().update(width, height, true);   
+        Gdx.gl.glViewport(stage.getViewport().getScreenX(), stage.getViewport().getScreenY(),
+        		stage.getViewport().getScreenWidth(), stage.getViewport().getScreenHeight());        
         this.width = width;
         this.height = height;
 	}
-
-	public Rectangle getViewport() {
-		return viewport;
-	}
-
+	
 	public float getRunTime() {
 		return runTime;
 	}
@@ -82,12 +76,12 @@ public abstract class MyScreen implements Screen{
 		return width;
 	}
 
+	public void setRenderer(GameRenderer renderer) {
+		this.renderer = renderer;
+	}
+
 	public GameRenderer getRenderer() {
 		return renderer;
 	}
-
-	public void setRenderer(GameRenderer renderer) {
-		this.renderer = renderer;
-	}	
-			
+				
 }

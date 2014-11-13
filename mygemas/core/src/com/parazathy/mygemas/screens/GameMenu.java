@@ -18,7 +18,7 @@ public class GameMenu extends MyScreen {
 	public void render(float delta) {
 		this.setRunTime(this.getRunTime()+delta);		
 		this.getRenderer().getWorld().update(delta);
-		this.getRenderer().render(this.getRunTime(), this.getViewport());
+		this.getRenderer().render(this.getRunTime());
 		
 	}	
 

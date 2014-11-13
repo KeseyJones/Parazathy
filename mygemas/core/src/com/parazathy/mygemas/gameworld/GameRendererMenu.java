@@ -1,5 +1,6 @@
 package com.parazathy.mygemas.gameworld;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
@@ -18,7 +19,7 @@ public class GameRendererMenu extends GameRenderer{
 		
 	}
 			
-	private void rendererGems(Gems gems, SpriteBatch batch){
+	private void rendererGems(Gems gems, Batch batch){
 		
 		for(int i = 0; i < 7; ++i) {
 			
@@ -37,7 +38,7 @@ public class GameRendererMenu extends GameRenderer{
         
 	}
 	
-	private void renderMenu(SpriteBatch batch, GameWorldMenu world){
+	private void renderMenu(Batch batch, GameWorldMenu world){
 								
 		batch.draw(AssetLoader.imgBackgroundMenu, 0, 0);		    
 		batch.setColor(1.0f, 1.0f, 1.0f, (float)(world.getAnimTime() / world.getAnimLogoTime()));
@@ -72,23 +73,23 @@ public class GameRendererMenu extends GameRenderer{
 	}
 	
 	@Override
-	public void render(float runTime, Rectangle viewport) {
+	public void render(float runTime) {
 		GameWorldMenu world = (GameWorldMenu)this.getWorld();
 				
-		this.initRender(viewport);
+		this.initRender();
 		
-		this.getBatch().begin();
+		this.getStage().getBatch().begin();
 					
 		if (world.getState() == GameWorldMenu.StateMenu.Loading) {
 			this.renderLoading();
 			
 		}else{
-			renderMenu(this.getBatch(), world);
+			renderMenu(this.getStage().getBatch(), world);
 		}
 						
 		this.renderCursor();
 		
-		this.getBatch().end();
+		this.getStage().getBatch().end();
 		
 	}
 
