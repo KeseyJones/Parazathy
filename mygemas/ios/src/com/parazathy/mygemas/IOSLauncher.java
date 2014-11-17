@@ -10,8 +10,8 @@ import com.parazathy.mygemas.MyGemas;
 public class IOSLauncher extends IOSApplication.Delegate {
     @Override
     protected IOSApplication createApplication() {
-        IOSApplicationConfiguration config = new IOSApplicationConfiguration();
-        return new IOSApplication(new MyGemas(MyGemas.Platform.IOS), config);
+        IOSApplicationConfiguration config = new IOSApplicationConfiguration();        
+        return new IOSApplication(MyGemas.getInstance(), config);
     }
 
     public static void main(String[] argv) {

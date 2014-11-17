@@ -13,7 +13,7 @@ public class HtmlLauncher extends GwtApplication {
         }
 
         @Override
-        public ApplicationListener getApplicationListener () {
-                return new MyGemas(MyGemas.Platform.Web);
+        public ApplicationListener getApplicationListener () {        	
+    		return MyGemas.getInstance();
         }
 }

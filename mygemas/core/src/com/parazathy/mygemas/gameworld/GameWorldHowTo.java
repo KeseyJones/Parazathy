@@ -1,7 +1,10 @@
 package com.parazathy.mygemas.gameworld;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.parazathy.mygemas.screens.MyScreen;
+import com.parazathy.mygemas.helpers.InputHandlerHowTo;
 
 
 public class GameWorldHowTo extends GameWorld{
@@ -11,22 +14,22 @@ public class GameWorldHowTo extends GameWorld{
 	private StateHowTo state;
 	
 	private String titleText;
-	private String helpText;
-		
-	private boolean readyToChange;
+	private String helpText;	
 	
 	private boolean isFirstExceution;
 	
-	public GameWorldHowTo(MyScreen screen){
-		super(screen);		
+	private InputHandlerHowTo inputHandler;
+	
+	public GameWorldHowTo(Stage stage){
+		super(stage);			
+		titleText = MyGemas.getLanguagesManager().getString("How to play");
+		helpText = MyGemas.getLanguagesManager().getString("help_text");
 		
-		titleText = screen.getGame().getLanguagesManager().getString("How to play");
-		helpText = screen.getGame().getLanguagesManager().getString("help_text");
+		state = StateHowTo.Loading;		
 		
-		state = StateHowTo.Loading;
-		readyToChange = false;
+		isFirstExceution = true;	
 		
-		isFirstExceution = true;		
+		inputHandler = new InputHandlerHowTo();
 		
 	}
 			
@@ -40,6 +43,8 @@ public class GameWorldHowTo extends GameWorld{
 		if (state == StateHowTo.Loading) {
 			if (AssetLoader.assetManager.update()) {
 				AssetLoader.assignHowToResources();
+				
+				Gdx.input.setInputProcessor(inputHandler);
 				state = StateHowTo.Active;
 			}
 			
@@ -61,12 +66,7 @@ public class GameWorldHowTo extends GameWorld{
 	public String getHelpText() {
 		return helpText;
 	}
-
-
-	public boolean isReadyToChange() {
-		return readyToChange;
-	}
-
+	
 
 	public void setState(StateHowTo state) {
 		this.state = state;
@@ -74,7 +74,16 @@ public class GameWorldHowTo extends GameWorld{
 
 
 	public void setReadyToChange(boolean readyToChange) {
-		this.readyToChange = readyToChange;
+		inputHandler.setReadyToChange(readyToChange);
+	}
+
+
+	@Override
+	public void dispose() {
+
+		AssetLoader.unloadHowToAssets();
+		Gdx.input.setInputProcessor(null);
+		
 	}
 	
 	

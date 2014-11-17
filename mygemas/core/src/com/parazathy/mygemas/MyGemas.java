@@ -1,8 +1,8 @@
 package com.parazathy.mygemas;
 
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Logger;
 import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.DefaultResolver;
 import com.parazathy.mygemas.helpers.LanguagesManager;
@@ -11,31 +11,34 @@ import com.parazathy.mygemas.screens.GameMenu;
 import com.parazathy.mygemas.screens.MyScreen;
 
 public class MyGemas extends Game {
-	
-	public enum Platform {Desktop, Android, Web, IOS};
-	public enum Screens {Menu, HowTo, Game, Exit};
 		
-	private Logger logger;
-	private LanguagesManager languagesManager;	
-	private PlatformResolver resolver;
-	private Platform platform;
+	public enum Screens {Menu, HowTo, Game, Exit};
+	
+	private static MyGemas instance;
+			
+	private static LanguagesManager languagesManager;	
+	private static PlatformResolver resolver;	
 	
 	private MyScreen currentScreen;
 	
-	
-	public MyGemas(Platform plat){
+	private MyGemas(){
 		super();
-		this.platform = plat;
 	}
 	
+	
+	public static MyGemas getInstance() {
+		if(instance == null) {
+			instance = new MyGemas();
+		}
+		return instance;
+	}	
+		
+
 	@Override
     public void create() {
-		
-		// Logger
-		logger = new Logger("MyGemas");
-		
+				
 		//Activamos el boton back para android
-		if(platform == Platform.Android){
+		if(Gdx.app.getType() == ApplicationType.Android){
 			Gdx.input.setCatchBackKey(true);
 		}
 							
@@ -44,15 +47,14 @@ public class MyGemas extends Game {
 		languagesManager.setLanguage(resolver.getDefaultLanguage());
 		
 		//Iniciamos la carga de recursos
-		AssetLoader.initialize(resolver);
+		AssetLoader.initialize();
 		
 		//Cargamos la fuente de loading que el unico que necesito
 		AssetLoader.loadLoadingFont();
 		
-		currentScreen = new GameMenu(this);
+		currentScreen = new GameMenu();
 		setScreen(currentScreen);
-		
-        logger.info("MyGemas created!!!");    
+		        
     }
 	
 	public void changeScreen(MyScreen newScreen) {		
@@ -67,21 +69,17 @@ public class MyGemas extends Game {
 		
 	}
 	
-	public void exit() {		
+	public static void exit() {		
 				
 		Gdx.app.exit();
 		
 	}
-		
-    public Logger getLogger() {
-		return logger;
-	}
-
-	public LanguagesManager getLanguagesManager() {
+	
+	public static LanguagesManager getLanguagesManager() {
 		return languagesManager;
-	}
-
-	public PlatformResolver getResolver() {
+	}   
+	
+	public static PlatformResolver getResolver() {
 		return resolver;
 	}
 

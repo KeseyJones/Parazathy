@@ -1,7 +1,6 @@
 package com.parazathy.mygemas.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameRendererHowTo;
 import com.parazathy.mygemas.gameworld.GameWorldHowTo;
 import com.parazathy.mygemas.helpers.AssetLoader;
@@ -9,9 +8,9 @@ import com.parazathy.mygemas.helpers.AssetLoader;
 public class GameHowTo extends MyScreen {
 			
 	
-	public GameHowTo(MyGemas game) {
-		super(game);
-		this.setRenderer(new GameRendererHowTo(new GameWorldHowTo(this)));
+	public GameHowTo() {		
+		super();
+		this.setRenderer(new GameRendererHowTo(new GameWorldHowTo(this.getStage())));
 					
 	}
 
@@ -51,8 +50,7 @@ public class GameHowTo extends MyScreen {
 
 	@Override
 	public void dispose() {
-		Gdx.input.setInputProcessor(null);
-		AssetLoader.unloadHowToAssets();
+		this.getRenderer().getWorld().dispose();		
 		
 	}
 

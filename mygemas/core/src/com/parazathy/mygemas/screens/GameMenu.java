@@ -1,17 +1,13 @@
 package com.parazathy.mygemas.screens;
 
-import com.badlogic.gdx.Gdx;
-import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameRendererMenu;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
-import com.parazathy.mygemas.helpers.AssetLoader;
 
 public class GameMenu extends MyScreen {
 				
-	public GameMenu(MyGemas game) {
-		super(game);		
-									
-		this.setRenderer(new GameRendererMenu(new GameWorldMenu(this)));					
+	public GameMenu() {		
+		super();							
+		this.setRenderer(new GameRendererMenu(new GameWorldMenu(this.getStage())));					
 	}
 
 	@Override
@@ -50,8 +46,7 @@ public class GameMenu extends MyScreen {
 
 	@Override
 	public void dispose() {
-		Gdx.input.setInputProcessor(null);
-		AssetLoader.unloadMenuAssets();
+		this.getRenderer().getWorld().dispose();
 		
 	}
 

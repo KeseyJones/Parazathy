@@ -12,6 +12,6 @@ public class DesktopLauncher {
 		config.width = 1280;
 		config.height = 720;
 		
-		new LwjglApplication(new MyGemas(MyGemas.Platform.Desktop), config);
+		new LwjglApplication(MyGemas.getInstance(), config);
 	}
 }

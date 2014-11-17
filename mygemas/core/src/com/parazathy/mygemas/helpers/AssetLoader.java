@@ -5,6 +5,7 @@ import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.parazathy.mygemas.MyGemas;
 
 public class AssetLoader {
 		
@@ -24,15 +25,10 @@ public class AssetLoader {
 	public static BitmapFont fontTitle;
 	public static BitmapFont fontText;
 	public static TextureRegion imgBackgroundHowTo;
-	public static Sound selectSFXHowTo;	
+	public static Sound selectSFXHowTo;		
 	
-	
-	private static PlatformResolver resolver;
-	
-	public static void initialize (PlatformResolver resolver) {
-		
-		AssetLoader.resolver = resolver;
-		
+	public static void initialize () {
+				
 		// Create assets manager
 		AssetLoader.assetManager = new AssetManager();
 		AssetLoader.assetManager.load("data/handCursor.png", Texture.class);
@@ -43,7 +39,7 @@ public class AssetLoader {
 	}
 	
 	public static void loadLoadingFont(){
-		AssetLoader.fontLoadingMenu = AssetLoader.resolver.loadFont("data/loadingFont.fnt", "data/normal.ttf", 70);
+		AssetLoader.fontLoadingMenu = MyGemas.getResolver().loadFont("data/loadingFont.fnt", "data/normal.ttf", 70);
 	}
 			
 	
@@ -72,8 +68,8 @@ public class AssetLoader {
 	
 	public static void assignHowToResources(){
 		// Load fonts
-		fontTitle = AssetLoader.resolver.loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
-		fontText =  AssetLoader.resolver.loadFont("data/helpFont.fnt", "data/normal.ttf", 37);
+		fontTitle = MyGemas.getResolver().loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
+		fontText =  MyGemas.getResolver().loadFont("data/helpFont.fnt", "data/normal.ttf", 37);
 		
 		// Retrieve resources		
 		imgBackgroundHowTo = new TextureRegion(AssetLoader.assetManager.get("data/howtoScreen.png", Texture.class));
@@ -110,7 +106,7 @@ public class AssetLoader {
 		AssetLoader.assetManager.load("data/gemBlue.png", Texture.class);	
 		
 		// Load fonts
-		AssetLoader.fontMenu =AssetLoader.resolver.loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
+		AssetLoader.fontMenu =MyGemas.getResolver().loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
 				
 		// Sound
 		AssetLoader.assetManager.load("data/select.ogg", Sound.class);

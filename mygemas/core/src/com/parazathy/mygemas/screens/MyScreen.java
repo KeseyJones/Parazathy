@@ -1,59 +1,36 @@
 package com.parazathy.mygemas.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.parazathy.mygemas.MyGemas;
+import com.badlogic.gdx.utils.Scaling;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.parazathy.mygemas.gameworld.GameRenderer;
 
 public abstract class MyScreen implements Screen{
 	
-	private static final float ASPECT_RATIO = 1.7777f;
+	private static final int VIRTUAL_WIDTH = 1280;
+	private static final int VIRTUAL_HEIGHT = 720;
+				
+	private float runTime;		
+	private GameRenderer renderer;	
+	private static Stage stage;	
 	
-	private int height;
-	private int width;		
-	private float runTime;	
-	private MyGemas game;
-	private GameRenderer renderer;			
-	
-	public MyScreen(MyGemas game){		
-		this.height = Gdx.graphics.getHeight();
-		this.width = Gdx.graphics.getWidth();	
-		this.game = game;	
+	protected MyScreen(){					
+		OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		camera.setToOrtho(true, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		Viewport viewport = new ScalingViewport(Scaling.stretch, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
+		stage = new Stage(viewport);		
 	}
 
 	@Override
-	public void resize(int width, int height) {		
-		
-		// calculate new viewport
-        float aspectRatio = (float)width/(float)height;
-        float scale = 1f;
-        Vector2 crop = new Vector2(0f, 0f);
-        
-        if(aspectRatio > ASPECT_RATIO)
-        {
-            scale = (float)height / (float)this.height;
-            crop.x = (width - this.width * scale) / 2.0f;
-        }
-        else if(aspectRatio < ASPECT_RATIO)
-        {
-            scale = (float)width / (float)this.width;
-            crop.y = (height - this.height * scale) / 2.0f;
-        }
-        else
-        {
-            scale = (float)width/(float)this.width;
-        }
-
-        float w = (float)this.width * scale;
-        float h = (float)this.height * scale;
-        Stage stage = this.renderer.getStage();
+	public void resize(int width, int height) {	
+						
+        //ACtualizamos el stage
         stage.getViewport().update(width, height, true);   
-        Gdx.gl.glViewport(stage.getViewport().getScreenX(), stage.getViewport().getScreenY(),
-        		stage.getViewport().getScreenWidth(), stage.getViewport().getScreenHeight());        
-        this.width = width;
-        this.height = height;
+           		
+          
 	}
 	
 	public float getRunTime() {
@@ -62,19 +39,7 @@ public abstract class MyScreen implements Screen{
 
 	public void setRunTime(float runTime) {
 		this.runTime = runTime;
-	}
-
-	public MyGemas getGame() {
-		return game;
-	}
-
-	public int getHeight() {
-		return height;
-	}
-
-	public int getWidth() {
-		return width;
-	}
+	}	
 
 	public void setRenderer(GameRenderer renderer) {
 		this.renderer = renderer;
@@ -83,5 +48,9 @@ public abstract class MyScreen implements Screen{
 	public GameRenderer getRenderer() {
 		return renderer;
 	}
-				
+
+	public Stage getStage() {
+		return stage;
+	}
+			
 }

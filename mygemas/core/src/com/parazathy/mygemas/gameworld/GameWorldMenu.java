@@ -2,17 +2,19 @@ package com.parazathy.mygemas.gameworld;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton.TextButtonStyle;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Array;
+import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameobjects.Gems;
 import com.parazathy.mygemas.helpers.AssetLoader;
+import com.parazathy.mygemas.helpers.InputHandlerMenu;
 import com.parazathy.mygemas.screens.GameHowTo;
-import com.parazathy.mygemas.screens.MyScreen;
 
 
 public class GameWorldMenu extends GameWorld{
@@ -41,27 +43,31 @@ public class GameWorldMenu extends GameWorld{
 	
 	private Array<TextButton> menu;
 	
-	public GameWorldMenu(MyScreen screen){
-		super(screen);
+	private InputHandlerMenu inputHandler;
+	
+	public GameWorldMenu(Stage stage){		
+		super(stage);
 		state = StateMenu.Loading;
 				
 		// Animation times
 		animTime = 0.0;
 		animTotalTime = 1.0;
 		animLogoTime = 1.0;
-		
-		gems = new Gems(screen.getWidth());
+				
+		gems = new Gems(Math.round(stage.getWidth()));
 		
 		readyToChange = false;
 		
-		isFirstExceution = true;		
+		isFirstExceution = true;	
+		
+		inputHandler = new InputHandlerMenu();
 				
 	}
 	
 	private void createMenu(){
 		this.menu = new Array<TextButton>();
 		this.selectedOption = 0;		
-		TextButton buttonPlay = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("Timetrial mode"), getBlackStyleButtonMenu());			
+		TextButton buttonPlay = new TextButton(MyGemas.getLanguagesManager().getString("Timetrial mode"), getBlackStyleButtonMenu());			
 		buttonPlay.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) { 
@@ -71,13 +77,13 @@ public class GameWorldMenu extends GameWorld{
             }
         });
 		menu.add(buttonPlay);		
-		TextButton buttonHowTo = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("How to play"), getBlackStyleButtonMenu());			
+		TextButton buttonHowTo = new TextButton(MyGemas.getLanguagesManager().getString("How to play"), getBlackStyleButtonMenu());			
 		buttonHowTo.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {     
             	AssetLoader.selectSFXMenu.play();
-            	if(isReadyToChange() && selectedOption == 1){
-            		getScreen().getGame().changeScreen(new GameHowTo(getScreen().getGame()));
+            	if(isReadyToChange() && selectedOption == 1){            		
+            		MyGemas.getInstance().changeScreen(new GameHowTo());
             	}
             	setReadyToChange(true);
             	selectedOption = 1;
@@ -85,19 +91,18 @@ public class GameWorldMenu extends GameWorld{
         });
 		menu.add(buttonHowTo);
 		if (Gdx.app.getType() != ApplicationType.WebGL) {
-			TextButton buttonExit = new TextButton(this.getScreen().getGame().getLanguagesManager().getString("Exit"), getBlackStyleButtonMenu());			
+			TextButton buttonExit = new TextButton(MyGemas.getLanguagesManager().getString("Exit"), getBlackStyleButtonMenu());			
 			buttonExit.addListener(new ClickListener(){
 	            @Override
 	            public void clicked(InputEvent event, float x, float y) {  
 	            	AssetLoader.selectSFXMenu.play();
 	            	if(isReadyToChange() && selectedOption == 2){
-	            		getScreen().getGame().exit();
+	            		MyGemas.exit();
 	            	}
 	            	setReadyToChange(true);
 	            	selectedOption = 2;
 	            }
-	        });
-			buttonExit.setTouchable(Touchable.enabled);
+	        });			
 			menu.add(buttonExit);
 					
 		}
@@ -121,10 +126,21 @@ public class GameWorldMenu extends GameWorld{
 	
 	private void initialize(){
 		
+		//Ya tenemos las fuentes. Iniciamos menu
 		createMenu();
 		
 		//Iniciamos gemas
 		gems.initialize();
+		
+		//Asignamos los actores
+		this.getStage().addActor(gems);
+		
+		
+		//Empezamos a escuchar los eventos
+		InputMultiplexer inputMultiplexer = new InputMultiplexer();
+		inputMultiplexer.addProcessor(this.getStage());
+		inputMultiplexer.addProcessor(inputHandler);
+		Gdx.input.setInputProcessor(inputMultiplexer);
 				
 	}
 		
@@ -197,6 +213,13 @@ public class GameWorldMenu extends GameWorld{
 
 	public Array<TextButton> getMenu() {
 		return menu;
+	}
+
+	@Override
+	public void dispose() {
+		Gdx.input.setInputProcessor(null);
+		AssetLoader.unloadMenuAssets();
+		
 	}
 	
 	
