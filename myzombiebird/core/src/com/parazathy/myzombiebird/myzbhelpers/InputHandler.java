@@ -14,11 +14,12 @@ public class InputHandler implements InputProcessor {
     private Bird myBird;
     
     private List<SimpleButton> menuButtons;
-
-    private SimpleButton playButton;
+    
+    private SimpleButton playButton;   
 
     private float scaleFactorX;
     private float scaleFactorY;
+    
 
     // Ask for a reference to the Bird when InputHandler is created.
     public InputHandler(GameWorld myWorld, float scaleFactorX,
@@ -27,8 +28,7 @@ public class InputHandler implements InputProcessor {
         this.myWorld = myWorld;
         myBird = myWorld.getBird();
         
-        int midPointY = myWorld.getMidPointY();
-
+        int midPointY = myWorld.getMidPointY();   
         this.scaleFactorX = scaleFactorX;
         this.scaleFactorY = scaleFactorY;
 
@@ -41,10 +41,11 @@ public class InputHandler implements InputProcessor {
     }
 
     @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {    	
+    	
     	screenX = scaleX(screenX);
-        screenY = scaleY(screenY);        
-        
+        screenY = scaleY(screenY); 
+    	
         if (myWorld.isMenu()) {
             playButton.isTouchDown(screenX, screenY);
         } else if (myWorld.isReady()) {
@@ -95,18 +96,17 @@ public class InputHandler implements InputProcessor {
     }
 
     @Override
-    public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-    	 screenX = scaleX(screenX);
-         screenY = scaleY(screenY);
-
-         if (myWorld.isMenu()) {
-             if (playButton.isTouchUp(screenX, screenY)) {
-                 myWorld.ready();
-                 return true;
-             }
-         }
-
-         return false;
+    public boolean touchUp(int screenX, int screenY, int pointer, int button) {   
+    	screenX = scaleX(screenX);
+        screenY = scaleY(screenY);
+        if (myWorld.isMenu()) {
+	         if (playButton.isTouchUp(screenX, screenY)) {
+	             myWorld.ready();
+	             return true;
+	         }
+	    }
+	
+        return false;
     }
 
     @Override
@@ -135,5 +135,15 @@ public class InputHandler implements InputProcessor {
     public List<SimpleButton> getMenuButtons() {
         return menuButtons;
     }
+
+	public void setScaleFactorX(float scaleFactorX) {
+		this.scaleFactorX = scaleFactorX;
+	}
+
+	public void setScaleFactorY(float scaleFactorY) {
+		this.scaleFactorY = scaleFactorY;
+	}
+    
+    
 
 }

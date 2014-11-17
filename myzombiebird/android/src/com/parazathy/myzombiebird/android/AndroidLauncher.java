@@ -57,7 +57,8 @@ public class AndroidLauncher extends AndroidApplication implements AdsRequestHan
 	    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 				
 		AndroidApplicationConfiguration config = new AndroidApplicationConfiguration();		
-		View gameView  = initializeForView(new MyZombieBird(this), config);
+		MyZombieBird.setHandler(this);
+		View gameView  = initializeForView(MyZombieBird.getInstance(), config);
 		
 		adView = new AdView(this); 
 		adView.setAdSize(AdSize.SMART_BANNER);

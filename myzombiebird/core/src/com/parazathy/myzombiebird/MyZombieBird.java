@@ -7,17 +7,24 @@ import com.parazathy.myzombiebird.screens.SplashScreen;
 
 public class MyZombieBird extends Game {
 	
-	private AdsRequestHandler handler;
+	private static AdsRequestHandler handler;
+	private static MyZombieBird instance;
 	
-	public MyZombieBird(AdsRequestHandler handler){
-		super();
-		this.handler = handler;
+	public static MyZombieBird getInstance() {
+		if(instance == null) {
+			instance = new MyZombieBird();
+		}
+		return instance;
+	}	
+	
+	private MyZombieBird(){
+		super();		
 	}
 
     @Override
     public void create() {        
         AssetLoader.load();
-        setScreen(new SplashScreen(this));
+        setScreen(new SplashScreen());
     }
 
     @Override
@@ -26,8 +33,12 @@ public class MyZombieBird extends Game {
         AssetLoader.dispose();
     }
 
-	public AdsRequestHandler getHandler() {
+	public static AdsRequestHandler getHandler() {
 		return handler;
+	}
+
+	public static void setHandler(AdsRequestHandler handler) {
+		MyZombieBird.handler = handler;
 	}
     
 }

@@ -1,6 +1,6 @@
 package com.parazathy.myzombiebird.ui;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.parazathy.myzombiebird.myzbhelpers.AssetLoader;
@@ -33,7 +33,7 @@ public class SimpleButton {
         return bounds.contains(screenX, screenY);
     }
 
-    public void draw(SpriteBatch batcher) {
+    public void draw(Batch batcher) {
         if (isPressed) {
             batcher.draw(buttonDown, x, y, width, height);
         } else {

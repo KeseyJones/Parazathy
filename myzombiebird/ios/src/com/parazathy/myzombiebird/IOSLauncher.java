@@ -14,7 +14,8 @@ public class IOSLauncher extends IOSApplication.Delegate implements AdsRequestHa
         IOSApplicationConfiguration config = new IOSApplicationConfiguration();
         config.orientationLandscape = true;
 		config.orientationPortrait = false;
-        return new IOSApplication(new MyZombieBird(this), config);
+		MyZombieBird.setHandler(this);        
+        return new IOSApplication(MyZombieBird.getInstance(), config);
     }
 
     public static void main(String[] argv) {

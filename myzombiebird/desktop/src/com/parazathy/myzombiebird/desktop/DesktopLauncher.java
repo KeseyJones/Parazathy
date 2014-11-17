@@ -17,7 +17,9 @@ public class DesktopLauncher implements AdsRequestHandler{
 		config.useGL30 = false;
 		config.width = 272;
 		config.height = 408;
-		new LwjglApplication(new MyZombieBird(application), config);
+		
+		MyZombieBird.setHandler(application);
+		new LwjglApplication(MyZombieBird.getInstance(), config);
 	}
 
 	@Override

@@ -10,12 +10,13 @@ public class HtmlLauncher extends GwtApplication implements AdsRequestHandler{
 
         @Override
         public GwtApplicationConfiguration getConfig () {
-                return new GwtApplicationConfiguration(480, 320);
+        	return new GwtApplicationConfiguration(480, 320);
         }
 
         @Override
         public ApplicationListener getApplicationListener () {
-                return new MyZombieBird(this);
+        	MyZombieBird.setHandler(this);
+            return MyZombieBird.getInstance();
         }
 
 		@Override

@@ -1,50 +1,51 @@
 package com.parazathy.myzombiebird.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.parazathy.myzombiebird.MyZombieBird;
 import com.parazathy.myzombiebird.gameworld.GameRenderer;
 import com.parazathy.myzombiebird.gameworld.GameWorld;
 import com.parazathy.myzombiebird.myzbhelpers.InputHandler;
 
-public class GameScreen implements Screen {
+public class GameScreen extends MyScreen {
 
 	private GameWorld world;
-	private GameRenderer renderer;
-	private float runTime;
-	private MyZombieBird game;
+	private GameRenderer renderer;	
+	private InputHandler inputHandler;
 
 	// This is the constructor, not the class declaration
-	public GameScreen(MyZombieBird game) {
+	public GameScreen() {
+		super();		
+		
+		int midPointY = (int) (this.getStage().getHeight() / 2);
 
-		float screenWidth = Gdx.graphics.getWidth();
-		float screenHeight = Gdx.graphics.getHeight();
-		float gameWidth = 136;
-		float gameHeight = screenHeight / (screenWidth / gameWidth);
-
-		int midPointY = (int) (gameHeight / 2);
-
-		//Ponemos la publicidad
-		this.game = game;
-		game.getHandler().showAds(true);
+		//Ponemos la publicidad		
+		MyZombieBird.getHandler().showAds(true);
 		
 		world = new GameWorld(midPointY);
-		Gdx.input.setInputProcessor(new InputHandler(world, screenWidth / gameWidth, screenHeight / gameHeight));
-		renderer = new GameRenderer(world, (int) gameHeight, midPointY);		
+		inputHandler = new InputHandler(world, this.getStage().getViewport().getScreenWidth() / this.getStage().getWidth(), this.getStage().getViewport().getScreenHeight() / this.getStage().getHeight());
+		Gdx.input.setInputProcessor(inputHandler);
+		renderer = new GameRenderer(world, this.getStage());		
 		world.setRenderer(renderer);
 
+	}
+	
+	@Override
+	public void resize(int width, int height) {	
+						
+        //ACtualizamos el stage
+        this.getStage().getViewport().update(width, height, true);   
+        inputHandler.setScaleFactorX(this.getStage().getViewport().getScreenWidth() / this.getStage().getWidth());
+        inputHandler.setScaleFactorY(this.getStage().getViewport().getScreenHeight() / this.getStage().getHeight());
+           		
+          
 	}
 
 	@Override
 	public void render(float delta) {
-		runTime += delta;
+		this.setRunTime(this.getRunTime()+delta);
 		world.update(delta);
-		renderer.render(delta, runTime);
-	}
-
-	@Override
-	public void resize(int width, int height) {		
-	}
+		renderer.render(delta, this.getRunTime());
+	}	
 
 	@Override
 	public void show() {		
