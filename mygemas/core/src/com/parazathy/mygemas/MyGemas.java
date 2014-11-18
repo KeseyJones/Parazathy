@@ -47,10 +47,7 @@ public class MyGemas extends Game {
 		languagesManager.setLanguage(resolver.getDefaultLanguage());
 		
 		//Iniciamos la carga de recursos
-		AssetLoader.initialize();
-		
-		//Cargamos la fuente de loading que el unico que necesito
-		AssetLoader.loadLoadingFont();
+		AssetLoader.initialize();		
 		
 		currentScreen = new GameMenu();
 		setScreen(currentScreen);
@@ -85,8 +82,7 @@ public class MyGemas extends Game {
 
 	@Override
     public void dispose() {
-    	
-        super.dispose();  
+        super.dispose();          
         currentScreen.dispose();
         AssetLoader.dispose();
     }

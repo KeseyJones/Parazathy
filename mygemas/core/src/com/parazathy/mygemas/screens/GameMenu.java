@@ -2,6 +2,7 @@ package com.parazathy.mygemas.screens;
 
 import com.parazathy.mygemas.gameworld.GameRendererMenu;
 import com.parazathy.mygemas.gameworld.GameWorldMenu;
+import com.parazathy.mygemas.ui.MenuButton;
 
 public class GameMenu extends MyScreen {
 				
@@ -40,7 +41,7 @@ public class GameMenu extends MyScreen {
 	public void resume() {
 		GameWorldMenu world = (GameWorldMenu)this.getRenderer().getWorld();
 		world.setState(GameWorldMenu.StateMenu.Loading);
-		world.setReadyToChange(false);		
+		MenuButton.setReadyToChange(false);		
 		
 	}
 

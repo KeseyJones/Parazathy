@@ -1,8 +1,9 @@
-package com.parazathy.mygemas.helpers;
+package com.parazathy.mygemas.inputhandler;
 
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 import com.parazathy.mygemas.MyGemas;
+import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.screens.GameMenu;
 
 public class InputHandlerHowTo implements InputProcessor{

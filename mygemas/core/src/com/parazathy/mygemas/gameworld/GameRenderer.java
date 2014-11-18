@@ -1,31 +1,15 @@
 package com.parazathy.mygemas.gameworld;
 
-import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
-import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.parazathy.mygemas.helpers.AssetLoader;
+import com.parazathy.mygemas.ui.Cursor;
 
 
 public abstract class GameRenderer {
-			
-	public class Cursor extends Actor {
-        
-        @Override
-        public void draw(Batch batch, float alpha){
-        	if (Gdx.app.getType() != ApplicationType.Android) {
-            	Vector3 mousePos = new Vector3();
-    			mousePos.x = Gdx.input.getX();
-    			mousePos.y = Gdx.input.getY();
-    			stage.getCamera().unproject(mousePos);
-    			batch.draw(AssetLoader.imgMouse, mousePos.x, mousePos.y);
-    		}
-        }
-    }
+				
 	
 	private GameWorld world;
 	private Stage stage;
@@ -34,7 +18,7 @@ public abstract class GameRenderer {
 	public GameRenderer(GameWorld world){	
 		this.world = world;		
 		this.stage = world.getStage();
-		this.cursor = new Cursor();
+		this.cursor = new Cursor(this.stage.getCamera());
 						
 		//Gdx.input.setCursorCatched(true);
 		

@@ -4,7 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.parazathy.mygemas.helpers.InputHandlerHowTo;
+import com.parazathy.mygemas.inputhandler.InputHandlerHowTo;
 
 
 public class GameWorldHowTo extends GameWorld{
@@ -81,7 +81,7 @@ public class GameWorldHowTo extends GameWorld{
 	@Override
 	public void dispose() {
 
-		AssetLoader.unloadHowToAssets();
+		AssetLoader.disposeHowToAssets();
 		Gdx.input.setInputProcessor(null);
 		
 	}

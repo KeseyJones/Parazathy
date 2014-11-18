@@ -33,7 +33,7 @@ public class GameScreen extends MyScreen {
 	public void resize(int width, int height) {	
 						
         //ACtualizamos el stage
-        this.getStage().getViewport().update(width, height, true);   
+        super.resize(width, height);  
         inputHandler.setScaleFactorX(this.getStage().getViewport().getScreenWidth() / this.getStage().getWidth());
         inputHandler.setScaleFactorY(this.getStage().getViewport().getScreenHeight() / this.getStage().getHeight());
            		

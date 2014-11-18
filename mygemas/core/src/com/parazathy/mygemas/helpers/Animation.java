@@ -1,4 +1,4 @@
-package com.parazathy.mygemas.gameobjects;
+package com.parazathy.mygemas.helpers;
 
 public class Animation {
 	/// Kinds of animation

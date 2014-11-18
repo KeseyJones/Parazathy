@@ -1,7 +1,8 @@
-package com.parazathy.mygemas.gameobjects;
+package com.parazathy.mygemas.ui;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.parazathy.mygemas.helpers.Animation;
 import com.parazathy.mygemas.helpers.AssetLoader;
 
 public class Gems extends Actor{

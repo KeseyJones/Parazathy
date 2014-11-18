@@ -1,9 +1,7 @@
 package com.parazathy.mygemas.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.parazathy.mygemas.gameworld.GameRendererHowTo;
 import com.parazathy.mygemas.gameworld.GameWorldHowTo;
-import com.parazathy.mygemas.helpers.AssetLoader;
 
 public class GameHowTo extends MyScreen {
 			

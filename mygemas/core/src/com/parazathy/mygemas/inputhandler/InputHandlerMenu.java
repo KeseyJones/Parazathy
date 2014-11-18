@@ -1,4 +1,4 @@
-package com.parazathy.mygemas.helpers;
+package com.parazathy.mygemas.inputhandler;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;

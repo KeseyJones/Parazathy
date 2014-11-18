@@ -9,16 +9,17 @@ import com.parazathy.mygemas.MyGemas;
 
 public class AssetLoader {
 		
+	//GENERAL
 	public static AssetManager assetManager;
-	
-	//MENU SCREEN
 	public static TextureRegion imgMouse;
+	public static BitmapFont fontLoadingMenu;
+	
+	//MENU SCREEN	
 	public static TextureRegion imgBackgroundMenu;
 	public static TextureRegion imgLogoMenu;
 	public static TextureRegion imgHighlightMenu;
 	public static Sound selectSFXMenu;	
-	public static BitmapFont fontMenu;
-	public static BitmapFont fontLoadingMenu;
+	public static BitmapFont fontMenu;	
 	public static TextureRegion[] imgGemsAnimation;	
 	
 	//HOWTO SCREEN
@@ -35,12 +36,9 @@ public class AssetLoader {
 		AssetLoader.assetManager.finishLoading();
 		AssetLoader.imgMouse = new TextureRegion(AssetLoader.assetManager.get("data/handCursor.png", Texture.class));
 		AssetLoader.imgMouse.flip(false, true);
-		
-	}
-	
-	public static void loadLoadingFont(){
 		AssetLoader.fontLoadingMenu = MyGemas.getResolver().loadFont("data/loadingFont.fnt", "data/normal.ttf", 70);
-	}
+		
+	}		
 			
 	
 	public static void assignGemsAnimationResources(){
@@ -64,13 +62,16 @@ public class AssetLoader {
 		// Load textures
 		AssetLoader.assetManager.load("data/howtoScreen.png", Texture.class);			
 		assetManager.load("data/select.ogg", Sound.class);
+		
+		
 	}
 	
 	public static void assignHowToResources(){
+		
 		// Load fonts
 		fontTitle = MyGemas.getResolver().loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
 		fontText =  MyGemas.getResolver().loadFont("data/helpFont.fnt", "data/normal.ttf", 37);
-		
+				
 		// Retrieve resources		
 		imgBackgroundHowTo = new TextureRegion(AssetLoader.assetManager.get("data/howtoScreen.png", Texture.class));
 		selectSFXHowTo = AssetLoader.assetManager.get("data/select.ogg", Sound.class);
@@ -79,12 +80,21 @@ public class AssetLoader {
 		
 	}
 	
-	public static void unloadHowToAssets() {
-		// Set references to null
+	public static void disposeHowToAssets() {
+		
 		AssetLoader.imgBackgroundHowTo = null;
-		AssetLoader.fontTitle = null;
-		AssetLoader.fontText = null;
-		AssetLoader.selectSFXHowTo = null;
+		if(AssetLoader.fontTitle != null){
+			AssetLoader.fontTitle.dispose();
+			AssetLoader.fontTitle = null;
+		}
+		if(AssetLoader.fontText != null){
+			AssetLoader.fontText.dispose();
+			AssetLoader.fontText = null;
+		}
+		if(AssetLoader.selectSFXHowTo != null){
+			AssetLoader.selectSFXHowTo.dispose();
+			AssetLoader.selectSFXHowTo = null;
+		}
 		
 		// Unload resources
 		AssetLoader.assetManager.unload("data/howtoScreen.png");
@@ -103,10 +113,7 @@ public class AssetLoader {
 		AssetLoader.assetManager.load("data/gemOrange.png", Texture.class);
 		AssetLoader.assetManager.load("data/gemGreen.png", Texture.class);
 		AssetLoader.assetManager.load("data/gemYellow.png", Texture.class);
-		AssetLoader.assetManager.load("data/gemBlue.png", Texture.class);	
-		
-		// Load fonts
-		AssetLoader.fontMenu =MyGemas.getResolver().loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
+		AssetLoader.assetManager.load("data/gemBlue.png", Texture.class);			
 				
 		// Sound
 		AssetLoader.assetManager.load("data/select.ogg", Sound.class);
@@ -116,6 +123,9 @@ public class AssetLoader {
 	}
 	
 	public static void AssignMenuResources(){
+		
+		
+		AssetLoader.fontMenu =MyGemas.getResolver().loadFont("data/menuFont.fnt", "data/menu.ttf", 60);
 		
 		AssetLoader.imgBackgroundMenu = new TextureRegion(AssetLoader.assetManager.get("data/mainMenuBackground.png", Texture.class));
 		AssetLoader.imgLogoMenu = new TextureRegion(AssetLoader.assetManager.get("data/mainMenuLogo.png", Texture.class));
@@ -131,13 +141,21 @@ public class AssetLoader {
 	
 	
 	
-	public static void unloadMenuAssets() {		
-		
-		// Set references to null
+	public static void disposeMenuAssets() {		
+				
 		AssetLoader.imgBackgroundMenu = null;
 		AssetLoader.imgLogoMenu = null;
-		AssetLoader.imgHighlightMenu = null;		
-		AssetLoader.selectSFXMenu = null;
+		AssetLoader.imgHighlightMenu = null;
+		AssetLoader.imgGemsAnimation = null;
+		if(AssetLoader.selectSFXMenu != null){
+			AssetLoader.selectSFXMenu.dispose();
+			AssetLoader.selectSFXMenu = null;
+		}
+		
+		if(AssetLoader.fontMenu != null){
+			AssetLoader.fontMenu.dispose();
+			AssetLoader.fontMenu = null;
+		}		
 		
 		// Unload resources		
 		AssetLoader.assetManager.unload("data/mainMenuBackground.png");
@@ -152,9 +170,17 @@ public class AssetLoader {
 		AssetLoader.assetManager.unload("data/gemBlue.png");
 		AssetLoader.assetManager.unload("data/select.ogg");
 		
-	}
+	}	
 	
 	public static void dispose(){
+		AssetLoader.imgMouse = null;
+		if(AssetLoader.fontLoadingMenu != null){
+			AssetLoader.fontLoadingMenu.dispose();
+			AssetLoader.fontLoadingMenu = null;
+		}
+		
+		AssetLoader.assetManager.unload("data/handCursor.png");
+		
 		if(AssetLoader.assetManager != null){
 			AssetLoader.assetManager.dispose();
 		}
