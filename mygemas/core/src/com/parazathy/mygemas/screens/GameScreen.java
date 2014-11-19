@@ -1,5 +1,52 @@
 package com.parazathy.mygemas.screens;
 
-public class GameScreen {
+import com.parazathy.mygemas.gameworld.GameRendererGame;
+import com.parazathy.mygemas.gameworld.GameWorldGame;
+
+public class GameScreen extends MyScreen{
+
+	public GameScreen() {		
+		super();							
+		this.setRenderer(new GameRendererGame(new GameWorldGame(this.getStage())));					
+	}
+	
+	
+	@Override
+	public void render(float delta) {
+		this.setRunTime(this.getRunTime()+delta);		
+		this.getRenderer().getWorld().update(delta);
+		this.getRenderer().render(this.getRunTime());
+		
+	}
+
+	@Override
+	public void show() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void hide() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void pause() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resume() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void dispose() {
+		this.getRenderer().getWorld().dispose();
+		
+	}
 
 }

@@ -10,6 +10,8 @@ import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.inputhandler.InputHandlerMenu;
 import com.parazathy.mygemas.screens.GameHowTo;
+import com.parazathy.mygemas.screens.GameScreen;
+import com.parazathy.mygemas.ui.BackGroundMenu;
 import com.parazathy.mygemas.ui.Gems;
 import com.parazathy.mygemas.ui.MenuButton;
 
@@ -54,64 +56,74 @@ public class GameWorldMenu extends GameWorld{
 	}
 	
 	private void createMenu(){		
-		MenuButton buttonPlay = new MenuButton(MyGemas.getLanguagesManager().getString("Timetrial mode"), this.getStage().getWidth() ,0);			
+		MenuButton buttonPlay = new MenuButton(MyGemas.getLanguagesManager().getString("Timetrial mode"), this.getStage().getWidth() ,MenuButton.OPTION.GAME);			
 		buttonPlay.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) { 
             	
             	AssetLoader.selectSFXMenu.play();
-            	MenuButton.setSelectedOption(0);
+            	if(MenuButton.isReadyToChange() && MenuButton.getSelectedOption() == MenuButton.OPTION.GAME){            		
+            		MyGemas.getInstance().changeScreen(new GameScreen());
+            	}
+            	MenuButton.setReadyToChange(true);
+            	MenuButton.setSelectedOption(MenuButton.OPTION.GAME);
             }
         });
 		this.getStage().addActor(buttonPlay);		
-		MenuButton buttonHowTo = new MenuButton(MyGemas.getLanguagesManager().getString("How to play"),this.getStage().getWidth(),  1);			
+		MenuButton buttonHowTo = new MenuButton(MyGemas.getLanguagesManager().getString("How to play"),this.getStage().getWidth(),  MenuButton.OPTION.HOWTO);			
 		buttonHowTo.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {     
             	AssetLoader.selectSFXMenu.play();
-            	if(MenuButton.isReadyToChange() && MenuButton.getSelectedOption() == 1){            		
+            	if(MenuButton.isReadyToChange() && MenuButton.getSelectedOption() == MenuButton.OPTION.HOWTO){            		
             		MyGemas.getInstance().changeScreen(new GameHowTo());
             	}
             	MenuButton.setReadyToChange(true);
-            	MenuButton.setSelectedOption(1);
+            	MenuButton.setSelectedOption(MenuButton.OPTION.HOWTO);
             }
         });
 		this.getStage().addActor(buttonHowTo);
-		if (Gdx.app.getType() != ApplicationType.WebGL) {
-			MenuButton buttonExit = new MenuButton(MyGemas.getLanguagesManager().getString("Exit"),this.getStage().getWidth(), 2);			
+		if (Gdx.app.getType() != ApplicationType.WebGL) {					
+			MenuButton buttonExit = new MenuButton(MyGemas.getLanguagesManager().getString("Exit"),this.getStage().getWidth(), MenuButton.OPTION.EXIT);			
 			buttonExit.addListener(new ClickListener(){
 	            @Override
 	            public void clicked(InputEvent event, float x, float y) {  
 	            	AssetLoader.selectSFXMenu.play();
-	            	if(MenuButton.isReadyToChange() && MenuButton.getSelectedOption() == 2){
+	            	if(MenuButton.isReadyToChange() && MenuButton.getSelectedOption() == MenuButton.OPTION.EXIT){
 	            		MyGemas.exit();
 	            	}
 	            	MenuButton.setReadyToChange(true);
-	            	MenuButton.setSelectedOption(2);
+	            	MenuButton.setSelectedOption(MenuButton.OPTION.EXIT);
 	            }
-	        });			
-			this.getStage().addActor(buttonExit);
+	        });				
+			this.getStage().addActor(buttonExit);			
 					
 		}
 	}
 		
 	private void initialize(){
 		
-		//Ya tenemos las fuentes. Iniciamos menu
+		//Añadimos el background
+		this.getStage().addActor (new BackGroundMenu (this));
+					
+		//Añadimos el menu
 		createMenu();
 		
-		//Iniciamos gemas
-		gems.initialize();
-		
-		//Asignamos los actores
+		//Iniciamos gemas y añadimos las gemas
+		gems.initialize();		
 		this.getStage().addActor(gems);
 		
+		//Añadimos el cursor
+		this.getStage().addActor(this.getCursor());
 		
 		//Empezamos a escuchar los eventos
 		InputMultiplexer inputMultiplexer = new InputMultiplexer();
 		inputMultiplexer.addProcessor(this.getStage());
 		inputMultiplexer.addProcessor(inputHandler);
 		Gdx.input.setInputProcessor(inputMultiplexer);
+				
+		
+		
 				
 	}
 		

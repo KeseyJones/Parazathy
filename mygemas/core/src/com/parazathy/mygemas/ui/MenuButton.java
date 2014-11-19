@@ -8,22 +8,41 @@ import com.parazathy.mygemas.helpers.AssetLoader;
 
 public class MenuButton extends Actor {
 	
+	public static enum OPTION {
+		UNKNOWN(-1), 
+		GAME(0), 
+		HOWTO(1), 
+		EXIT(2);
+		
+		private int position;
+		
+		OPTION(int position){
+			this.position = position;
+		}
+	
+		public int getPosition(){
+			return this.position;
+		}
+	
+	};	
+	
+	
 	private static final int MENU_START_HEIGHT = 390;
 	private static final int MENU_GAP_HEIGHT = 100;
 	
 	private String text;
-	private int position;	
+	private OPTION option;	
 	private TextBounds bounds;
 	private float widthWorld;
-	private static int selectedOption = -1;
+	private static OPTION selectedOption = OPTION.UNKNOWN;
 	private static boolean readyToChange = false;
 	
-	public MenuButton(String text, float widthWorld, int position){
+	public MenuButton(String text, float widthWorld, OPTION option){
 		this.text = text;
-		this.position = position;
+		this.option = option;
 		this.widthWorld = widthWorld;
 		this.bounds = AssetLoader.fontMenu.getBounds(text);
-		this.setBounds((widthWorld - this.bounds.width)/2, MENU_START_HEIGHT + position * MENU_GAP_HEIGHT, this.bounds.width, this.bounds.height+4);
+		this.setBounds((widthWorld - this.bounds.width)/2, MENU_START_HEIGHT + option.getPosition() * MENU_GAP_HEIGHT, this.bounds.width, this.bounds.height+4);
 		this.setTouchable(Touchable.enabled);
 		
 	}
@@ -36,20 +55,20 @@ public class MenuButton extends Actor {
     	AssetLoader.fontMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
     	AssetLoader.fontMenu.draw(batch, text, this.getX(), this.getY());
     	
-    	if (readyToChange && position == selectedOption) {
+    	if (readyToChange && option == selectedOption) {
 			batch.draw(AssetLoader.imgHighlightMenu,
 		    		   ( this.widthWorld - AssetLoader.imgHighlightMenu.getRegionWidth()) / 2,
-		    		   MENU_START_HEIGHT + 5 + selectedOption * MENU_GAP_HEIGHT);
+		    		   MENU_START_HEIGHT + 5 + option.getPosition() * MENU_GAP_HEIGHT);
 		    		   
 		}		
 		
     }
 
-	public static int getSelectedOption() {
+	public static OPTION getSelectedOption() {
 		return selectedOption;
 	}
 
-	public static void setSelectedOption(int selectedOption) {
+	public static void setSelectedOption(OPTION selectedOption) {
 		MenuButton.selectedOption = selectedOption;
 	}
 

@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont.TextBounds;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.parazathy.mygemas.helpers.AssetLoader;
-import com.parazathy.mygemas.ui.Cursor;
 
 
 public abstract class GameRenderer {
@@ -13,12 +12,11 @@ public abstract class GameRenderer {
 	
 	private GameWorld world;
 	private Stage stage;
-	private Cursor cursor;
+	
 		
 	public GameRenderer(GameWorld world){	
 		this.world = world;		
-		this.stage = world.getStage();
-		this.cursor = new Cursor(this.stage.getCamera());
+		this.stage = world.getStage();		
 						
 		//Gdx.input.setCursorCatched(true);
 		
@@ -46,9 +44,5 @@ public abstract class GameRenderer {
 	public Stage getStage() {
 		return stage;
 	}
-
-	public Cursor getCursor() {
-		return cursor;
-	}	
-
+	
 }

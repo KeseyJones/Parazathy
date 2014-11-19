@@ -1,46 +1,31 @@
 package com.parazathy.mygemas.gameworld;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.parazathy.mygemas.helpers.AssetLoader;
 
 
 public class GameRendererMenu extends GameRenderer{
 						
 			
 	public GameRendererMenu(GameWorldMenu world){		
-		super(world);	
-		this.getStage().addActor(this.getCursor());
+		super(world);			
 	}	
-	
-	private void renderBackGround(Batch batch, GameWorldMenu world){
-								
-		batch.draw(AssetLoader.imgBackgroundMenu, 0, 0);		    
-		batch.setColor(1.0f, 1.0f, 1.0f, (float)(world.getAnimTime() / world.getAnimLogoTime()));
-		batch.draw(AssetLoader.imgLogoMenu, 0, 0);
-		batch.setColor(1.0f, 1.0f, 1.0f, 1.0f);	    
 		
-	}
 	
 	@Override
 	public void render(float runTime) {
-		GameWorldMenu world = (GameWorldMenu)this.getWorld();
-				
-		this.initRender();
-				
-		this.getStage().getBatch().begin();
+		GameWorldMenu world = (GameWorldMenu)this.getWorld();		
 					
 		if (world.getState() == GameWorldMenu.StateMenu.Loading) {
+			this.initRender();			
+			this.getStage().getBatch().begin();
 			this.renderLoading();
+			world.getCursor().draw(this.getStage().getBatch(), 1);
+			this.getStage().getBatch().end();
 			
 		}else{
-			renderBackGround(this.getStage().getBatch(), world);
+			//Pintamos la ui
+			this.getStage().draw();
 		}		
-		
-		this.getStage().getBatch().end();
-
-		this.getStage().draw();
-		//Pintamos la ui
-		
+				
 	}
 
 }

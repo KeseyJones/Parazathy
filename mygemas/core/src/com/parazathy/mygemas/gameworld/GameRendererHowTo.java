@@ -39,8 +39,11 @@ public class GameRendererHowTo extends GameRenderer{
 			AssetLoader.fontTitle.draw(this.getStage().getBatch(), world.getTitleText(), titlePos.x, titlePos.y);
 			
 			AssetLoader.fontText.drawWrapped(this.getStage().getBatch(), world.getHelpText(), helpPos.x, helpPos.y, this.getStage().getWidth() - 450);
+						
 		}
-		this.getCursor().draw(this.getStage().getBatch(), 1);
+		
+		world.getCursor().draw(this.getStage().getBatch(), 1);
+		
 		
 		this.getStage().getBatch().end();
 		
