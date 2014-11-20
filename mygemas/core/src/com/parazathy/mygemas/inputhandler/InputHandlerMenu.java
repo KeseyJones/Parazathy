@@ -3,6 +3,7 @@ package com.parazathy.mygemas.inputhandler;
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.parazathy.mygemas.MyGemas;
+import com.parazathy.mygemas.screens.GameMenu;
 
 public class InputHandlerMenu implements InputProcessor {
 		
@@ -40,7 +41,10 @@ public class InputHandlerMenu implements InputProcessor {
 
 	@Override
 	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// TODO Auto-generated method stub
+		// Left click		
+		if (button == 0) {			
+			MyGemas.getInstance().changeScreen(new GameMenu());			
+		}
 		return false;
 	}
 

@@ -1,8 +1,7 @@
 package com.parazathy.mygemas.android;
 
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,10 +19,8 @@ import com.parazathy.mygemas.helpers.AdsRequestHandler;
 
 public class AndroidLauncher extends AndroidApplication implements AdsRequestHandler{
 	
-	private static final String AD_UNIT_ID_BANNER  = "ca-app-pub-9422675792706581/6239422955";
-	private static final String AD_UNIT_ID_INTERSTITIAL   = "ca-app-pub-9422675792706581/6239422955";
-	private final int SHOW_ADS = 1;
-	private final int HIDE_ADS = 0;
+	private static final String AD_UNIT_ID_BANNER  = "ca-app-pub-9422675792706581/4949539359";
+	private static final String AD_UNIT_ID_INTERSTITIAL   = "ca-app-pub-9422675792706581/4809938554";	
 	private AdView adView;
 	private View gameView;
 	private InterstitialAd interstitialAd;	
@@ -44,33 +41,37 @@ public class AndroidLauncher extends AndroidApplication implements AdsRequestHan
 	    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 	    layout.setLayoutParams(params);
 
-	    AdView admobView = createAdView();
-	    layout.addView(admobView);
 	    View gameView = createGameView(config);
 	    layout.addView(gameView);
+	    AdView admobView = createAdView();
+	    layout.addView(admobView);
+	    
 						
 		MyGemas.setHandler(this);	    
 	    setContentView(layout);
 	    
 	    interstitialAd = new InterstitialAd(this);
-	    interstitialAd.setAdUnitId(AD_UNIT_ID_INTERSTITIAL);	    
+	    interstitialAd.setAdUnitId(AD_UNIT_ID_INTERSTITIAL);	
+	    interstitialAd.loadAd(new AdRequest.Builder().build());
 		
 	}
 	
 	private AdView createAdView() {
 	    adView = new AdView(this);
 	    adView.setAdSize(AdSize.SMART_BANNER);
-	    adView.setAdUnitId(AD_UNIT_ID_BANNER);	    	    
-	    return adView;
+	    adView.setAdUnitId(AD_UNIT_ID_BANNER);	 
+	    adView.loadAd(new AdRequest.Builder().build());
+	    adView.setBackgroundColor(Color.BLACK);	 
+	    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
+	    params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);	
+	    adView.setLayoutParams(params);
+	    adView.setBackgroundColor(Color.BLACK);	    
+	    return adView;	   
 	  }
 	
 	private View createGameView(AndroidApplicationConfiguration cfg) {
-	    gameView = initializeForView(MyGemas.getInstance(), cfg);
-	    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-	    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-	    params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
-	    params.addRule(RelativeLayout.BELOW, adView.getId());
-	    gameView.setLayoutParams(params);
+	    gameView = initializeForView(MyGemas.getInstance(), cfg);	    
 	    return gameView;
 	 }
 	

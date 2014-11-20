@@ -1,6 +1,5 @@
 package com.parazathy.myzombiebird.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -12,17 +11,17 @@ import com.parazathy.myzombiebird.MyZombieBird;
 public abstract class MyScreen implements Screen{
 		
 	private static final int VIRTUAL_WIDTH = 136;
+	private static final int VIRTUAL_HEIGHT = 204;
 				
 	private float runTime;			
 	private static Stage stage;	
 	
 	protected MyScreen(boolean showAds){	
 		MyZombieBird.getHandler().showAds(showAds);
-		
-		float gameHeight = Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIRTUAL_WIDTH);
-		OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, gameHeight);
-		camera.setToOrtho(true, VIRTUAL_WIDTH, gameHeight);
-		Viewport viewport = new ScalingViewport(Scaling.stretch, VIRTUAL_WIDTH, gameHeight, camera);
+				
+		OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		camera.setToOrtho(true, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
+		Viewport viewport = new ScalingViewport(Scaling.stretch, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
 		stage = new Stage(viewport);			
 		
 		this.runTime = 0;

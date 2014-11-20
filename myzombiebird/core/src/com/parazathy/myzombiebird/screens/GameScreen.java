@@ -15,7 +15,8 @@ public class GameScreen extends MyScreen {
 	public GameScreen() {
 		super(true);		
 		
-		int midPointY = (int) (this.getStage().getHeight() / 2);		
+		float gameHeight = this.getStage().getViewport().getScreenHeight() / (this.getStage().getViewport().getScreenWidth() / this.getStage().getWidth());
+		int midPointY = (int) (gameHeight / 2);		
 		
 		world = new GameWorld(midPointY);
 		inputHandler = new InputHandler(world, this.getStage().getViewport().getScreenWidth() / this.getStage().getWidth(), this.getStage().getViewport().getScreenHeight() / this.getStage().getHeight());

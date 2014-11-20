@@ -1,5 +1,6 @@
 package com.parazathy.mygemas.screens;
 
+import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameRendererGame;
 import com.parazathy.mygemas.gameworld.GameWorldGame;
 
@@ -21,7 +22,7 @@ public class GameScreen extends MyScreen{
 
 	@Override
 	public void show() {
-		// TODO Auto-generated method stub
+		MyGemas.getHandler().showOrLoadInterstital();
 		
 	}
 
