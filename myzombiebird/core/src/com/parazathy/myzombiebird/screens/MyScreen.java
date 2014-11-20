@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.parazathy.myzombiebird.MyZombieBird;
 
 public abstract class MyScreen implements Screen{
 		
@@ -15,7 +16,9 @@ public abstract class MyScreen implements Screen{
 	private float runTime;			
 	private static Stage stage;	
 	
-	protected MyScreen(){	
+	protected MyScreen(boolean showAds){	
+		MyZombieBird.getHandler().showAds(showAds);
+		
 		float gameHeight = Gdx.graphics.getHeight() / (Gdx.graphics.getWidth() / VIRTUAL_WIDTH);
 		OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, gameHeight);
 		camera.setToOrtho(true, VIRTUAL_WIDTH, gameHeight);

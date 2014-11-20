@@ -3,6 +3,7 @@ package com.parazathy.mygemas;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.parazathy.mygemas.helpers.AdsRequestHandler;
 import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.DefaultResolver;
 import com.parazathy.mygemas.helpers.LanguagesManager;
@@ -15,6 +16,7 @@ public class MyGemas extends Game {
 	public enum Screens {Menu, HowTo, Game, Exit};
 	
 	private static MyGemas instance;
+	private static AdsRequestHandler handler;
 			
 	private static LanguagesManager languagesManager;	
 	private static PlatformResolver resolver;	
@@ -78,6 +80,14 @@ public class MyGemas extends Game {
 	
 	public static PlatformResolver getResolver() {
 		return resolver;
+	}
+	
+	public static AdsRequestHandler getHandler() {
+		return handler;
+	}
+	
+	public static void setHandler(AdsRequestHandler handler) {
+		MyGemas.handler = handler;
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package com.parazathy.myzombiebird.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.parazathy.myzombiebird.MyZombieBird;
 import com.parazathy.myzombiebird.gameworld.GameRenderer;
 import com.parazathy.myzombiebird.gameworld.GameWorld;
 import com.parazathy.myzombiebird.myzbhelpers.InputHandler;
@@ -14,12 +13,9 @@ public class GameScreen extends MyScreen {
 
 	// This is the constructor, not the class declaration
 	public GameScreen() {
-		super();		
+		super(true);		
 		
-		int midPointY = (int) (this.getStage().getHeight() / 2);
-
-		//Ponemos la publicidad		
-		MyZombieBird.getHandler().showAds(true);
+		int midPointY = (int) (this.getStage().getHeight() / 2);		
 		
 		world = new GameWorld(midPointY);
 		inputHandler = new InputHandler(world, this.getStage().getViewport().getScreenWidth() / this.getStage().getWidth(), this.getStage().getViewport().getScreenHeight() / this.getStage().getHeight());

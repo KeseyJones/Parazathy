@@ -19,9 +19,7 @@ public class SplashScreen extends MyScreen {
     private Sprite sprite;    
 
     public SplashScreen() {    
-    	super();
-        //Quitamos la publicidad
-    	MyZombieBird.getHandler().showAds(false);
+    	super(false);        
     }
 
     @Override
