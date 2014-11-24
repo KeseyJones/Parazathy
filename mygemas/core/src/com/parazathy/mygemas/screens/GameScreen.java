@@ -7,8 +7,9 @@ import com.parazathy.mygemas.gameworld.GameWorldGame;
 public class GameScreen extends MyScreen{
 
 	public GameScreen() {		
-		super();							
-		this.setRenderer(new GameRendererGame(new GameWorldGame(this.getStage())));					
+		super(true);							
+		this.setRenderer(new GameRendererGame(new GameWorldGame(this.getStage())));	
+		MyGemas.getHandler().showInterstital();
 	}
 	
 	
@@ -21,8 +22,7 @@ public class GameScreen extends MyScreen{
 	}
 
 	@Override
-	public void show() {
-		MyGemas.getHandler().showOrLoadInterstital();
+	public void show() {		
 		
 	}
 
@@ -45,7 +45,7 @@ public class GameScreen extends MyScreen{
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose() {		
 		this.getRenderer().getWorld().dispose();
 		
 	}

@@ -1,4 +1,4 @@
-package com.parazathy.myzombiebird.screens;
+package com.parazathy.mygemas.screens;
 
 import aurelienribon.tweenengine.BaseTween;
 import aurelienribon.tweenengine.Tween;
@@ -9,9 +9,9 @@ import aurelienribon.tweenengine.TweenManager;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.parazathy.myzombiebird.MyZombieBird;
-import com.parazathy.myzombiebird.myzbhelpers.AssetLoader;
-import com.parazathy.myzombiebird.tweenaccessors.SpriteAccessor;
+import com.parazathy.mygemas.MyGemas;
+import com.parazathy.mygemas.helpers.AssetLoader;
+import com.parazathy.mygemas.tweenaccessors.SpriteAccessor;
 
 public class SplashScreen extends MyScreen {
 
@@ -44,7 +44,7 @@ public class SplashScreen extends MyScreen {
         TweenCallback cb = new TweenCallback() {
             @Override
             public void onEvent(int type, BaseTween<?> source) {
-            	MyZombieBird.getInstance().setScreen(new GameScreen());
+            	MyGemas.getInstance().changeScreen(new GameMenu());
             }
         };
 

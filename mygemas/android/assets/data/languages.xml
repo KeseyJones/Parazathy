@@ -18,6 +18,7 @@
         <!--  Menu  -->
         <string key="Timetrial mode" value="Timetrial mode" />
         <string key="How to play" value="How to play" />
+        <string key="Remove" value="Remove advertising" />
         <string key="Exit" value="Exit" />
         
         <!--  How to play  -->
@@ -42,6 +43,7 @@
         <!--  Menu  -->
         <string key="Timetrial mode" value="Contrarreloj" />
         <string key="How to play" value="¿Cómo jugar?" />
+        <string key="Remove" value="Eliminar publicidad" />
         <string key="Exit" value="Salir" />
         
         <!--  How to play  -->

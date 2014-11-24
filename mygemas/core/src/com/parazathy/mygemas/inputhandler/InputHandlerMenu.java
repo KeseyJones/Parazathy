@@ -40,11 +40,7 @@ public class InputHandlerMenu implements InputProcessor {
 	}
 
 	@Override
-	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-		// Left click		
-		if (button == 0) {			
-			MyGemas.getInstance().changeScreen(new GameMenu());			
-		}
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {		
 		return false;
 	}
 

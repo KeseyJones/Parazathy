@@ -6,6 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
+import com.parazathy.mygemas.MyGemas;
 import com.parazathy.mygemas.gameworld.GameRenderer;
 
 public abstract class MyScreen implements Screen{
@@ -17,7 +18,8 @@ public abstract class MyScreen implements Screen{
 	private GameRenderer renderer;	
 	private static Stage stage;	
 	
-	protected MyScreen(){					
+	protected MyScreen(boolean showAds){		
+		MyGemas.getHandler().showAdsBanner(showAds);		
 		OrthographicCamera camera = new OrthographicCamera(VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		camera.setToOrtho(true, VIRTUAL_WIDTH, VIRTUAL_HEIGHT);
 		Viewport viewport = new ScalingViewport(Scaling.stretch, VIRTUAL_WIDTH, VIRTUAL_HEIGHT, camera);
@@ -52,5 +54,5 @@ public abstract class MyScreen implements Screen{
 	public Stage getStage() {
 		return stage;
 	}
-			
+				
 }

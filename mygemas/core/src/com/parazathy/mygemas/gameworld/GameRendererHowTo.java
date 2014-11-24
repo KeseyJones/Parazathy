@@ -20,8 +20,7 @@ public class GameRendererHowTo extends GameRenderer{
 		this.initRender();
 			
 		this.getStage().getBatch().begin();
-		
-		// STATE LOADING - Just render loading
+				
 		if (world.getState() == GameWorldHowTo.StateHowTo.Loading) {			
 			this.renderLoading();
 		}else{
@@ -29,16 +28,16 @@ public class GameRendererHowTo extends GameRenderer{
 			// STATE ACTIVE
 			this.getStage().getBatch().draw(AssetLoader.imgBackgroundHowTo, 0, 0);
 			
-			TextBounds bounds = AssetLoader.fontTitle.getBounds(world.getTitleText());
+			TextBounds bounds = AssetLoader.fontTitleHowTo.getBounds(world.getTitleText());
 			Vector2 titlePos = new Vector2(315 + (this.getStage().getWidth() - 400 - bounds.width) / 2, 55);
 			Vector2 helpPos = new Vector2(375, 175);
 			
-			AssetLoader.fontTitle.setColor(0.0f, 0.0f, 0.0f, 0.5f);
-			AssetLoader.fontTitle.draw(this.getStage().getBatch(), world.getTitleText(), titlePos.x + 4, titlePos.y + 4);
-			AssetLoader.fontTitle.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-			AssetLoader.fontTitle.draw(this.getStage().getBatch(), world.getTitleText(), titlePos.x, titlePos.y);
+			AssetLoader.fontTitleHowTo.setColor(0.0f, 0.0f, 0.0f, 0.5f);
+			AssetLoader.fontTitleHowTo.draw(this.getStage().getBatch(), world.getTitleText(), titlePos.x + 4, titlePos.y + 4);
+			AssetLoader.fontTitleHowTo.setColor(1.0f, 1.0f, 1.0f, 1.0f);
+			AssetLoader.fontTitleHowTo.draw(this.getStage().getBatch(), world.getTitleText(), titlePos.x, titlePos.y);
 			
-			AssetLoader.fontText.drawWrapped(this.getStage().getBatch(), world.getHelpText(), helpPos.x, helpPos.y, this.getStage().getWidth() - 450);
+			AssetLoader.fontTextHowTo.drawWrapped(this.getStage().getBatch(), world.getHelpText(), helpPos.x, helpPos.y, this.getStage().getWidth() - 450);
 						
 		}
 		

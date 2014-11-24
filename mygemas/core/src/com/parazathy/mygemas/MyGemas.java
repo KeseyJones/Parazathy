@@ -8,8 +8,8 @@ import com.parazathy.mygemas.helpers.AssetLoader;
 import com.parazathy.mygemas.helpers.DefaultResolver;
 import com.parazathy.mygemas.helpers.LanguagesManager;
 import com.parazathy.mygemas.helpers.PlatformResolver;
-import com.parazathy.mygemas.screens.GameMenu;
 import com.parazathy.mygemas.screens.MyScreen;
+import com.parazathy.mygemas.screens.SplashScreen;
 
 public class MyGemas extends Game {
 		
@@ -51,7 +51,7 @@ public class MyGemas extends Game {
 		//Iniciamos la carga de recursos
 		AssetLoader.initialize();		
 		
-		currentScreen = new GameMenu();
+		currentScreen = new SplashScreen();
 		setScreen(currentScreen);
 		        
     }

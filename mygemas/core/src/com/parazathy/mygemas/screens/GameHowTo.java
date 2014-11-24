@@ -7,7 +7,7 @@ public class GameHowTo extends MyScreen {
 			
 	
 	public GameHowTo() {		
-		super();
+		super(true);
 		this.setRenderer(new GameRendererHowTo(new GameWorldHowTo(this.getStage())));
 					
 	}
@@ -47,7 +47,7 @@ public class GameHowTo extends MyScreen {
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose() {		
 		this.getRenderer().getWorld().dispose();		
 		
 	}

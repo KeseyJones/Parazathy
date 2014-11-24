@@ -38,6 +38,11 @@ public class GameWorldMenu extends GameWorld{
 	
 	private InputHandlerMenu inputHandler;
 	
+	private MenuButton buttonPlay;
+	private MenuButton buttonHowTo;
+	private MenuButton buttonRemove;
+	private MenuButton buttonExit;
+	
 	public GameWorldMenu(Stage stage){		
 		super(stage);
 		state = StateMenu.Loading;
@@ -56,22 +61,22 @@ public class GameWorldMenu extends GameWorld{
 	}
 	
 	private void createMenu(){		
-		MenuButton buttonPlay = new MenuButton(MyGemas.getLanguagesManager().getString("Timetrial mode"), this.getStage().getWidth() ,MenuButton.OPTION.GAME);			
-		buttonPlay.addListener(new ClickListener(){
+		this.buttonPlay = new MenuButton(MyGemas.getLanguagesManager().getString("Timetrial mode"), this.getStage().getWidth() ,MenuButton.OPTION.GAME);			
+		this.buttonPlay.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) { 
             	
             	AssetLoader.selectSFXMenu.play();
-            	if(MenuButton.isReadyToChange() && MenuButton.getSelectedOption() == MenuButton.OPTION.GAME){            		
+            	if(MenuButton.isReadyToChange() && MenuButton.getSelectedOption() == MenuButton.OPTION.GAME){                   		
             		MyGemas.getInstance().changeScreen(new GameScreen());
             	}
             	MenuButton.setReadyToChange(true);
             	MenuButton.setSelectedOption(MenuButton.OPTION.GAME);
             }
         });
-		this.getStage().addActor(buttonPlay);		
-		MenuButton buttonHowTo = new MenuButton(MyGemas.getLanguagesManager().getString("How to play"),this.getStage().getWidth(),  MenuButton.OPTION.HOWTO);			
-		buttonHowTo.addListener(new ClickListener(){
+		this.getStage().addActor(this.buttonPlay);		
+		this.buttonHowTo = new MenuButton(MyGemas.getLanguagesManager().getString("How to play"),this.getStage().getWidth(),  MenuButton.OPTION.HOWTO);			
+		this.buttonHowTo.addListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {     
             	AssetLoader.selectSFXMenu.play();
@@ -82,10 +87,20 @@ public class GameWorldMenu extends GameWorld{
             	MenuButton.setSelectedOption(MenuButton.OPTION.HOWTO);
             }
         });
-		this.getStage().addActor(buttonHowTo);
+		this.getStage().addActor(this.buttonHowTo);	
+		this.buttonRemove = new MenuButton(MyGemas.getLanguagesManager().getString("Remove"),this.getStage().getWidth(),  MenuButton.OPTION.REMOVE);			
+		this.buttonRemove.addListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {     
+            	AssetLoader.selectSFXMenu.play();            	
+            	MenuButton.setReadyToChange(true);
+            	MenuButton.setSelectedOption(MenuButton.OPTION.REMOVE);
+            }
+        });
+		this.getStage().addActor(this.buttonRemove);
 		if (Gdx.app.getType() != ApplicationType.WebGL) {					
-			MenuButton buttonExit = new MenuButton(MyGemas.getLanguagesManager().getString("Exit"),this.getStage().getWidth(), MenuButton.OPTION.EXIT);			
-			buttonExit.addListener(new ClickListener(){
+			this.buttonExit = new MenuButton(MyGemas.getLanguagesManager().getString("Exit"),this.getStage().getWidth(), MenuButton.OPTION.EXIT);			
+			this.buttonExit.addListener(new ClickListener(){
 	            @Override
 	            public void clicked(InputEvent event, float x, float y) {  
 	            	AssetLoader.selectSFXMenu.play();
@@ -96,7 +111,7 @@ public class GameWorldMenu extends GameWorld{
 	            	MenuButton.setSelectedOption(MenuButton.OPTION.EXIT);
 	            }
 	        });				
-			this.getStage().addActor(buttonExit);			
+			this.getStage().addActor(this.buttonExit);			
 					
 		}
 	}
@@ -137,7 +152,7 @@ public class GameWorldMenu extends GameWorld{
 		
 		if (state == StateMenu.Loading) {
 			if (AssetLoader.assetManager.update()) {
-				AssetLoader.AssignMenuResources();
+				AssetLoader.assignMenuResources();
 				initialize();
 				state = StateMenu.TransitionIn;
 			}					

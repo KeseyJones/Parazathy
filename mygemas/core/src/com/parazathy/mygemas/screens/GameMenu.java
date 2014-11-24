@@ -7,7 +7,7 @@ import com.parazathy.mygemas.ui.MenuButton;
 public class GameMenu extends MyScreen {
 				
 	public GameMenu() {		
-		super();							
+		super(true);							
 		this.setRenderer(new GameRendererMenu(new GameWorldMenu(this.getStage())));					
 	}
 
@@ -46,7 +46,7 @@ public class GameMenu extends MyScreen {
 	}
 
 	@Override
-	public void dispose() {
+	public void dispose() {		
 		this.getRenderer().getWorld().dispose();
 		
 	}

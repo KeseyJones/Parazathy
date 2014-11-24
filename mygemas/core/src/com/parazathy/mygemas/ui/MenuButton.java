@@ -12,7 +12,8 @@ public class MenuButton extends Actor {
 		UNKNOWN(-1), 
 		GAME(0), 
 		HOWTO(1), 
-		EXIT(2);
+		REMOVE(2),
+		EXIT(3);
 		
 		private int position;
 		
@@ -27,8 +28,8 @@ public class MenuButton extends Actor {
 	};	
 	
 	
-	private static final int MENU_START_HEIGHT = 390;
-	private static final int MENU_GAP_HEIGHT = 100;
+	private static final int MENU_START_HEIGHT = 350;
+	private static final int MENU_GAP_HEIGHT = 70;
 	
 	private String text;
 	private OPTION option;	
@@ -53,12 +54,12 @@ public class MenuButton extends Actor {
     	AssetLoader.fontMenu.setColor(0.0f, 0.0f, 0.0f, 0.5f);
     	AssetLoader.fontMenu.draw(batch, text, this.getX(), this.getY() + 4);
     	AssetLoader.fontMenu.setColor(1.0f, 1.0f, 1.0f, 1.0f);
-    	AssetLoader.fontMenu.draw(batch, text, this.getX(), this.getY());
+    	AssetLoader.fontMenu.draw(batch, text, this.getX(), this.getY());    	
     	
     	if (readyToChange && option == selectedOption) {
 			batch.draw(AssetLoader.imgHighlightMenu,
 		    		   ( this.widthWorld - AssetLoader.imgHighlightMenu.getRegionWidth()) / 2,
-		    		   MENU_START_HEIGHT + 5 + option.getPosition() * MENU_GAP_HEIGHT);
+		    		   MENU_START_HEIGHT - 8 + option.getPosition() * MENU_GAP_HEIGHT);
 		    		   
 		}		
 		

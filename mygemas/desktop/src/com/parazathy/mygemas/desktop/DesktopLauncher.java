@@ -28,11 +28,12 @@ public class DesktopLauncher implements AdsRequestHandler{
 	public void showAdsBanner(boolean show) {
 		// TODO Auto-generated method stub
 		
-	}
-
+	}	
+	
 	@Override
-	public void showOrLoadInterstital() {
+	public void showInterstital() {
 		// TODO Auto-generated method stub
 		
 	}
+	
 }

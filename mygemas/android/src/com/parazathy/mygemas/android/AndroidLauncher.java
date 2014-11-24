@@ -10,6 +10,7 @@ import android.widget.RelativeLayout.LayoutParams;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
@@ -41,37 +42,47 @@ public class AndroidLauncher extends AndroidApplication implements AdsRequestHan
 	    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
 	    layout.setLayoutParams(params);
 
-	    View gameView = createGameView(config);
-	    layout.addView(gameView);
 	    AdView admobView = createAdView();
 	    layout.addView(admobView);
-	    
+	    View gameView = createGameView(config);
+	    layout.addView(gameView);	    
 						
 		MyGemas.setHandler(this);	    
 	    setContentView(layout);
 	    
 	    interstitialAd = new InterstitialAd(this);
 	    interstitialAd.setAdUnitId(AD_UNIT_ID_INTERSTITIAL);	
-	    interstitialAd.loadAd(new AdRequest.Builder().build());
+	    interstitialAd.setAdListener(new AdListener(){
+            public void onAdLoaded(){
+            	interstitialAd.show();
+            }
+	    });
 		
 	}
 	
 	private AdView createAdView() {
 	    adView = new AdView(this);
 	    adView.setAdSize(AdSize.SMART_BANNER);
-	    adView.setAdUnitId(AD_UNIT_ID_BANNER);	 
-	    adView.loadAd(new AdRequest.Builder().build());
+	    adView.setAdUnitId(AD_UNIT_ID_BANNER);	 	    
 	    adView.setBackgroundColor(Color.BLACK);	 
-	    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	    adView.setId(R.id.adViewId);	
+	    adView.setEnabled(false);		
+	    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 	    params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM, RelativeLayout.TRUE);
-	    params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);	
-	    adView.setLayoutParams(params);
-	    adView.setBackgroundColor(Color.BLACK);	    
+	    params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+	    params.addRule(RelativeLayout.BELOW);
+	    adView.setLayoutParams(params);	    	   
 	    return adView;	   
 	  }
 	
 	private View createGameView(AndroidApplicationConfiguration cfg) {
-	    gameView = initializeForView(MyGemas.getInstance(), cfg);	    
+	    gameView = initializeForView(MyGemas.getInstance(), cfg);	
+	    
+	    RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+	    params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+	    params.addRule(RelativeLayout.CENTER_HORIZONTAL, RelativeLayout.TRUE);
+	    params.addRule(RelativeLayout.ABOVE, adView.getId());
+	    gameView.setLayoutParams(params);
 	    return gameView;
 	 }
 	
@@ -90,9 +101,11 @@ public class AndroidLauncher extends AndroidApplication implements AdsRequestHan
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				adView.setEnabled(true);
-				adView.setVisibility(View.VISIBLE);
-				adView.loadAd(new AdRequest.Builder().build());
+				if(!adView.isEnabled()){
+					adView.setEnabled(true);
+					adView.setVisibility(View.VISIBLE);
+					adView.loadAd(new AdRequest.Builder().build());
+				}
 			}
 		});
 	}
@@ -102,24 +115,20 @@ public class AndroidLauncher extends AndroidApplication implements AdsRequestHan
 		runOnUiThread(new Runnable() {
 			@Override
 			public void run() {
-				adView.setEnabled(false);
-				adView.setVisibility(View.GONE);
+				if(adView.isEnabled()){
+					adView.setEnabled(false);
+					adView.setVisibility(View.GONE);
+				}
 			}
 		});
-	}
-	
+	}	
+			
 	@Override
-	public void showOrLoadInterstital() {
+	public void showInterstital() {
 	    try {
 	      runOnUiThread(new Runnable() {
-	        public void run() {
-	          if (interstitialAd.isLoaded()) {
-	            interstitialAd.show();	            
-	          }
-	          else {
-	            AdRequest interstitialRequest = new AdRequest.Builder().build();
-	            interstitialAd.loadAd(interstitialRequest);	            
-	          }
+	        public void run() {	    
+	        	interstitialAd.loadAd(new AdRequest.Builder().build());
 	        }
 	      });
 	    } catch (Exception e) {
